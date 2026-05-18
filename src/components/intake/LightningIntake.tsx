@@ -19,21 +19,14 @@ import { db } from '@/lib/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 const COUNTRIES = [
-  { name: 'United States', code: '+1' },
-  { name: 'United Kingdom', code: '+44' },
-  { name: 'Canada', code: '+1' },
-  { name: 'Australia', code: '+61' },
-  { name: 'Germany', code: '+49' },
-  { name: 'France', code: '+33' },
-  { name: 'India', code: '+91' },
-  { name: 'Japan', code: '+81' },
-  { name: 'Brazil', code: '+55' },
-  { name: 'Singapore', code: '+65' },
+  { name: 'Pakistan', code: '+92' },
   { name: 'United Arab Emirates', code: '+971' },
-  { name: 'Israel', code: '+972' },
-  { name: 'Netherlands', code: '+31' },
-  { name: 'Sweden', code: '+46' },
-  { name: 'South Korea', code: '+82' },
+  { name: 'United Kingdom', code: '+44' },
+  { name: 'United States', code: '+1' },
+  { name: 'Canada', code: '+1' },
+  { name: 'Saudi Arabia', code: '+966' },
+  { name: 'Australia', code: '+61' },
+  { name: 'Other', code: '' },
 ];
 
 export function LightningIntake() {
@@ -60,7 +53,7 @@ export function LightningIntake() {
     setFormData(prev => ({
       ...prev,
       country: value,
-      phone: countryData ? countryData.code + ' ' : prev.phone
+      phone: countryData && countryData.code ? countryData.code + ' ' : prev.phone
     }));
   };
 
