@@ -1,4 +1,3 @@
-
 'use client';
 
 import { Navbar } from '@/components/layout/Navbar';
@@ -73,7 +72,7 @@ export default function Home() {
         <div className="max-w-4xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 sm:gap-24">
             <div className="space-y-4">
-              <div className="w-10 h-10 bg-accent/10 border border-accent/20 flex items-center justify-center">
+              <div className="w-10 h-10 bg-accent/10 border border-accent/20 flex items-center justify-center rounded-full">
                 <Network className="w-5 h-5 text-accent" />
               </div>
               <h2 className="text-xl font-bold uppercase tracking-tighter">Universal Intake</h2>
@@ -83,7 +82,7 @@ export default function Home() {
             </div>
             
             <div className="space-y-4">
-              <div className="w-10 h-10 bg-primary/10 border border-primary/20 flex items-center justify-center">
+              <div className="w-10 h-10 bg-primary/10 border border-primary/20 flex items-center justify-center rounded-full">
                 <Layers className="w-5 h-5 text-primary" />
               </div>
               <h2 className="text-xl font-bold uppercase tracking-tighter">The Resource Vault</h2>
@@ -93,7 +92,7 @@ export default function Home() {
             </div>
 
             <div className="space-y-4">
-              <div className="w-10 h-10 bg-accent/10 border border-accent/20 flex items-center justify-center">
+              <div className="w-10 h-10 bg-accent/10 border border-accent/20 flex items-center justify-center rounded-full">
                 <ShieldCheck className="w-5 h-5 text-accent" />
               </div>
               <h2 className="text-xl font-bold uppercase tracking-tighter">Verified Signals</h2>
@@ -103,7 +102,7 @@ export default function Home() {
             </div>
 
             <div className="space-y-4">
-              <div className="w-10 h-10 bg-primary/10 border border-primary/20 flex items-center justify-center">
+              <div className="w-10 h-10 bg-primary/10 border border-primary/20 flex items-center justify-center rounded-full">
                 <Terminal className="w-5 h-5 text-primary" />
               </div>
               <h2 className="text-xl font-bold uppercase tracking-tighter">The Bridge</h2>
