@@ -6,9 +6,19 @@ import { BuilderFeed } from '@/components/feed/BuilderFeed';
 import { useStore } from '@/lib/store';
 import { Zap, Target, Layers, ShieldCheck, ArrowRight, Terminal, Network } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useToast } from '@/hooks/use-toast';
 
 export default function Home() {
   const userProfile = useStore((state) => state.userProfile);
+  const { toast } = useToast();
+
+  const handleEcosystemMapClick = () => {
+    toast({
+      title: "Ecosystem Signal: LOCKED",
+      description: "Identity verification required to decrypt real-time builder nodes and network mapping.",
+    });
+    document.getElementById('intake')?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   if (userProfile) {
     return (
@@ -65,7 +75,11 @@ export default function Home() {
                 <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
             </a>
-            <Button variant="outline" className="h-12 px-8 rounded-none font-bold uppercase tracking-widest border-border">
+            <Button 
+              variant="outline" 
+              className="h-12 px-8 rounded-none font-bold uppercase tracking-widest border-border"
+              onClick={handleEcosystemMapClick}
+            >
               Ecosystem Map
             </Button>
           </div>
@@ -110,7 +124,7 @@ export default function Home() {
               <div className="w-10 h-10 bg-primary/10 border border-primary/20 flex items-center justify-center">
                 <Terminal className="w-5 h-5 text-primary" />
               </div>
-              <h2 className="text-xl font-bold uppercase tracking-tighter.">The Bridge</h2>
+              <h2 className="text-xl font-bold uppercase tracking-tighter">The Bridge</h2>
               <p className="text-xs text-muted-foreground leading-relaxed font-medium uppercase tracking-wider">
                 Direct peer-to-peer communication. Establish "Bridges" with other members to discuss co-founder roles, investment rounds, or advisory partnerships.
               </p>
