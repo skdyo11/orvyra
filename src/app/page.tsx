@@ -20,6 +20,10 @@ export default function Home() {
     document.getElementById('intake')?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const handleIntakeClick = () => {
+    document.getElementById('intake')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   if (userProfile) {
     return (
       <main className="min-h-screen pt-16">
@@ -47,7 +51,7 @@ export default function Home() {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="relative pt-20 pb-32 overflow-hidden">
+      <section className="relative pt-20 pb-32 overflow-hidden bg-grid">
         <div className="absolute inset-0 z-0 opacity-20">
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-accent rounded-full blur-[128px]"></div>
           <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-primary rounded-full blur-[128px]"></div>
@@ -69,12 +73,13 @@ export default function Home() {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href="#intake">
-              <Button className="h-12 px-8 rounded-none font-bold uppercase tracking-widest group">
-                Initialize Intake
-                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </a>
+            <Button 
+              className="h-12 px-8 rounded-none font-bold uppercase tracking-widest group"
+              onClick={handleIntakeClick}
+            >
+              Initialize Intake
+              <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+            </Button>
             <Button 
               variant="outline" 
               className="h-12 px-8 rounded-none font-bold uppercase tracking-widest border-border"
