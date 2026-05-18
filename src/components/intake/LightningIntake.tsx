@@ -1,12 +1,15 @@
+
 'use client';
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Zap, Loader2 } from 'lucide-react';
+import { Zap, Loader2, Send } from 'lucide-react';
 import { generateFounderProfile } from '@/ai/flows/founder-profile-generation';
 import { useStore } from '@/lib/store';
 import { useToast } from '@/hooks/use-toast';
+import { db } from '@/lib/firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 export function LightningIntake() {
   const [input, setInput] = useState('');
@@ -27,11 +30,31 @@ export function LightningIntake() {
         originalLinkedInUrl: isUrl ? input : undefined
       });
       
+      // Save to local store
       setUserProfile(profile);
       addBuilder(profile);
-      toast({ title: "Profile generated.", description: `Identity verified as ${profile.name}.` });
+
+      // Securely store the application in Firestore for the admin
+      addDoc(collection(db, 'applications'), {
+        name: profile.name,
+        role: profile.role,
+        tagline: profile.tagline,
+        content: input,
+        timestamp: serverTimestamp(),
+        status: 'pending'
+      });
+      
+      toast({ 
+        title: "Protocol Initialized", 
+        description: `Identity verified as ${profile.name}. Your application has been logged to the Vault.`,
+      });
+      setInput('');
     } catch (error) {
-      toast({ variant: "destructive", title: "Intake failed.", description: "Check your connection or source text." });
+      toast({ 
+        variant: "destructive", 
+        title: "Intake Interrupted", 
+        description: "The ecosystem signal was lost. Please verify your source text and try again." 
+      });
     } finally {
       setLoading(false);
     }
@@ -43,27 +66,32 @@ export function LightningIntake() {
         <div className="space-y-2">
           <h2 className="text-xl font-medium tracking-tight flex items-center gap-2">
             <Zap className="w-4 h-4 text-accent" />
-            Lightning Intake
+            Ecosystem Intake
           </h2>
           <p className="text-sm text-muted-foreground">
-            Paste a LinkedIn URL or a brief pitch to initialize your builder profile.
+            Submit your LinkedIn URL or a brief pitch to initialize your profile and send your signal to the hub.
           </p>
         </div>
         
-        <div className="flex flex-col sm:flex-row gap-2">
+        <div className="flex flex-col gap-4">
           <Input 
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="linkedin.com/in/founder or 'I am building...'"
-            className="flex-1 bg-transparent border-border focus:ring-0 focus:border-accent"
+            placeholder="linkedin.com/in/profile or 'I'm building...'"
+            className="flex-1 bg-transparent border-border focus:ring-0 focus:border-accent h-12 text-sm"
             disabled={loading}
           />
           <Button 
             onClick={handleApply} 
             disabled={loading || !input}
-            className="bg-primary hover:bg-white text-primary-foreground font-semibold px-8 h-10 transition-all duration-150"
+            className="w-full sm:w-auto self-end bg-accent hover:bg-accent/90 text-white font-bold uppercase tracking-widest px-8 h-12 transition-all duration-150"
           >
-            {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Verify Identity"}
+            {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : (
+              <span className="flex items-center gap-2">
+                Send Signal
+                <Send className="w-3.5 h-3.5" />
+              </span>
+            )}
           </Button>
         </div>
       </div>

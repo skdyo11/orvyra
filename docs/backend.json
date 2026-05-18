@@ -1,0 +1,29 @@
+
+{
+  "entities": {
+    "Application": {
+      "title": "Application",
+      "description": "A startup application or pitch sent by a user.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "role": { "type": "string" },
+        "tagline": { "type": "string" },
+        "content": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "status": { "type": "string", "enum": ["pending", "reviewed", "accepted"] }
+      },
+      "required": ["name", "content", "timestamp"]
+    }
+  },
+  "auth": {
+    "providers": ["google.com"]
+  },
+  "firestore": {
+    "/applications/{applicationId}": {
+      "schema": "Application",
+      "description": "Stored startup applications and pitches."
+    }
+  }
+}

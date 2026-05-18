@@ -1,8 +1,9 @@
+
 'use client';
 
 import { Navbar } from '@/components/layout/Navbar';
 import { useStore } from '@/lib/store';
-import { User, ShieldCheck, Tag, Briefcase, Mail, ArrowLeft } from 'lucide-react';
+import { User, ShieldCheck, Tag, Briefcase, Mail, ArrowLeft, Terminal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { type StartupRole } from '@/ai/schemas';
@@ -24,7 +25,7 @@ export default function ProfilePage() {
             <h2 className="text-sm font-bold uppercase tracking-widest mb-2">Protocol Uninitialized</h2>
             <p className="text-xs text-muted-foreground mb-8">Establish your builder identity via the Lightning Intake on the home page.</p>
             <Link href="/">
-              <Button variant="outline" className="rounded-none border-border uppercase tracking-widest text-[10px] font-bold">
+              <Button variant="outline" className="border-border uppercase tracking-widest text-[10px] font-bold h-10 px-6">
                 <ArrowLeft className="w-3 h-3 mr-2" />
                 Return to Intake
               </Button>
@@ -44,17 +45,26 @@ export default function ProfilePage() {
     <main className="min-h-screen pt-16">
       <Navbar />
       <div className="max-w-4xl mx-auto px-6 pt-20 pb-32">
-        <div className="flex items-center gap-4 mb-12">
-          <div className="w-16 h-16 bg-accent/10 border border-accent/20 flex items-center justify-center">
-            <User className="w-8 h-8 text-accent" />
-          </div>
-          <div>
-            <h1 className="text-3xl font-bold tracking-tighter uppercase">{userProfile.name}</h1>
-            <div className="flex items-center gap-2 text-[10px] text-muted-foreground font-mono uppercase tracking-widest">
-              <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-              Identity Verified // Protocol Active
+        <div className="flex items-center justify-between mb-12">
+          <div className="flex items-center gap-4">
+            <div className="w-16 h-16 bg-accent/10 border border-accent/20 flex items-center justify-center rounded-full">
+              <User className="w-8 h-8 text-accent" />
+            </div>
+            <div>
+              <h1 className="text-3xl font-black tracking-tighter uppercase">{userProfile.name}</h1>
+              <div className="flex items-center gap-2 text-[10px] text-muted-foreground font-mono uppercase tracking-widest">
+                <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                Identity Verified // Protocol Active
+              </div>
             </div>
           </div>
+          
+          <Link href="/admin">
+            <Button variant="ghost" size="sm" className="text-[10px] uppercase tracking-widest text-muted-foreground hover:text-accent group">
+              <Terminal className="w-3 h-3 mr-2 group-hover:scale-110 transition-transform" />
+              Command Center
+            </Button>
+          </Link>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -65,10 +75,10 @@ export default function ProfilePage() {
                 Primary Role
               </h2>
               <Select value={userProfile.role} onValueChange={handleRoleChange}>
-                <SelectTrigger className="w-full h-12 bg-transparent border-border rounded-none focus:ring-0">
+                <SelectTrigger className="w-full h-12 bg-transparent border-border focus:ring-0">
                   <SelectValue placeholder="Select your role" />
                 </SelectTrigger>
-                <SelectContent className="bg-background border-border rounded-none">
+                <SelectContent className="bg-background border-border">
                   <SelectItem value="tech-founder">Tech Founder (Engineering Focus)</SelectItem>
                   <SelectItem value="sales-founder">Sales Founder (GTM & Growth)</SelectItem>
                   <SelectItem value="product-founder">Product Founder (Design & UX)</SelectItem>
@@ -97,7 +107,7 @@ export default function ProfilePage() {
               </h2>
               <div className="flex flex-wrap gap-2">
                 {userProfile.skills.map((skill, idx) => (
-                  <span key={idx} className="text-[10px] px-2 py-1 border border-border bg-muted/5 text-muted-foreground uppercase tracking-widest font-bold">
+                  <span key={idx} className="text-[10px] px-3 py-1.5 border border-border bg-muted/5 text-muted-foreground uppercase tracking-widest font-bold rounded-full">
                     {skill}
                   </span>
                 ))}
@@ -128,7 +138,7 @@ export default function ProfilePage() {
                   LINKEDIN PROFILE
                 </a>
               ) : (
-                <p className="text-[10px] text-muted-foreground italic font-mono">No external signals linked.</p>
+                <p className="text-[10px] text-muted-foreground italic font-mono uppercase tracking-tight">No external signals linked.</p>
               )}
             </section>
           </div>
