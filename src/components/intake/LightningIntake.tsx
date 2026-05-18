@@ -1,16 +1,40 @@
-
 'use client';
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { Zap, Loader2, Send } from 'lucide-react';
 import { generateFounderProfile } from '@/ai/flows/founder-profile-generation';
 import { useStore } from '@/lib/store';
 import { useToast } from '@/hooks/use-toast';
 import { db } from '@/lib/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+
+const COUNTRIES = [
+  { name: 'United States', code: '+1' },
+  { name: 'United Kingdom', code: '+44' },
+  { name: 'Canada', code: '+1' },
+  { name: 'Australia', code: '+61' },
+  { name: 'Germany', code: '+49' },
+  { name: 'France', code: '+33' },
+  { name: 'India', code: '+91' },
+  { name: 'Japan', code: '+81' },
+  { name: 'Brazil', code: '+55' },
+  { name: 'Singapore', code: '+65' },
+  { name: 'United Arab Emirates', code: '+971' },
+  { name: 'Israel', code: '+972' },
+  { name: 'Netherlands', code: '+31' },
+  { name: 'Sweden', code: '+46' },
+  { name: 'South Korea', code: '+82' },
+];
 
 export function LightningIntake() {
   const [formData, setFormData] = useState({
@@ -31,6 +55,15 @@ export function LightningIntake() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  const handleCountryChange = (value: string) => {
+    const countryData = COUNTRIES.find(c => c.name === value);
+    setFormData(prev => ({
+      ...prev,
+      country: value,
+      phone: countryData ? countryData.code + ' ' : prev.phone
+    }));
+  };
+
   const handleApply = async () => {
     if (!formData.name || !formData.email || !formData.idea) {
       toast({ variant: "destructive", title: "Missing Fields", description: "Name, Email, and Idea are required to initialize signal." });
@@ -48,11 +81,9 @@ export function LightningIntake() {
         idea: formData.idea
       });
       
-      // Save to local store for immediate UI update
       setUserProfile(profile);
       addBuilder(profile);
 
-      // Securely store the full application in Firestore
       addDoc(collection(db, 'applications'), {
         ...formData,
         role: profile.role,
@@ -110,6 +141,7 @@ export function LightningIntake() {
               disabled={loading}
             />
           </div>
+          
           <div className="space-y-2">
             <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">Email Address</label>
             <Input 
@@ -122,6 +154,23 @@ export function LightningIntake() {
               disabled={loading}
             />
           </div>
+          
+          <div className="space-y-2">
+            <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">Country</label>
+            <Select onValueChange={handleCountryChange} value={formData.country} disabled={loading}>
+              <SelectTrigger className="bg-transparent border-border focus:border-accent h-11 text-sm rounded-lg">
+                <SelectValue placeholder="Select Country" />
+              </SelectTrigger>
+              <SelectContent className="bg-background border-border">
+                {COUNTRIES.map((c) => (
+                  <SelectItem key={c.name} value={c.name}>
+                    {c.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
           <div className="space-y-2">
             <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">Phone Number</label>
             <Input 
@@ -133,17 +182,7 @@ export function LightningIntake() {
               disabled={loading}
             />
           </div>
-          <div className="space-y-2">
-            <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">Country</label>
-            <Input 
-              name="country"
-              value={formData.country}
-              onChange={handleInputChange}
-              placeholder="United States"
-              className="bg-transparent border-border focus:border-accent h-11 text-sm rounded-lg"
-              disabled={loading}
-            />
-          </div>
+
           <div className="space-y-2">
             <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">Age</label>
             <Input 
@@ -155,6 +194,7 @@ export function LightningIntake() {
               disabled={loading}
             />
           </div>
+
           <div className="space-y-2 sm:col-span-2">
             <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">The Idea / Pitch</label>
             <Textarea 
