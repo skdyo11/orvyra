@@ -5,16 +5,9 @@ import { LightningIntake } from '@/components/intake/LightningIntake';
 import { useStore } from '@/lib/store';
 import { Zap, Layers, ShieldCheck, ArrowRight, Terminal, Network } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useToast } from '@/hooks/use-toast';
 
 export default function Home() {
-  const { toast } = useToast();
-
   const handleEcosystemMapClick = () => {
-    toast({
-      title: "Ecosystem Signal: LOCKED",
-      description: "Identity verification required to decrypt real-time builder nodes and network mapping.",
-    });
     document.getElementById('intake')?.scrollIntoView({ behavior: 'smooth' });
   };
 
