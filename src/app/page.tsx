@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Navbar } from '@/components/layout/Navbar';
@@ -50,7 +51,7 @@ export default function Home() {
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button 
-              className="h-12 px-8 rounded-none font-bold uppercase tracking-widest group"
+              className="h-12 px-8 font-bold uppercase tracking-widest group rounded-lg"
               onClick={handleIntakeClick}
             >
               Initialize Intake
@@ -58,7 +59,7 @@ export default function Home() {
             </Button>
             <Button 
               variant="outline" 
-              className="h-12 px-8 rounded-none font-bold uppercase tracking-widest border-border"
+              className="h-12 px-8 font-bold uppercase tracking-widest border-border rounded-lg"
               onClick={handleEcosystemMapClick}
             >
               Ecosystem Map
