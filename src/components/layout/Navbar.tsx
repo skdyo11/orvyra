@@ -2,10 +2,12 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Terminal, Users, BookOpen, MessageSquare } from 'lucide-react';
+import { Terminal, Users, BookOpen, MessageSquare, UserCircle } from 'lucide-react';
+import { useStore } from '@/lib/store';
 
 export function Navbar() {
   const pathname = usePathname();
+  const userProfile = useStore((state) => state.userProfile);
 
   const links = [
     { href: '/', label: 'Feed', icon: Users },
@@ -23,7 +25,7 @@ export function Navbar() {
           <span className="text-lg font-bold tracking-tighter uppercase">Orvyra</span>
         </Link>
 
-        <div className="flex items-center gap-8">
+        <div className="flex items-center gap-4 sm:gap-8">
           {links.map((link) => (
             <Link 
               key={link.href} 
@@ -36,6 +38,16 @@ export function Navbar() {
               <span className="hidden sm:inline">{link.label}</span>
             </Link>
           ))}
+          
+          <Link 
+            href="/profile"
+            className={`flex items-center gap-2 text-xs uppercase font-bold tracking-widest transition-colors ${
+              pathname === '/profile' ? 'text-accent' : 'text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            <UserCircle className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">{userProfile ? 'Profile' : 'Sign In'}</span>
+          </Link>
         </div>
       </div>
     </nav>
