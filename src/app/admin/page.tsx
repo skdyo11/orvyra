@@ -7,7 +7,7 @@ import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
 import { Navbar } from '@/components/layout/Navbar';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Lock, FileText, Clock, User, ShieldAlert } from 'lucide-react';
+import { Lock, FileText, Clock, User, ShieldAlert, Mail, Phone, MapPin, Calendar } from 'lucide-react';
 import { format } from 'date-fns';
 
 export default function AdminPage() {
@@ -16,7 +16,7 @@ export default function AdminPage() {
   const [applications, setApplications] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const ADMIN_PASSWORD = 'orvyra-admin'; // In a real app, use Firebase Auth roles
+  const ADMIN_PASSWORD = 'orvyra-admin';
 
   useEffect(() => {
     if (!isAuthorized) return;
@@ -46,7 +46,7 @@ export default function AdminPage() {
   if (!isAuthorized) {
     return (
       <main className="min-h-screen bg-background flex items-center justify-center p-6">
-        <div className="max-w-md w-full glass p-10 space-y-8 text-center border-accent/20">
+        <div className="max-w-md w-full glass p-10 space-y-8 text-center border-accent/20 rounded-2xl">
           <div className="w-16 h-16 bg-accent/10 border border-accent/20 flex items-center justify-center mx-auto rounded-full">
             <Lock className="w-8 h-8 text-accent" />
           </div>
@@ -60,9 +60,9 @@ export default function AdminPage() {
               placeholder="Enter Access Key..."
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="h-12 text-center bg-muted/5 border-border focus:border-accent font-mono"
+              className="h-12 text-center bg-muted/5 border-border focus:border-accent font-mono rounded-lg"
             />
-            <Button type="submit" className="w-full h-12 uppercase tracking-widest font-bold bg-accent hover:bg-accent/90">
+            <Button type="submit" className="w-full h-12 uppercase tracking-widest font-bold bg-accent hover:bg-accent/90 rounded-lg">
               Unlock Terminal
             </Button>
           </form>
@@ -92,42 +92,69 @@ export default function AdminPage() {
             Fetching secure signals...
           </div>
         ) : applications.length === 0 ? (
-          <div className="border border-border p-20 text-center glass">
+          <div className="border border-border p-20 text-center glass rounded-2xl">
             <ShieldAlert className="w-8 h-8 text-muted-foreground mx-auto mb-4" />
             <h2 className="text-sm font-bold uppercase tracking-widest">No Incoming Signals</h2>
             <p className="text-xs text-muted-foreground mt-2 font-mono">The intake queue is currently empty.</p>
           </div>
         ) : (
-          <div className="grid gap-6">
+          <div className="grid gap-8">
             {applications.map((app) => (
-              <div key={app.id} className="glass p-8 space-y-6 hover:border-accent/40 transition-colors group">
-                <div className="flex flex-col sm:flex-row justify-between gap-4">
+              <div key={app.id} className="glass p-8 space-y-6 hover:border-accent/40 transition-colors group rounded-2xl">
+                <div className="flex flex-col sm:flex-row justify-between gap-6 border-b border-border pb-6">
                   <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 bg-accent/10 border border-accent/20 flex items-center justify-center rounded-full shrink-0">
-                      <User className="w-5 h-5 text-accent" />
+                    <div className="w-12 h-12 bg-accent/10 border border-accent/20 flex items-center justify-center rounded-full shrink-0">
+                      <User className="w-6 h-6 text-accent" />
                     </div>
                     <div className="space-y-1">
-                      <h3 className="text-lg font-bold tracking-tight group-hover:text-accent transition-colors">{app.name}</h3>
-                      <div className="flex items-center gap-2 text-[10px] text-muted-foreground uppercase font-black tracking-widest">
+                      <h3 className="text-xl font-bold tracking-tight group-hover:text-accent transition-colors">{app.name}</h3>
+                      <div className="flex items-center gap-3 text-[10px] text-muted-foreground uppercase font-black tracking-widest">
                         <span className="text-accent">{app.role?.replace('-', ' ')}</span>
                         <span>//</span>
-                        <Clock className="w-3 h-3" />
-                        {app.timestamp?.toDate ? format(app.timestamp.toDate(), 'MMM d, HH:mm') : 'Recently'}
+                        <div className="flex items-center gap-1">
+                          <Clock className="w-3 h-3" />
+                          {app.timestamp?.toDate ? format(app.timestamp.toDate(), 'MMM d, HH:mm') : 'Recently'}
+                        </div>
                       </div>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4 text-[10px] font-mono uppercase tracking-tight text-muted-foreground">
+                    <div className="flex items-center gap-2">
+                      <Mail className="w-3 h-3 text-accent" />
+                      {app.email}
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Phone className="w-3 h-3 text-accent" />
+                      {app.phone || 'N/A'}
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <MapPin className="w-3 h-3 text-accent" />
+                      {app.country || 'N/A'}
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Calendar className="w-3 h-3 text-accent" />
+                      AGE: {app.age || 'N/A'}
                     </div>
                   </div>
                 </div>
 
                 <div className="space-y-4">
-                  <div className="bg-muted/5 border border-border p-6 rounded-lg">
+                  <div className="bg-muted/5 border border-border p-6 rounded-xl">
                     <div className="flex items-center gap-2 mb-4">
                       <FileText className="w-3.5 h-3.5 text-accent" />
-                      <span className="text-[10px] font-bold uppercase tracking-widest text-accent">Source Transcript</span>
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-accent">The Idea Transcript</span>
                     </div>
                     <p className="text-xs font-mono leading-relaxed text-foreground/80 italic">
-                      "{app.content}"
+                      "{app.idea || app.content}"
                     </p>
                   </div>
+                  
+                  {app.tagline && (
+                    <div className="px-1 text-[10px] uppercase font-bold tracking-[0.2em] text-muted-foreground">
+                      Generated Signal: <span className="text-foreground">{app.tagline}</span>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}

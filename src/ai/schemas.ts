@@ -1,3 +1,4 @@
+
 import { z } from 'genkit';
 
 export const StartupRoleSchema = z.enum([
@@ -12,21 +13,12 @@ export const StartupRoleSchema = z.enum([
 export type StartupRole = z.infer<typeof StartupRoleSchema>;
 
 export const FounderProfileGenerationInputSchema = z.object({
-  sourceText: z
-    .string()
-    .describe(
-      'The raw text content from a LinkedIn profile or a brief pitch about what the user is building or interested in.'
-    ),
-  sourceType: z
-    .enum(['linkedin', 'pitch'])
-    .describe(
-      'Indicates whether the sourceText is from a LinkedIn profile or a pitch.'
-    ),
-  originalLinkedInUrl: z
-    .string()
-    .url()
-    .optional()
-    .describe('The original LinkedIn profile URL, if the sourceText is from LinkedIn.'),
+  name: z.string(),
+  email: z.string().email(),
+  phone: z.string().optional(),
+  country: z.string().optional(),
+  age: z.string().optional(),
+  idea: z.string().describe('The startup idea or pitch content.'),
 });
 
 export type FounderProfileGenerationInput = z.infer<
@@ -66,7 +58,7 @@ export const FounderProfileGenerationOutputSchema = z.object({
   experienceSummary: z
     .string()
     .describe(
-      "A summary of the person's relevant professional experience and background."
+      "A summary of the person's relevant professional experience and background based on their idea and intent."
     ),
   linkedInProfileUrl: z
     .string()

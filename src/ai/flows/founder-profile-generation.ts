@@ -1,6 +1,7 @@
+
 'use server';
 /**
- * @fileOverview A Genkit flow for generating a startup profile from raw text.
+ * @fileOverview A Genkit flow for generating a startup profile from structured intake data.
  *
  * - generateFounderProfile - A function that handles the profile generation process.
  */
@@ -18,20 +19,18 @@ const prompt = ai.definePrompt({
   input: { schema: FounderProfileGenerationInputSchema },
   output: { schema: FounderProfileGenerationOutputSchema },
   prompt: `You are an AI assistant specialized in generating startup community profiles.
-Your task is to extract key information from the provided text to create a structured profile.
+Your task is to take the user's name and their startup idea/pitch and create a structured profile.
 
-Identify the most appropriate role for the user from: tech-founder, sales-founder, product-founder, investor, visionary (idea stage), or advisor.
+User Name: {{{name}}}
+Age: {{{age}}}
+Country: {{{country}}}
+Startup Idea: {{{idea}}}
 
-If the input is from a LinkedIn profile, prioritize professional details.
-If the input is a brief pitch, focus on current needs and what they are building or looking for.
+Based on the 'Idea' provided, identify the most appropriate ecosystem role from: tech-founder, sales-founder, product-founder, investor, visionary (idea stage), or advisor.
 
-Carefully read the following and generate a JSON object matching the requested schema.
+Generate a professional tagline and a brief experience summary that reflects their passion and direction for this idea.
 
-Source Type: {{{sourceType}}}
----
-Source Content:
-{{{sourceText}}}
----
+Carefully read the input and generate a JSON object matching the requested schema.
 `,
 });
 
@@ -48,9 +47,8 @@ const founderProfileGenerationFlow = ai.defineFlow(
       throw new Error('Failed to generate profile.');
     }
 
-    if (input.originalLinkedInUrl) {
-      output.linkedInProfileUrl = input.originalLinkedInUrl;
-    }
+    // Ensure the name matches the input
+    output.name = input.name;
 
     return output;
   }
