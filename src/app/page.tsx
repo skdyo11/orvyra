@@ -35,7 +35,7 @@ export default function Home() {
         </div>
         
         <div className="max-w-4xl mx-auto px-6 relative z-10 text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1 border border-accent/20 bg-accent/5 text-[10px] uppercase font-black tracking-[0.2em] text-accent mb-8">
+          <div className="inline-flex items-center gap-2 px-3 py-1 border border-accent/20 bg-accent/5 text-[10px] uppercase font-black tracking-[0.2em] text-accent mb-8 rounded-full">
             <Zap className="w-3 h-3" />
             Ecosystem v0.2.0-beta
           </div>
