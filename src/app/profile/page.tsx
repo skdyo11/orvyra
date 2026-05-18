@@ -1,4 +1,3 @@
-
 'use client';
 
 import { Navbar } from '@/components/layout/Navbar';
@@ -20,12 +19,12 @@ export default function ProfilePage() {
       <main className="min-h-screen pt-16">
         <Navbar />
         <div className="max-w-4xl mx-auto px-6 pt-20 text-center">
-          <div className="border border-border p-12 glass">
+          <div className="border border-border p-12 glass rounded-2xl">
             <User className="w-8 h-8 text-muted-foreground mx-auto mb-4" />
             <h2 className="text-sm font-bold uppercase tracking-widest mb-2">Protocol Uninitialized</h2>
             <p className="text-xs text-muted-foreground mb-8">Establish your builder identity via the Lightning Intake on the home page.</p>
             <Link href="/">
-              <Button variant="outline" className="border-border uppercase tracking-widest text-[10px] font-bold h-10 px-6">
+              <Button variant="outline" className="border-border uppercase tracking-widest text-[10px] font-bold h-10 px-6 rounded-lg">
                 <ArrowLeft className="w-3 h-3 mr-2" />
                 Return to Intake
               </Button>
@@ -47,7 +46,7 @@ export default function ProfilePage() {
       <div className="max-w-4xl mx-auto px-6 pt-20 pb-32">
         <div className="flex items-center justify-between mb-12">
           <div className="flex items-center gap-4">
-            <div className="w-16 h-16 bg-accent/10 border border-accent/20 flex items-center justify-center rounded-full">
+            <div className="w-16 h-16 bg-accent/10 border border-accent/20 flex items-center justify-center rounded-2xl">
               <User className="w-8 h-8 text-accent" />
             </div>
             <div>
@@ -60,7 +59,7 @@ export default function ProfilePage() {
           </div>
           
           <Link href="/admin">
-            <Button variant="ghost" size="sm" className="text-[10px] uppercase tracking-widest text-muted-foreground hover:text-accent group">
+            <Button variant="ghost" size="sm" className="text-[10px] uppercase tracking-widest text-muted-foreground hover:text-accent group rounded-lg">
               <Terminal className="w-3 h-3 mr-2 group-hover:scale-110 transition-transform" />
               Command Center
             </Button>
@@ -75,10 +74,10 @@ export default function ProfilePage() {
                 Primary Role
               </h2>
               <Select value={userProfile.role} onValueChange={handleRoleChange}>
-                <SelectTrigger className="w-full h-12 bg-transparent border-border focus:ring-0">
+                <SelectTrigger className="w-full h-12 bg-transparent border-border focus:ring-0 rounded-lg">
                   <SelectValue placeholder="Select your role" />
                 </SelectTrigger>
-                <SelectContent className="bg-background border-border">
+                <SelectContent className="bg-background border-border rounded-lg">
                   <SelectItem value="tech-founder">Tech Founder (Engineering Focus)</SelectItem>
                   <SelectItem value="sales-founder">Sales Founder (GTM & Growth)</SelectItem>
                   <SelectItem value="product-founder">Product Founder (Design & UX)</SelectItem>
@@ -95,7 +94,7 @@ export default function ProfilePage() {
                 <Briefcase className="w-3.5 h-3.5" />
                 Experience Signal
               </h2>
-              <div className="border border-border p-6 glass font-mono text-xs leading-relaxed">
+              <div className="border border-border p-6 glass font-mono text-xs leading-relaxed rounded-xl">
                 {userProfile.experienceSummary}
               </div>
             </section>
@@ -107,7 +106,7 @@ export default function ProfilePage() {
               </h2>
               <div className="flex flex-wrap gap-2">
                 {userProfile.skills.map((skill, idx) => (
-                  <span key={idx} className="text-[10px] px-3 py-1.5 border border-border bg-muted/5 text-muted-foreground uppercase tracking-widest font-bold rounded-full">
+                  <span key={idx} className="text-[10px] px-3 py-1.5 border border-border bg-muted/5 text-muted-foreground uppercase tracking-widest font-bold rounded-lg">
                     {skill}
                   </span>
                 ))}
@@ -116,7 +115,7 @@ export default function ProfilePage() {
           </div>
 
           <div className="space-y-8">
-            <section className="border border-border p-6 glass space-y-4">
+            <section className="border border-border p-6 glass space-y-4 rounded-xl">
               <h2 className="text-sm font-bold uppercase tracking-widest border-b border-border pb-2">Status</h2>
               <div className="space-y-2">
                 <div className="flex justify-between items-center text-[10px] uppercase font-bold tracking-tighter">
@@ -130,7 +129,7 @@ export default function ProfilePage() {
               </div>
             </section>
 
-            <section className="border border-border p-6 glass space-y-4">
+            <section className="border border-border p-6 glass space-y-4 rounded-xl">
               <h2 className="text-sm font-bold uppercase tracking-widest border-b border-border pb-2">External Links</h2>
               {userProfile.linkedInProfileUrl ? (
                 <a href={userProfile.linkedInProfileUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-xs text-muted-foreground hover:text-accent transition-colors font-mono">

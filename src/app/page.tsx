@@ -34,7 +34,7 @@ export default function Home() {
         </div>
         
         <div className="max-w-4xl mx-auto px-6 relative z-10 text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1 border border-accent/20 bg-accent/5 text-[10px] uppercase font-black tracking-[0.2em] text-accent mb-8 rounded-full">
+          <div className="inline-flex items-center gap-2 px-3 py-1 border border-accent/20 bg-accent/5 text-[10px] uppercase font-black tracking-[0.2em] text-accent mb-8 rounded-lg">
             <Zap className="w-3 h-3" />
             Ecosystem v0.2.0-beta
           </div>
@@ -72,7 +72,7 @@ export default function Home() {
         <div className="max-w-4xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 sm:gap-24">
             <div className="space-y-4">
-              <div className="w-10 h-10 bg-accent/10 border border-accent/20 flex items-center justify-center rounded-full">
+              <div className="w-10 h-10 bg-accent/10 border border-accent/20 flex items-center justify-center rounded-xl">
                 <Network className="w-5 h-5 text-accent" />
               </div>
               <h2 className="text-xl font-bold uppercase tracking-tighter">Universal Intake</h2>
@@ -82,7 +82,7 @@ export default function Home() {
             </div>
             
             <div className="space-y-4">
-              <div className="w-10 h-10 bg-primary/10 border border-primary/20 flex items-center justify-center rounded-full">
+              <div className="w-10 h-10 bg-primary/10 border border-primary/20 flex items-center justify-center rounded-xl">
                 <Layers className="w-5 h-5 text-primary" />
               </div>
               <h2 className="text-xl font-bold uppercase tracking-tighter">The Resource Vault</h2>
@@ -92,7 +92,7 @@ export default function Home() {
             </div>
 
             <div className="space-y-4">
-              <div className="w-10 h-10 bg-accent/10 border border-accent/20 flex items-center justify-center rounded-full">
+              <div className="w-10 h-10 bg-accent/10 border border-accent/20 flex items-center justify-center rounded-xl">
                 <ShieldCheck className="w-5 h-5 text-accent" />
               </div>
               <h2 className="text-xl font-bold uppercase tracking-tighter">Verified Signals</h2>
@@ -102,7 +102,7 @@ export default function Home() {
             </div>
 
             <div className="space-y-4">
-              <div className="w-10 h-10 bg-primary/10 border border-primary/20 flex items-center justify-center rounded-full">
+              <div className="w-10 h-10 bg-primary/10 border border-primary/20 flex items-center justify-center rounded-xl">
                 <Terminal className="w-5 h-5 text-primary" />
               </div>
               <h2 className="text-xl font-bold uppercase tracking-tighter">The Bridge</h2>

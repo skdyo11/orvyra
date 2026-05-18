@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -47,7 +46,7 @@ export default function AdminPage() {
     return (
       <main className="min-h-screen bg-background flex items-center justify-center p-6">
         <div className="max-w-md w-full glass p-10 space-y-8 text-center border-accent/20 rounded-2xl">
-          <div className="w-16 h-16 bg-accent/10 border border-accent/20 flex items-center justify-center mx-auto rounded-full">
+          <div className="w-16 h-16 bg-accent/10 border border-accent/20 flex items-center justify-center mx-auto rounded-2xl">
             <Lock className="w-8 h-8 text-accent" />
           </div>
           <div className="space-y-2">
@@ -79,7 +78,7 @@ export default function AdminPage() {
           <div className="space-y-1">
             <h1 className="text-4xl font-black tracking-tighter uppercase flex items-center gap-3">
               Application Vault
-              <span className="text-xs bg-accent text-white px-2 py-0.5 rounded-full font-mono tracking-normal normal-case">
+              <span className="text-xs bg-accent text-white px-2 py-0.5 rounded-lg font-mono tracking-normal normal-case">
                 {applications.length} Nodes
               </span>
             </h1>
@@ -103,7 +102,7 @@ export default function AdminPage() {
               <div key={app.id} className="glass p-8 space-y-6 hover:border-accent/40 transition-colors group rounded-2xl">
                 <div className="flex flex-col sm:flex-row justify-between gap-6 border-b border-border pb-6">
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-accent/10 border border-accent/20 flex items-center justify-center rounded-full shrink-0">
+                    <div className="w-12 h-12 bg-accent/10 border border-accent/20 flex items-center justify-center rounded-xl shrink-0">
                       <User className="w-6 h-6 text-accent" />
                     </div>
                     <div className="space-y-1">
