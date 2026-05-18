@@ -10,7 +10,6 @@ export function Navbar() {
   const userProfile = useStore((state) => state.userProfile);
 
   const links = [
-    { href: '/', label: 'Feed', icon: Users },
     { href: '/vault', label: 'Vault', icon: BookOpen },
     { href: '/messages', label: 'Bridge', icon: MessageSquare },
   ];
