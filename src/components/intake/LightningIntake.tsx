@@ -99,7 +99,7 @@ export function LightningIntake() {
         </div>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="space-y-2">
+          <div className="space-y-2 sm:col-span-2">
             <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">Full Name</label>
             <Input 
               name="name"
@@ -144,7 +144,7 @@ export function LightningIntake() {
               disabled={loading}
             />
           </div>
-          <div className="space-y-2 sm:col-span-2">
+          <div className="space-y-2">
             <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">Age</label>
             <Input 
               name="age"
