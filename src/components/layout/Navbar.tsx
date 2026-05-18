@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Terminal, Users, BookOpen, MessageSquare, UserCircle } from 'lucide-react';
+import { BookOpen, MessageSquare, UserCircle } from 'lucide-react';
 import { useStore } from '@/lib/store';
 
 export function Navbar() {
@@ -45,7 +45,7 @@ export function Navbar() {
             }`}
           >
             <UserCircle className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">{userProfile ? 'Profile' : 'Sign In'}</span>
+            <span className="hidden sm:inline">Profile</span>
           </Link>
         </div>
       </div>

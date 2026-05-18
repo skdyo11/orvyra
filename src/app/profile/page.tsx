@@ -2,11 +2,12 @@
 
 import { Navbar } from '@/components/layout/Navbar';
 import { useStore } from '@/lib/store';
-import { User, ShieldCheck, Tag, Briefcase, Mail } from 'lucide-react';
+import { User, ShieldCheck, Tag, Briefcase, Mail, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { type StartupRole } from '@/ai/schemas';
 import { useToast } from '@/hooks/use-toast';
+import Link from 'next/link';
 
 export default function ProfilePage() {
   const userProfile = useStore((state) => state.userProfile);
@@ -21,10 +22,13 @@ export default function ProfilePage() {
           <div className="border border-border p-12 glass">
             <User className="w-8 h-8 text-muted-foreground mx-auto mb-4" />
             <h2 className="text-sm font-bold uppercase tracking-widest mb-2">Protocol Uninitialized</h2>
-            <p className="text-xs text-muted-foreground mb-8">Establish your builder profile via Lightning Intake on the home page first.</p>
-            <Button onClick={() => window.location.href = '/'} variant="outline" className="rounded-none border-border uppercase tracking-widest text-[10px] font-bold">
-              Return to Intake
-            </Button>
+            <p className="text-xs text-muted-foreground mb-8">Establish your builder identity via the Lightning Intake on the home page.</p>
+            <Link href="/">
+              <Button variant="outline" className="rounded-none border-border uppercase tracking-widest text-[10px] font-bold">
+                <ArrowLeft className="w-3 h-3 mr-2" />
+                Return to Intake
+              </Button>
+            </Link>
           </div>
         </div>
       </main>
