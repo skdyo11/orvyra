@@ -2,14 +2,12 @@
 
 import { Navbar } from '@/components/layout/Navbar';
 import { LightningIntake } from '@/components/intake/LightningIntake';
-import { BuilderFeed } from '@/components/feed/BuilderFeed';
 import { useStore } from '@/lib/store';
-import { Zap, Target, Layers, ShieldCheck, ArrowRight, Terminal, Network } from 'lucide-react';
+import { Zap, Layers, ShieldCheck, ArrowRight, Terminal, Network } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 
 export default function Home() {
-  const userProfile = useStore((state) => state.userProfile);
   const { toast } = useToast();
 
   const handleEcosystemMapClick = () => {
@@ -23,28 +21,6 @@ export default function Home() {
   const handleIntakeClick = () => {
     document.getElementById('intake')?.scrollIntoView({ behavior: 'smooth' });
   };
-
-  if (userProfile) {
-    return (
-      <main className="min-h-screen pt-16">
-        <Navbar />
-        <div className="space-y-12">
-          <div className="bg-muted/10 border-b border-border py-12">
-            <div className="max-w-4xl mx-auto px-6">
-              <div className="flex items-center gap-2 text-[10px] text-accent uppercase font-black tracking-widest mb-2">
-                <span className="w-2 h-2 bg-accent animate-pulse"></span>
-                Node Active: {userProfile.role?.replace('-', ' ')}
-              </div>
-              <h1 className="text-3xl font-bold tracking-tighter mb-2">{userProfile.name}</h1>
-              <p className="text-muted-foreground text-sm font-medium">{userProfile.tagline}</p>
-            </div>
-          </div>
-          <BuilderFeed />
-        </div>
-        <Footer />
-      </main>
-    );
-  }
 
   return (
     <main className="min-h-screen pt-16 selection:bg-accent selection:text-white">
