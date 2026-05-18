@@ -1,16 +1,33 @@
+
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { BookOpen, MessageSquare, UserCircle } from 'lucide-react';
+import { Sun, Moon, MessageSquare, UserCircle } from 'lucide-react';
 import { useStore } from '@/lib/store';
 
 export function Navbar() {
   const pathname = usePathname();
-  const userProfile = useStore((state) => state.userProfile);
+  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
+
+  useEffect(() => {
+    // Initial theme setup
+    const isDark = document.documentElement.classList.contains('dark');
+    setTheme(isDark ? 'dark' : 'light');
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    if (newTheme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  };
 
   const links = [
-    { href: '/vault', label: 'Vault', icon: BookOpen },
     { href: '/messages', label: 'Bridge', icon: MessageSquare },
   ];
 
@@ -25,6 +42,19 @@ export function Navbar() {
         </Link>
 
         <div className="flex items-center gap-4 sm:gap-8">
+          <button
+            onClick={toggleTheme}
+            className="flex items-center gap-2 text-xs uppercase font-bold tracking-widest text-muted-foreground hover:text-foreground transition-colors group"
+            aria-label="Toggle theme"
+          >
+            {theme === 'dark' ? (
+              <Sun className="w-3.5 h-3.5 group-hover:rotate-45 transition-transform" />
+            ) : (
+              <Moon className="w-3.5 h-3.5 group-hover:-rotate-12 transition-transform" />
+            )}
+            <span className="hidden sm:inline">{theme === 'dark' ? 'Light' : 'Dark'}</span>
+          </button>
+
           {links.map((link) => (
             <Link 
               key={link.href} 
