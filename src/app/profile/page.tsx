@@ -4,8 +4,9 @@
 import { useState } from 'react';
 import { Navbar } from '@/components/layout/Navbar';
 import { useStore } from '@/lib/store';
-import { User, ShieldCheck, Tag, Briefcase, Mail, ArrowLeft, Shield, Camera, Plus, Check } from 'lucide-react';
+import { User, ShieldCheck, Tag, Briefcase, Mail, ArrowLeft, Shield, Camera, Plus, Check, Link as LinkIcon, Linkedin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import { type StartupRole } from '@/ai/schemas';
@@ -284,16 +285,36 @@ export default function ProfilePage() {
               </div>
             </section>
 
-            <section className="border border-border p-6 glass space-y-4 rounded-xl">
-              <h2 className="text-sm font-bold uppercase tracking-widest border-b border-border pb-2">Links</h2>
-              {userProfile.linkedInProfileUrl ? (
-                <a href={userProfile.linkedInProfileUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-xs text-muted-foreground hover:text-accent transition-colors font-mono">
-                  <Mail className="w-3 h-3" />
-                  LINKEDIN
-                </a>
-              ) : (
-                <p className="text-[10px] text-muted-foreground italic font-mono uppercase tracking-tight">No links added.</p>
-              )}
+            <section className="border border-border p-6 glass space-y-6 rounded-xl">
+              <h2 className="text-sm font-bold uppercase tracking-widest border-b border-border pb-4">Links</h2>
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2 mb-1">
+                    <Linkedin className="w-3 h-3 text-muted-foreground" />
+                    <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">LinkedIn Profile</label>
+                  </div>
+                  <Input 
+                    value={userProfile.linkedInProfileUrl || ''}
+                    onChange={(e) => updateUserProfile({ linkedInProfileUrl: e.target.value })}
+                    placeholder="https://linkedin.com/in/username"
+                    className="bg-card border-border focus:border-accent h-10 text-[10px] font-mono rounded-lg"
+                  />
+                </div>
+                
+                {userProfile.linkedInProfileUrl && (
+                  <div className="pt-2">
+                    <a 
+                      href={userProfile.linkedInProfileUrl} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="inline-flex items-center gap-2 text-[10px] uppercase font-black text-accent hover:underline tracking-widest"
+                    >
+                      <LinkIcon className="w-3 h-3" />
+                      Preview Link
+                    </a>
+                  </div>
+                )}
+              </div>
             </section>
           </div>
         </div>
