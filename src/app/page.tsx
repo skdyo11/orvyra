@@ -31,7 +31,7 @@ export default function Home() {
       <section className="relative pt-12 pb-24 md:pt-20 md:pb-40 overflow-hidden bg-grid">
         {/* Background Glows */}
         <div className="absolute inset-0 z-0 pointer-events-none">
-          {/* Main Hero Glow */}
+          {/* Main Hero Glow - Gold centered behind text */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[600px] h-[300px] sm:h-[600px] bg-accent/10 dark:bg-accent/20 rounded-full blur-[80px] sm:blur-[120px] opacity-60 sm:opacity-40"></div>
           
           {/* Floating Accents */}
