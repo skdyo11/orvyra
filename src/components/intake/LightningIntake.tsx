@@ -11,7 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Zap, Loader2, Send } from 'lucide-react';
+import { Zap, Loader2, Send, Chrome } from 'lucide-react';
 import { generateFounderProfile } from '@/ai/flows/founder-profile-generation';
 import { useStore } from '@/lib/store';
 import { useToast } from '@/hooks/use-toast';
@@ -57,6 +57,13 @@ export function LightningIntake() {
     }));
   };
 
+  const handleGoogleLogin = () => {
+    toast({
+      title: "Coming soon",
+      description: "Google integration is being configured for your region.",
+    });
+  };
+
   const handleApply = async () => {
     if (!formData.name || !formData.email || !formData.idea) {
       toast({ variant: "destructive", title: "Wait!", description: "We need your Name, Email, and Idea to get started." });
@@ -77,6 +84,7 @@ export function LightningIntake() {
       setUserProfile(profile);
       addBuilder(profile);
 
+      // Save to Firestore for the admin page
       addDoc(collection(db, 'applications'), {
         ...formData,
         role: profile.role,
@@ -86,8 +94,8 @@ export function LightningIntake() {
       });
       
       toast({ 
-        title: "You're in!", 
-        description: `Welcome, ${profile.name}! Your pitch has been sent to our team.`,
+        title: "Application Sent!", 
+        description: `Welcome, ${profile.name}! Your pitch has been sent to our team for review.`,
       });
       
       setFormData({
@@ -118,8 +126,23 @@ export function LightningIntake() {
             Join the Network
           </h2>
           <p className="text-sm text-muted-foreground">
-            Fill this out to build your profile and start connecting with others.
+            Apply to join the community or login with Google to skip the form.
           </p>
+        </div>
+
+        <div className="pb-6 border-b border-border">
+          <Button 
+            variant="outline" 
+            onClick={handleGoogleLogin}
+            className="w-full h-12 border-border hover:border-accent uppercase tracking-widest text-[10px] font-bold rounded-lg flex items-center justify-center gap-2"
+          >
+            <Chrome className="w-4 h-4" />
+            Continue with Google
+          </Button>
+          <div className="relative mt-6">
+            <div className="absolute inset-0 flex items-center"><span className="w-full border-t border-border"></span></div>
+            <div className="relative flex justify-center text-[10px] uppercase font-black tracking-widest"><span className="bg-card px-2 text-muted-foreground">OR APPLY VIA FORM</span></div>
+          </div>
         </div>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -208,7 +231,7 @@ export function LightningIntake() {
         >
           {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : (
             <span className="flex items-center gap-2">
-              Join Now
+              Apply Now
               <Send className="w-3.5 h-3.5" />
             </span>
           )}

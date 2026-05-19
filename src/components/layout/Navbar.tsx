@@ -20,7 +20,6 @@ export function Navbar() {
   const userProfile = useStore((state) => state.userProfile);
 
   useEffect(() => {
-    // Sync internal state with the current DOM class
     const isDark = document.documentElement.classList.contains('dark');
     setTheme(isDark ? 'dark' : 'light');
   }, []);
@@ -39,15 +38,17 @@ export function Navbar() {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border h-16 flex items-center px-4 sm:px-6">
-      <div className="max-w-7xl mx-auto w-full flex items-center justify-between">
+      <div className="max-w-7xl mx-auto w-full grid grid-cols-3 items-center">
         {/* Left: Brand */}
-        <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity shrink-0">
-          <span className="text-lg md:text-xl font-black tracking-[0.4em] uppercase text-foreground">Orvyra</span>
-        </Link>
+        <div className="flex justify-start">
+          <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity shrink-0">
+            <span className="text-lg md:text-xl font-black tracking-[0.4em] uppercase text-foreground">Orvyra</span>
+          </Link>
+        </div>
 
-        {/* Center: Learn (Anchor) - Hidden on Mobile */}
-        <div className="hidden md:flex flex-1 items-center justify-center">
-          <Link href="/vault">
+        {/* Center: Learn */}
+        <div className="flex justify-center">
+          <Link href="/vault" className="hidden md:block">
             <Button className="bg-accent hover:bg-accent/90 text-white font-black uppercase tracking-[0.3em] text-[10px] h-10 px-8 rounded-lg shadow-lg shadow-accent/20 transition-all hover:scale-105 active:scale-95">
               Learn
             </Button>
@@ -55,12 +56,12 @@ export function Navbar() {
         </div>
 
         {/* Right: Nav links & Settings */}
-        <div className="flex items-center gap-4 sm:gap-8">
+        <div className="flex justify-end items-center gap-4 sm:gap-8">
           <div className="hidden md:flex items-center gap-8">
             <Link 
               href="/profiles"
               className={`text-[10px] uppercase font-black tracking-widest transition-colors ${
-                pathname === '/profiles' ? 'text-accent' : 'text-muted-foreground hover:text-white'
+                pathname === '/profiles' ? 'text-accent' : 'text-muted-foreground hover:text-accent'
               }`}
             >
               <span className="flex items-center gap-2">
@@ -72,7 +73,7 @@ export function Navbar() {
             <Link 
               href="/messages"
               className={`text-[10px] uppercase font-black tracking-widest transition-colors ${
-                pathname === '/messages' ? 'text-accent' : 'text-muted-foreground hover:text-white'
+                pathname === '/messages' ? 'text-accent' : 'text-muted-foreground hover:text-accent'
               }`}
             >
               <span className="flex items-center gap-2">
@@ -84,10 +85,10 @@ export function Navbar() {
 
           <Sheet>
             <SheetTrigger asChild>
-              <button className="flex items-center gap-2 p-2 text-muted-foreground hover:text-white transition-colors group">
-                <span className="hidden md:inline text-[10px] uppercase font-black tracking-[0.2em]">Settings</span>
-                <Menu className="w-5 h-5 md:hidden" />
+              <button className="flex items-center gap-2 p-2 text-muted-foreground hover:text-accent transition-colors group">
                 <Settings className="hidden md:block w-3.5 h-3.5 group-hover:rotate-90 transition-transform duration-500" />
+                <Menu className="w-5 h-5 md:hidden" />
+                <span className="hidden md:inline text-[10px] uppercase font-black tracking-[0.2em]">Settings</span>
               </button>
             </SheetTrigger>
             <SheetContent side="right" className="bg-background border-l border-border w-80 p-0">
@@ -110,8 +111,8 @@ export function Navbar() {
                         <div className="text-[10px] text-muted-foreground font-mono uppercase tracking-widest">Active Member</div>
                       </div>
                     </div>
-                    <Link href="/profile">
-                      <Button variant="outline" className="w-full justify-start text-[10px] uppercase font-bold tracking-widest h-11 rounded-lg border-border hover:border-white">
+                    <Link href="/profile" className="w-full">
+                      <Button variant="outline" className="w-full justify-start text-[10px] uppercase font-bold tracking-widest h-11 rounded-lg border-border hover:border-accent">
                         View Full Profile
                       </Button>
                     </Link>
@@ -133,7 +134,7 @@ export function Navbar() {
                   <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground">System</h3>
                   <button
                     onClick={toggleTheme}
-                    className="flex items-center justify-between w-full p-4 glass border-border hover:border-white transition-all group"
+                    className="flex items-center justify-between w-full p-4 glass border-border hover:border-accent transition-all group"
                   >
                     <span className="text-[10px] uppercase font-bold tracking-widest">
                       Theme
