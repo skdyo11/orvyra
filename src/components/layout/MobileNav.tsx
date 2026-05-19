@@ -3,9 +3,14 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Users, MessageSquare, Zap } from 'lucide-react';
+import { useStore } from '@/lib/store';
 
 export function MobileNav() {
   const pathname = usePathname();
+  const userProfile = useStore((state) => state.userProfile);
+
+  // Only show the bottom bar if the user has a profile (is logged in/joined)
+  if (!userProfile) return null;
 
   return (
     <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 glass border-t border-border h-20 flex items-center justify-around px-6">
