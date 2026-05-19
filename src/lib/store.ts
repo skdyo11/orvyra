@@ -61,19 +61,43 @@ const MOCK_BUILDERS: FounderProfileGenerationOutput[] = [
   }
 ];
 
+const MOCK_MESSAGES: Message[] = [
+  {
+    id: "m1",
+    from: "Alex Rivera",
+    to: "You",
+    content: "Hey! Saw your pitch about the AI design tool. We're looking for someone with exactly that vision for our GPU network. Want to chat?",
+    timestamp: Date.now() - 1000 * 60 * 60 * 2, // 2 hours ago
+  },
+  {
+    id: "m2",
+    from: "Sarah Chen",
+    to: "You",
+    content: "Hi there! I'm Sarah from SafeClause. Your idea for a cross-border payments app is interesting. Have you considered the compliance requirements for the UAE market?",
+    timestamp: Date.now() - 1000 * 60 * 30, // 30 mins ago
+  },
+  {
+    id: "m3",
+    from: "Marcus Thorne",
+    to: "You",
+    content: "Impressive progress on your Day 30 goals. Let's schedule a quick call next week to discuss your seed round strategy.",
+    timestamp: Date.now() - 1000 * 60 * 5, // 5 mins ago
+  }
+];
+
 export const useStore = create<AppState>()(
   persist(
     (set) => ({
       userProfile: null,
       builders: MOCK_BUILDERS,
-      messages: [],
+      messages: MOCK_MESSAGES,
       setUserProfile: (profile) => set({ userProfile: profile }),
       updateUserProfile: (updates) => set((state) => ({
         userProfile: state.userProfile ? { ...state.userProfile, ...updates } : null
       })),
       addBuilder: (builder) => set((state) => ({ builders: [builder, ...state.builders] })),
       sendMessage: (msg) => set((state) => ({
-        messages: [...state.messages, { ...msg, id: Math.random().toString(36), timestamp: Date.now() }]
+        messages: [{ ...msg, id: Math.random().toString(36), timestamp: Date.now() }, ...state.messages]
       })),
     }),
     { name: 'orvyra-storage' }
