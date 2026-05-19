@@ -96,7 +96,7 @@ export default function ProfilePage() {
           </div>
 
           {/* Profile Info Overlay - Left Aligned */}
-          <div className="px-8 -mt-20 relative z-10 flex flex-col md:flex-row items-end justify-start gap-6 pb-4">
+          <div className="px-8 -mt-20 relative z-10 flex flex-col md:flex-row items-start md:items-end justify-start gap-6 pb-4">
             <div className="relative group">
               <div className="h-32 w-32 md:h-40 md:w-40 rounded-3xl border-[6px] border-background bg-card overflow-hidden shadow-2xl ring-4 ring-accent/20">
                 <img
@@ -120,7 +120,7 @@ export default function ProfilePage() {
             
             <div className="flex-1 pb-2">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div>
+                <div className="text-left">
                   <h1 className="text-3xl font-black tracking-tighter uppercase">{userProfile.name}</h1>
                   <div className="flex items-center gap-2 text-[10px] text-muted-foreground font-mono uppercase tracking-widest mt-1">
                     <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
