@@ -41,10 +41,10 @@ export function BuilderFeed() {
   const getRoleColor = (role: StartupRole) => {
     switch (role) {
       case 'tech-founder': return 'bg-accent/10 text-accent border-accent/20';
-      case 'sales-founder': return 'bg-blue-500/10 text-blue-400 border-blue-500/20';
-      case 'investor': return 'bg-green-500/10 text-green-400 border-green-500/20';
-      case 'visionary': return 'bg-purple-500/10 text-purple-400 border-purple-500/20';
-      case 'advisor': return 'bg-orange-500/10 text-orange-400 border-orange-500/20';
+      case 'sales-founder': return 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20';
+      case 'investor': return 'bg-green-500/10 text-green-600 dark:text-green-400 border-green-500/20';
+      case 'visionary': return 'bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/20';
+      case 'advisor': return 'bg-orange-500/10 text-orange-600 dark:text-orange-400 border-orange-500/20';
       default: return 'bg-primary/10 text-primary border-primary/20';
     }
   };
@@ -65,7 +65,7 @@ export function BuilderFeed() {
               className={`text-[10px] uppercase font-black tracking-widest px-4 py-2 border rounded-lg transition-all duration-200 ${
                 activeFilter === f 
                   ? 'bg-accent text-white border-accent shadow-lg shadow-accent/20' 
-                  : 'bg-card border-border text-muted-foreground hover:border-white hover:text-white'
+                  : 'bg-card border-border text-muted-foreground hover:border-accent hover:text-accent'
               }`}
             >
               {f === 'seeking-cofounder' ? 'Seeking Co-founder' : f.replace('-', ' ')}
@@ -115,8 +115,8 @@ export function BuilderFeed() {
                 </Button>
                 {builder.linkedInProfileUrl && (
                   <a href={builder.linkedInProfileUrl} target="_blank" rel="noopener noreferrer">
-                    <Button variant="outline" size="icon" className="h-10 w-10 border-border hover:border-white rounded-lg group/link">
-                      <ExternalLink className="w-3.5 h-3.5 text-muted-foreground group-hover/link:text-white" />
+                    <Button variant="outline" size="icon" className="h-10 w-10 border-border hover:border-accent rounded-lg group/link">
+                      <ExternalLink className="w-3.5 h-3.5 text-muted-foreground group-hover/link:text-accent" />
                     </Button>
                   </a>
                 )}

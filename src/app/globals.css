@@ -3,27 +3,28 @@
 @tailwind utilities;
 
 :root {
-  /* Light Mode - Adjusted for contrast */
-  --background: 0 0% 100%;
+  /* Light Mode - Cream Palette */
+  --background: 45 33% 98%;
   --foreground: 240 10% 3.9%;
-  /* Square boxes standout color in light mode (very light blue-gray) */
-  --card: 213 30% 97%;
+  /* Standout cards - Slightly darker cream/beige */
+  --card: 45 20% 94%;
   --card-foreground: 240 10% 3.9%;
-  --popover: 0 0% 100%;
+  --popover: 45 33% 98%;
   --popover-foreground: 240 10% 3.9%;
   --primary: 240 5.9% 10%;
   --primary-foreground: 0 0% 98%;
-  --secondary: 240 4.8% 95.9%;
+  --secondary: 45 10% 92%;
   --secondary-foreground: 240 5.9% 10%;
-  --muted: 240 4.8% 95.9%;
+  --muted: 45 10% 92%;
   --muted-foreground: 240 3.8% 46.1%;
-  --accent: 213 94% 68%;
+  /* Gold Accents */
+  --accent: 45 93% 47%;
   --accent-foreground: 0 0% 100%;
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 0 0% 98%;
-  --border: 240 5.9% 90%;
-  --input: 240 5.9% 90%;
-  --ring: 240 5.9% 10%;
+  --border: 45 10% 85%;
+  --input: 45 10% 85%;
+  --ring: 45 93% 47%;
   --radius: 0.75rem;
 }
 
@@ -32,7 +33,7 @@
   --background: 0 0% 0%;
   /* White Foreground/Outlines */
   --foreground: 0 0% 100%;
-  /* Fourth Color: Deep Slate for Cards to stand out from black */
+  /* Deep Slate for Cards */
   --card: 240 6% 10%;
   --card-foreground: 0 0% 100%;
   --popover: 240 10% 4%;
@@ -44,15 +45,15 @@
   --secondary-foreground: 0 0% 100%;
   --muted: 240 4% 12%;
   --muted-foreground: 240 5% 65%;
-  /* Blue Accents/Highlights */
-  --accent: 213 94% 68%;
+  /* Gold Accents */
+  --accent: 45 93% 47%;
   --accent-foreground: 0 0% 100%;
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 100%;
-  /* White/Silver Borders */
+  /* Borders */
   --border: 0 0% 20%;
   --input: 0 0% 20%;
-  --ring: 213 94% 68%;
+  --ring: 45 93% 47%;
 }
 
 @layer base {
