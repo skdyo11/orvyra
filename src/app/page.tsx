@@ -3,7 +3,7 @@
 import { Navbar } from '@/components/layout/Navbar';
 import { LightningIntake } from '@/components/intake/LightningIntake';
 import { useStore } from '@/lib/store';
-import { Zap, Layers, ShieldCheck, ArrowRight, MessageSquare, Network } from 'lucide-react';
+import { Zap, Layers, ShieldCheck, ArrowRight, MessageSquare, Network, Users, Calendar, Rocket, Banknote, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function Home() {
@@ -14,6 +14,14 @@ export default function Home() {
   const handleJoinClick = () => {
     document.getElementById('intake')?.scrollIntoView({ behavior: 'smooth' });
   };
+
+  const stats = [
+    { label: 'Seats per cohort', value: '300', icon: Users },
+    { label: 'Months program', value: '3', icon: Calendar },
+    { label: 'Startups funded', value: '10', icon: Rocket },
+    { label: 'Per startup funded', value: 'Rs 5L', icon: Banknote },
+    { label: 'To apply', value: 'Free', icon: CheckCircle },
+  ];
 
   return (
     <main className="min-h-screen pt-16 selection:bg-accent selection:text-white">
@@ -56,6 +64,25 @@ export default function Home() {
             >
               Browse Founders
             </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Cohort Stats Section */}
+      <section className="py-12 border-t border-border bg-background">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-8">
+            {stats.map((stat, i) => (
+              <div key={i} className="glass p-6 text-center space-y-2 border-border/40 hover:border-accent/40 transition-colors rounded-2xl">
+                <div className="w-8 h-8 bg-accent/10 flex items-center justify-center mx-auto rounded-lg mb-2">
+                  <stat.icon className="w-4 h-4 text-accent" />
+                </div>
+                <div className="text-2xl font-black tracking-tighter uppercase">{stat.value}</div>
+                <div className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest leading-tight">
+                  {stat.label}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
