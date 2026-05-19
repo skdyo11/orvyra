@@ -89,9 +89,10 @@ export default function PublicProfilePage() {
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div className="text-left">
                   <h1 className="text-3xl font-black tracking-tighter uppercase">{builder.name}</h1>
-                  <div className="flex items-center gap-2 text-[10px] text-muted-foreground font-mono uppercase tracking-widest mt-1">
-                    <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                    Active Profile
+                  <div className="mt-1">
+                    <span className="text-[9px] px-2 py-0.5 border border-muted-foreground/20 bg-muted/20 text-muted-foreground uppercase font-black tracking-widest rounded-md">
+                      {builder.role?.replace('-', ' ')}
+                    </span>
                   </div>
                 </div>
                 
