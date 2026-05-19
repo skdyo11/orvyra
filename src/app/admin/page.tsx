@@ -4,22 +4,14 @@ import { useState, useEffect } from 'react';
 import { db } from '@/lib/firebase';
 import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
 import { Navbar } from '@/components/layout/Navbar';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Lock, FileText, Clock, User, ShieldAlert, Mail, Phone, MapPin, Calendar } from 'lucide-react';
+import { FileText, Clock, User, ShieldAlert, Mail, Phone, MapPin, Calendar } from 'lucide-react';
 import { format } from 'date-fns';
 
 export default function AdminPage() {
-  const [password, setPassword] = useState('');
-  const [isAuthorized, setIsAuthorized] = useState(false);
   const [applications, setApplications] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const ADMIN_PASSWORD = 'orvyra-admin';
-
   useEffect(() => {
-    if (!isAuthorized) return;
-
     const q = query(collection(db, 'applications'), orderBy('timestamp', 'desc'));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const docs = snapshot.docs.map(doc => ({
@@ -31,44 +23,7 @@ export default function AdminPage() {
     });
 
     return () => unsubscribe();
-  }, [isAuthorized]);
-
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (password === ADMIN_PASSWORD) {
-      setIsAuthorized(true);
-    } else {
-      alert('Access Denied: Check your admin password.');
-    }
-  };
-
-  if (!isAuthorized) {
-    return (
-      <main className="min-h-screen bg-background flex items-center justify-center p-6">
-        <div className="max-w-md w-full glass p-10 space-y-8 text-center border-accent/20 rounded-2xl">
-          <div className="w-16 h-16 bg-accent/10 border border-accent/20 flex items-center justify-center mx-auto rounded-lg">
-            <Lock className="w-8 h-8 text-accent" />
-          </div>
-          <div className="space-y-2">
-            <h1 className="text-2xl font-black tracking-tighter uppercase">Admin Login</h1>
-            <p className="text-xs text-muted-foreground uppercase tracking-widest font-bold">Please enter the password</p>
-          </div>
-          <form onSubmit={handleLogin} className="space-y-4">
-            <Input 
-              type="password"
-              placeholder="Password..."
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="h-12 text-center bg-muted/5 border-border focus:border-accent font-mono rounded-lg"
-            />
-            <Button type="submit" className="w-full h-12 uppercase tracking-widest font-bold bg-accent hover:bg-accent/90 rounded-lg">
-              Unlock Dashboard
-            </Button>
-          </form>
-        </div>
-      </main>
-    );
-  }
+  }, []);
 
   return (
     <main className="min-h-screen pt-16">
