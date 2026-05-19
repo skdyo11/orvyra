@@ -151,8 +151,8 @@ export default function Home() {
       {/* Features Section */}
       <section className="py-20 md:py-24 border-y border-border bg-muted/5">
         <div className="max-w-4xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-24">
-            <div className="space-y-3 md:space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+            <div className="glass p-8 space-y-4 border-border/40 hover:border-accent/40 transition-colors rounded-2xl">
               <div className="w-10 h-10 bg-accent/10 border border-accent/20 flex items-center justify-center rounded-lg">
                 <Network className="w-5 h-5 text-accent" />
               </div>
@@ -162,7 +162,7 @@ export default function Home() {
               </p>
             </div>
             
-            <div className="space-y-3 md:space-y-4">
+            <div className="glass p-8 space-y-4 border-border/40 hover:border-accent/40 transition-colors rounded-2xl">
               <div className="w-10 h-10 bg-primary/10 border border-primary/20 flex items-center justify-center rounded-lg">
                 <Layers className="w-5 h-5 text-primary" />
               </div>
@@ -172,7 +172,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="space-y-3 md:space-y-4">
+            <div className="glass p-8 space-y-4 border-border/40 hover:border-accent/40 transition-colors rounded-2xl">
               <div className="w-10 h-10 bg-accent/10 border border-accent/20 flex items-center justify-center rounded-lg">
                 <ShieldCheck className="w-5 h-5 text-accent" />
               </div>
@@ -182,7 +182,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="space-y-3 md:space-y-4">
+            <div className="glass p-8 space-y-4 border-border/40 hover:border-accent/40 transition-colors rounded-2xl">
               <div className="w-10 h-10 bg-primary/10 border border-primary/20 flex items-center justify-center rounded-lg">
                 <MessageSquare className="w-5 h-5 text-primary" />
               </div>
