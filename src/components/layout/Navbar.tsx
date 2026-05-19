@@ -38,13 +38,53 @@ export function Navbar() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-border h-16 flex items-center px-6">
       <div className="max-w-7xl mx-auto w-full grid grid-cols-3 items-center">
-        {/* Left: Profile/Settings Slide-out */}
+        {/* Left: ORVYRA Brand */}
         <div className="flex items-center justify-start">
+          <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+            <span className="text-xl font-black tracking-[0.4em] uppercase text-foreground">Orvyra</span>
+          </Link>
+        </div>
+
+        {/* Center: Learn (Anchor) and Navigation */}
+        <div className="flex items-center justify-center gap-4 sm:gap-8">
+          <Link 
+            href="/profiles"
+            className={`text-[10px] uppercase font-black tracking-widest transition-colors ${
+              pathname === '/profiles' ? 'text-accent' : 'text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            <span className="flex items-center gap-2">
+              <Users className="w-3.5 h-3.5" />
+              <span className="hidden md:inline">Profiles</span>
+            </span>
+          </Link>
+
+          <Link href="/vault">
+            <Button className="bg-accent hover:bg-accent/90 text-white font-black uppercase tracking-[0.3em] text-[10px] h-10 px-8 rounded-lg shadow-lg shadow-accent/20 transition-all hover:scale-105 active:scale-95">
+              Learn
+            </Button>
+          </Link>
+
+          <Link 
+            href="/messages"
+            className={`text-[10px] uppercase font-black tracking-widest transition-colors ${
+              pathname === '/messages' ? 'text-accent' : 'text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            <span className="flex items-center gap-2">
+              <MessageSquare className="w-3.5 h-3.5" />
+              <span className="hidden md:inline">Chats</span>
+            </span>
+          </Link>
+        </div>
+
+        {/* Right: Profile/Settings Slide-out */}
+        <div className="flex items-center justify-end">
           <Sheet>
             <SheetTrigger asChild>
               <button className="flex items-center gap-2 text-[10px] uppercase font-black tracking-[0.2em] text-muted-foreground hover:text-foreground transition-colors group">
-                <Settings className="w-3.5 h-3.5 group-hover:rotate-90 transition-transform duration-500" />
                 <span className="hidden sm:inline">Settings</span>
+                <Settings className="w-3.5 h-3.5 group-hover:rotate-90 transition-transform duration-500" />
               </button>
             </SheetTrigger>
             <SheetContent side="left" className="bg-background border-r border-border w-80 p-0">
@@ -105,46 +145,6 @@ export function Navbar() {
               </div>
             </SheetContent>
           </Sheet>
-        </div>
-
-        {/* Center: Learn (Anchor) and Navigation */}
-        <div className="flex items-center justify-center gap-6 sm:gap-12">
-          <Link 
-            href="/profiles"
-            className={`text-[10px] uppercase font-black tracking-widest transition-colors ${
-              pathname === '/profiles' ? 'text-accent' : 'text-muted-foreground hover:text-foreground'
-            }`}
-          >
-            <span className="flex items-center gap-2">
-              <Users className="w-3.5 h-3.5" />
-              <span className="hidden md:inline">Profiles</span>
-            </span>
-          </Link>
-
-          <Link href="/vault">
-            <Button className="bg-accent hover:bg-accent/90 text-white font-black uppercase tracking-[0.3em] text-[10px] h-10 px-8 rounded-lg shadow-lg shadow-accent/20 transition-all hover:scale-105 active:scale-95">
-              Learn
-            </Button>
-          </Link>
-
-          <Link 
-            href="/messages"
-            className={`text-[10px] uppercase font-black tracking-widest transition-colors ${
-              pathname === '/messages' ? 'text-accent' : 'text-muted-foreground hover:text-foreground'
-            }`}
-          >
-            <span className="flex items-center gap-2">
-              <MessageSquare className="w-3.5 h-3.5" />
-              <span className="hidden md:inline">Chats</span>
-            </span>
-          </Link>
-        </div>
-
-        {/* Right: ORVYRA Brand */}
-        <div className="flex items-center justify-end">
-          <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-            <span className="text-xl font-black tracking-[0.4em] uppercase text-foreground">Orvyra</span>
-          </Link>
         </div>
       </div>
     </nav>
