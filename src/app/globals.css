@@ -3,28 +3,36 @@
 @tailwind utilities;
 
 :root {
-  /* Light Mode - Warm Cream Palette */
-  --background: 45 33% 96%;
+  /* Light Mode - Matte Cream & Dark Gold */
+  --background: 45 20% 96%;
   --foreground: 240 10% 3.9%;
-  /* Standout cards - Slightly deeper cream/beige */
-  --card: 45 20% 92%;
+  
+  /* Standout cards - Matte deeper cream */
+  --card: 45 15% 92%;
   --card-foreground: 240 10% 3.9%;
-  --popover: 45 33% 98%;
+  
+  --popover: 45 20% 98%;
   --popover-foreground: 240 10% 3.9%;
+  
   --primary: 240 5.9% 10%;
   --primary-foreground: 0 0% 98%;
+  
   --secondary: 45 10% 90%;
   --secondary-foreground: 240 5.9% 10%;
+  
   --muted: 45 10% 90%;
   --muted-foreground: 240 3.8% 46.1%;
-  /* Dark Gold Accent - Refined Metallic */
-  --accent: 45 93% 38%;
+  
+  /* Matte Dark Gold Accent */
+  --accent: 43 45% 42%;
   --accent-foreground: 0 0% 100%;
+  
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 0 0% 98%;
-  --border: 45 10% 80%;
-  --input: 45 10% 80%;
-  --ring: 45 93% 38%;
+  
+  --border: 45 10% 85%;
+  --input: 45 10% 85%;
+  --ring: 43 45% 42%;
   --radius: 0.75rem;
 }
 
@@ -32,25 +40,33 @@
   /* Pitch Black Background */
   --background: 0 0% 0%;
   --foreground: 0 0% 100%;
-  /* Deep Slate/Carbon for Cards to standout from black */
-  --card: 240 6% 8%;
+  
+  /* Deep Matte Slate for Cards */
+  --card: 240 4% 10%;
   --card-foreground: 0 0% 100%;
+  
   --popover: 240 10% 4%;
   --popover-foreground: 0 0% 100%;
+  
   --primary: 0 0% 100%;
   --primary-foreground: 0 0% 0%;
+  
   --secondary: 240 4% 16%;
   --secondary-foreground: 0 0% 100%;
+  
   --muted: 240 4% 12%;
   --muted-foreground: 240 5% 65%;
-  /* Dark Gold Accent */
-  --accent: 45 93% 38%;
+  
+  /* Consistent Matte Dark Gold */
+  --accent: 43 45% 42%;
   --accent-foreground: 0 0% 100%;
+  
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 100%;
+  
   --border: 0 0% 15%;
   --input: 0 0% 15%;
-  --ring: 45 93% 38%;
+  --ring: 43 45% 42%;
 }
 
 @layer base {
