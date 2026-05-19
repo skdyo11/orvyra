@@ -11,7 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Zap, Loader2, Send, Chrome } from 'lucide-react';
+import { Zap, Loader2, Send } from 'lucide-react';
 import { generateFounderProfile } from '@/ai/flows/founder-profile-generation';
 import { useStore } from '@/lib/store';
 import { useToast } from '@/hooks/use-toast';
@@ -55,13 +55,6 @@ export function LightningIntake() {
       country: value,
       phone: countryData && countryData.code ? countryData.code + ' ' : prev.phone
     }));
-  };
-
-  const handleGoogleLogin = () => {
-    toast({
-      title: "Coming soon",
-      description: "Google integration is being configured for your region.",
-    });
   };
 
   const handleApply = async () => {
@@ -123,28 +116,13 @@ export function LightningIntake() {
         <div className="space-y-2">
           <h2 className="text-xl font-medium tracking-tight flex items-center gap-2">
             <Zap className="w-4 h-4 text-accent" />
-            Join the Network
+            Apply to Join
           </h2>
           <p className="text-sm text-muted-foreground">
-            Apply to join the community or login with Google to skip the form.
+            Fill out the form below to submit your application to the Orvyra network.
           </p>
         </div>
 
-        <div className="pb-6 border-b border-border">
-          <Button 
-            variant="outline" 
-            onClick={handleGoogleLogin}
-            className="w-full h-12 border-border hover:border-accent uppercase tracking-widest text-[10px] font-bold rounded-lg flex items-center justify-center gap-2"
-          >
-            <Chrome className="w-4 h-4" />
-            Continue with Google
-          </Button>
-          <div className="relative mt-6">
-            <div className="absolute inset-0 flex items-center"><span className="w-full border-t border-border"></span></div>
-            <div className="relative flex justify-center text-[10px] uppercase font-black tracking-widest"><span className="bg-card px-2 text-muted-foreground">OR APPLY VIA FORM</span></div>
-          </div>
-        </div>
-        
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-2 sm:col-span-2">
             <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">Full Name</label>
@@ -231,7 +209,7 @@ export function LightningIntake() {
         >
           {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : (
             <span className="flex items-center gap-2">
-              Apply Now
+              Send Application
               <Send className="w-3.5 h-3.5" />
             </span>
           )}

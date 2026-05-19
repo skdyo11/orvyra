@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Sun, Moon, MessageSquare, Users, Settings, User, Menu } from 'lucide-react';
+import { Sun, Moon, MessageSquare, Users, Settings, User, Menu, Chrome } from 'lucide-react';
 import { useStore } from '@/lib/store';
 import { Button } from '@/components/ui/button';
 import {
@@ -13,11 +13,13 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { useToast } from '@/hooks/use-toast';
 
 export function Navbar() {
   const pathname = usePathname();
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const userProfile = useStore((state) => state.userProfile);
+  const { toast } = useToast();
 
   useEffect(() => {
     const isDark = document.documentElement.classList.contains('dark');
@@ -34,6 +36,13 @@ export function Navbar() {
       document.documentElement.classList.add('light');
       document.documentElement.classList.remove('dark');
     }
+  };
+
+  const handleGoogleLogin = () => {
+    toast({
+      title: "Coming soon",
+      description: "Google integration is being configured for your region.",
+    });
   };
 
   return (
@@ -123,11 +132,25 @@ export function Navbar() {
                   </div>
                 ) : (
                   <div className="space-y-4">
-                    <div className="p-6 border border-dashed border-border rounded-2xl text-center">
-                      <p className="text-[10px] text-muted-foreground uppercase font-bold tracking-widest mb-4">You haven't joined yet</p>
-                      <Link href="/#intake">
-                        <Button className="w-full bg-accent hover:bg-accent/90 text-white text-[10px] uppercase font-bold tracking-widest h-11 rounded-lg shadow-lg shadow-accent/20">
-                          Join Orvyra
+                    <div className="p-6 border border-dashed border-border rounded-2xl text-center space-y-4">
+                      <p className="text-[10px] text-muted-foreground uppercase font-bold tracking-widest">Member Portal</p>
+                      
+                      <Button 
+                        onClick={handleGoogleLogin}
+                        className="w-full bg-accent hover:bg-accent/90 text-white text-[10px] uppercase font-bold tracking-widest h-11 rounded-lg shadow-lg shadow-accent/20 flex items-center justify-center gap-2"
+                      >
+                        <Chrome className="w-4 h-4" />
+                        Login with Google
+                      </Button>
+
+                      <div className="relative">
+                        <div className="absolute inset-0 flex items-center"><span className="w-full border-t border-border"></span></div>
+                        <div className="relative flex justify-center text-[8px] uppercase font-black tracking-widest"><span className="bg-background px-2 text-muted-foreground">OR</span></div>
+                      </div>
+
+                      <Link href="/#intake" className="block">
+                        <Button variant="outline" className="w-full text-[10px] uppercase font-bold tracking-widest h-11 rounded-lg border-border hover:border-accent">
+                          Apply to Join
                         </Button>
                       </Link>
                     </div>
