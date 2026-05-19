@@ -3,7 +3,7 @@
 import { Navbar } from '@/components/layout/Navbar';
 import { LightningIntake } from '@/components/intake/LightningIntake';
 import { useStore } from '@/lib/store';
-import { Zap, Layers, ShieldCheck, ArrowRight, MessageSquare, Network, Users, Calendar, Rocket, Banknote, CheckCircle } from 'lucide-react';
+import { Zap, Layers, ShieldCheck, ArrowRight, MessageSquare, Network, Users, Calendar, Rocket, Banknote, CheckCircle, TrendingUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function Home() {
@@ -83,6 +83,60 @@ export default function Home() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Orvyra Fund Section */}
+      <section className="py-12 bg-background">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="glass p-8 md:p-12 border-accent/20 rounded-[2rem] space-y-10 relative overflow-hidden">
+            {/* Background decoration */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-accent/5 -mr-32 -mt-32 rounded-full blur-3xl"></div>
+            
+            <div className="space-y-6 relative z-10 text-center sm:text-left">
+              <div className="inline-flex items-center gap-2 px-3 py-1 border border-accent/20 bg-accent/5 text-[10px] uppercase font-black tracking-[0.2em] text-accent rounded-lg">
+                The Fund
+              </div>
+              <h2 className="text-4xl sm:text-6xl font-black tracking-tighter uppercase leading-[0.9]">
+                The Orvyra <span className="text-accent">Fund</span>
+              </h2>
+              <div className="flex flex-col sm:flex-row sm:items-baseline gap-2 justify-center sm:justify-start">
+                <span className="text-5xl sm:text-7xl font-black tracking-tighter uppercase">Rs 50 Lac</span>
+                <span className="text-xs text-muted-foreground uppercase font-bold tracking-widest">deployed every cohort into 10 startups</span>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 relative z-10 border-y border-border py-10">
+              <div className="space-y-1 text-center sm:text-left">
+                <div className="text-3xl font-black tracking-tighter uppercase">10 Startups</div>
+                <div className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest">Selected</div>
+              </div>
+              <div className="space-y-1 text-center sm:text-left">
+                <div className="text-3xl font-black tracking-tighter uppercase">Rs 5L</div>
+                <div className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest">Per Startup</div>
+              </div>
+              <div className="space-y-1 text-center sm:text-left">
+                <div className="text-3xl font-black tracking-tighter uppercase">5–10%</div>
+                <div className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest">Equity Taken</div>
+              </div>
+            </div>
+
+            <div className="space-y-8 relative z-10">
+              <div className="flex items-center justify-center sm:justify-start gap-3">
+                <div className="w-10 h-10 bg-accent/10 flex items-center justify-center rounded-lg">
+                  <TrendingUp className="w-5 h-5 text-accent" />
+                </div>
+                <span className="text-xl font-bold uppercase tracking-tight">Day 90: Demo Day</span>
+              </div>
+              
+              <div className="bg-muted/5 border border-border p-8 rounded-2xl relative">
+                <p className="text-sm sm:text-base text-foreground/90 leading-relaxed font-medium uppercase tracking-wide text-center sm:text-left">
+                  Selection is based on merit alone — your idea, your execution, your growth during the 3 months. 
+                  <span className="block mt-2 text-accent font-black">No connections. No references. No background checks. Just what you build.</span>
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
