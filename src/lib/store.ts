@@ -20,6 +20,8 @@ interface AppState {
   setUserProfile: (profile: FounderProfileGenerationOutput | null) => void;
   updateUserProfile: (updates: Partial<FounderProfileGenerationOutput>) => void;
   addBuilder: (builder: FounderProfileGenerationOutput) => void;
+  setBuilders: (builders: FounderProfileGenerationOutput[]) => void;
+  setMessages: (messages: Message[]) => void;
   sendMessage: (msg: Omit<Message, 'id' | 'timestamp'>) => void;
 }
 
@@ -97,6 +99,8 @@ export const useStore = create<AppState>()(
         userProfile: state.userProfile ? { ...state.userProfile, ...updates } : null
       })),
       addBuilder: (builder) => set((state) => ({ builders: [builder, ...state.builders] })),
+      setBuilders: (builders) => set({ builders }),
+      setMessages: (messages) => set({ messages }),
       sendMessage: (msg) => set((state) => ({
         messages: [{ ...msg, id: Math.random().toString(36), timestamp: Date.now() }, ...state.messages]
       })),

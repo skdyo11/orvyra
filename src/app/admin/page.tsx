@@ -2,8 +2,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { db } from '@/lib/firebase';
-import { collection, query, orderBy, onSnapshot, Timestamp } from 'firebase/firestore';
 import { Navbar } from '@/components/layout/Navbar';
 import { FileText, Clock, User, ShieldAlert, Mail, Phone, MapPin, Calendar, CheckCircle2 } from 'lucide-react';
 import { format } from 'date-fns';
@@ -12,28 +10,32 @@ export default function AdminPage() {
   const [applications, setApplications] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const q = query(collection(db, 'applications'), orderBy('timestamp', 'desc'));
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const docs = snapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      }));
-      setApplications(docs);
+  const fetchApplications = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch('/api/applications');
+      const data = await response.json();
+      if (Array.isArray(data)) {
+        setApplications(data);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    } finally {
       setLoading(false);
-    }, (error) => {
-      console.error("Firestore error:", error);
-      setLoading(false);
-    });
+    }
+  };
 
-    return () => unsubscribe();
+  useEffect(() => {
+    fetchApplications();
   }, []);
 
   const formatTimestamp = (ts: any) => {
     if (!ts) return 'Just now';
-    if (ts instanceof Timestamp) return format(ts.toDate(), 'MMM d, HH:mm');
-    if (ts.seconds) return format(new Date(ts.seconds * 1000), 'MMM d, HH:mm');
-    return 'Recently';
+    try {
+      return format(new Date(ts), 'MMM d, HH:mm');
+    } catch (e) {
+      return 'Recently';
+    }
   };
 
   return (

@@ -1,11 +1,11 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useStore } from '@/lib/store';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { MessageSquare, ExternalLink, Filter, Search, X, User } from 'lucide-react';
+import { MessageSquare, ExternalLink, Filter, Search, X, User, Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { type StartupRole } from '@/ai/schemas';
 import { Input } from '@/components/ui/input';
@@ -15,12 +15,33 @@ type FilterType = 'all' | StartupRole | 'seeking-cofounder';
 
 export function BuilderFeed() {
   const builders = useStore((state) => state.builders);
+  const setBuilders = useStore((state) => state.setBuilders);
   const userProfile = useStore((state) => state.userProfile);
   const sendMessage = useStore((state) => state.sendMessage);
   const { toast } = useToast();
   
   const [activeFilter, setActiveFilter] = useState<FilterType>('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchProfiles = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch('/api/profiles');
+        const data = await response.json();
+        if (Array.isArray(data) && data.length > 0) {
+          setBuilders(data);
+        }
+      } catch (error) {
+        console.error("Error fetching profiles:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProfiles();
+  }, [setBuilders]);
 
   const filteredBuilders = builders.filter(b => {
     // Hide private profiles
@@ -115,7 +136,13 @@ export function BuilderFeed() {
       </div>
 
       <div className="grid gap-6">
-        {filteredBuilders.map((builder, i) => (
+        {loading && (
+          <div className="flex flex-col items-center justify-center py-20 animate-pulse">
+            <Loader2 className="w-8 h-8 text-accent animate-spin mb-4" />
+            <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Loading Network...</p>
+          </div>
+        )}
+        {!loading && filteredBuilders.map((builder, i) => (
           <div key={i} className="glass p-8 group transition-all duration-300 hover:border-accent/40 hover:translate-y-[-2px] rounded-2xl relative overflow-hidden">
              {/* Background Decoration */}
              <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 -mr-16 -mt-16 rounded-full blur-2xl group-hover:bg-accent/10 transition-colors"></div>
@@ -180,7 +207,7 @@ export function BuilderFeed() {
           </div>
         ))}
         
-        {filteredBuilders.length === 0 && (
+        {!loading && filteredBuilders.length === 0 && (
           <div className="py-24 text-center glass border-dashed rounded-2xl flex flex-col items-center gap-4">
             <Filter className="w-8 h-8 text-muted-foreground/30" />
             <div className="space-y-1">
