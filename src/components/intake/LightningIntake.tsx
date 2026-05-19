@@ -59,7 +59,7 @@ export function LightningIntake() {
 
   const handleApply = async () => {
     if (!formData.name || !formData.email || !formData.idea) {
-      toast({ variant: "destructive", title: "Missing Fields", description: "Name, Email, and Idea are required to initialize signal." });
+      toast({ variant: "destructive", title: "Wait!", description: "We need your Name, Email, and Idea to get started." });
       return;
     }
     
@@ -86,8 +86,8 @@ export function LightningIntake() {
       });
       
       toast({ 
-        title: "Protocol Initialized", 
-        description: `Identity verified as ${profile.name}. Your application has been logged to the Vault.`,
+        title: "You're in!", 
+        description: `Welcome, ${profile.name}! Your pitch has been sent to our team.`,
       });
       
       setFormData({
@@ -101,8 +101,8 @@ export function LightningIntake() {
     } catch (error) {
       toast({ 
         variant: "destructive", 
-        title: "Intake Interrupted", 
-        description: "The ecosystem signal was lost. Please verify your connection and try again." 
+        title: "Something went wrong", 
+        description: "We couldn't process your application. Please try again." 
       });
     } finally {
       setLoading(false);
@@ -111,14 +111,14 @@ export function LightningIntake() {
 
   return (
     <div className="w-full max-w-2xl mx-auto py-12 px-6">
-      <div className="space-y-8 border border-border p-8 glass shadow-2xl">
+      <div className="space-y-8 border border-border p-8 glass shadow-2xl rounded-2xl">
         <div className="space-y-2">
           <h2 className="text-xl font-medium tracking-tight flex items-center gap-2">
             <Zap className="w-4 h-4 text-accent" />
-            Ecosystem Intake
+            Join the Network
           </h2>
           <p className="text-sm text-muted-foreground">
-            Complete the protocol to initialize your identity and enter the community signals.
+            Fill this out to build your profile and start connecting with others.
           </p>
         </div>
         
@@ -142,7 +142,7 @@ export function LightningIntake() {
               type="email"
               value={formData.email}
               onChange={handleInputChange}
-              placeholder="john@protocol.xyz"
+              placeholder="john@example.com"
               className="bg-transparent border-border focus:border-accent h-11 text-sm rounded-lg"
               disabled={loading}
             />
@@ -152,7 +152,7 @@ export function LightningIntake() {
             <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">Country</label>
             <Select onValueChange={handleCountryChange} value={formData.country} disabled={loading}>
               <SelectTrigger className="bg-transparent border-border focus:border-accent h-11 text-sm rounded-lg">
-                <SelectValue placeholder="Select Country" />
+                <SelectValue placeholder="Where are you based?" />
               </SelectTrigger>
               <SelectContent className="bg-background border-border">
                 {COUNTRIES.map((c) => (
@@ -182,19 +182,19 @@ export function LightningIntake() {
               name="age"
               value={formData.age}
               onChange={handleInputChange}
-              placeholder="24"
+              placeholder="e.g. 25"
               className="bg-transparent border-border focus:border-accent h-11 text-sm rounded-lg"
               disabled={loading}
             />
           </div>
 
           <div className="space-y-2 sm:col-span-2">
-            <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">The Idea / Pitch</label>
+            <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">Your Startup Idea</label>
             <Textarea 
               name="idea"
               value={formData.idea}
               onChange={handleInputChange}
-              placeholder="What are you building? What is the vision?"
+              placeholder="What are you building? Give us your elevator pitch."
               className="min-h-[120px] bg-transparent border-border focus:border-accent text-sm rounded-lg resize-none"
               disabled={loading}
             />
@@ -208,7 +208,7 @@ export function LightningIntake() {
         >
           {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : (
             <span className="flex items-center gap-2">
-              Send Signal
+              Join Now
               <Send className="w-3.5 h-3.5" />
             </span>
           )}

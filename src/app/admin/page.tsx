@@ -38,7 +38,7 @@ export default function AdminPage() {
     if (password === ADMIN_PASSWORD) {
       setIsAuthorized(true);
     } else {
-      alert('Access Denied: Invalid Decryption Key');
+      alert('Access Denied: Check your admin password.');
     }
   };
 
@@ -46,23 +46,23 @@ export default function AdminPage() {
     return (
       <main className="min-h-screen bg-background flex items-center justify-center p-6">
         <div className="max-w-md w-full glass p-10 space-y-8 text-center border-accent/20 rounded-2xl">
-          <div className="w-16 h-16 bg-accent/10 border border-accent/20 flex items-center justify-center mx-auto rounded-2xl">
+          <div className="w-16 h-16 bg-accent/10 border border-accent/20 flex items-center justify-center mx-auto rounded-lg">
             <Lock className="w-8 h-8 text-accent" />
           </div>
           <div className="space-y-2">
-            <h1 className="text-2xl font-black tracking-tighter uppercase">Command Center</h1>
-            <p className="text-xs text-muted-foreground uppercase tracking-widest font-bold">Encrypted Access Required</p>
+            <h1 className="text-2xl font-black tracking-tighter uppercase">Admin Login</h1>
+            <p className="text-xs text-muted-foreground uppercase tracking-widest font-bold">Please enter the password</p>
           </div>
           <form onSubmit={handleLogin} className="space-y-4">
             <Input 
               type="password"
-              placeholder="Enter Access Key..."
+              placeholder="Password..."
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="h-12 text-center bg-muted/5 border-border focus:border-accent font-mono rounded-lg"
             />
             <Button type="submit" className="w-full h-12 uppercase tracking-widest font-bold bg-accent hover:bg-accent/90 rounded-lg">
-              Unlock Terminal
+              Unlock Dashboard
             </Button>
           </form>
         </div>
@@ -77,24 +77,24 @@ export default function AdminPage() {
         <div className="flex items-center justify-between mb-12 border-b border-border pb-8">
           <div className="space-y-1">
             <h1 className="text-4xl font-black tracking-tighter uppercase flex items-center gap-3">
-              Application Vault
+              Applications
               <span className="text-xs bg-accent text-white px-2 py-0.5 rounded-lg font-mono tracking-normal normal-case">
-                {applications.length} Nodes
+                {applications.length} New
               </span>
             </h1>
-            <p className="text-[10px] text-muted-foreground font-mono uppercase tracking-[0.3em]">Authorized Session: System Administrator</p>
+            <p className="text-[10px] text-muted-foreground font-mono uppercase tracking-[0.3em]">Admin Access Active</p>
           </div>
         </div>
 
         {loading ? (
           <div className="text-center py-20 text-muted-foreground animate-pulse font-mono uppercase text-xs">
-            Fetching secure signals...
+            Loading applications...
           </div>
         ) : applications.length === 0 ? (
           <div className="border border-border p-20 text-center glass rounded-2xl">
             <ShieldAlert className="w-8 h-8 text-muted-foreground mx-auto mb-4" />
-            <h2 className="text-sm font-bold uppercase tracking-widest">No Incoming Signals</h2>
-            <p className="text-xs text-muted-foreground mt-2 font-mono">The intake queue is currently empty.</p>
+            <h2 className="text-sm font-bold uppercase tracking-widest">No applications yet</h2>
+            <p className="text-xs text-muted-foreground mt-2 font-mono">Everything looks quiet for now.</p>
           </div>
         ) : (
           <div className="grid gap-8">
@@ -102,7 +102,7 @@ export default function AdminPage() {
               <div key={app.id} className="glass p-8 space-y-6 hover:border-accent/40 transition-colors group rounded-2xl">
                 <div className="flex flex-col sm:flex-row justify-between gap-6 border-b border-border pb-6">
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-accent/10 border border-accent/20 flex items-center justify-center rounded-xl shrink-0">
+                    <div className="w-12 h-12 bg-accent/10 border border-accent/20 flex items-center justify-center rounded-lg shrink-0">
                       <User className="w-6 h-6 text-accent" />
                     </div>
                     <div className="space-y-1">
@@ -142,7 +142,7 @@ export default function AdminPage() {
                   <div className="bg-muted/5 border border-border p-6 rounded-xl">
                     <div className="flex items-center gap-2 mb-4">
                       <FileText className="w-3.5 h-3.5 text-accent" />
-                      <span className="text-[10px] font-bold uppercase tracking-widest text-accent">The Idea Transcript</span>
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-accent">The Pitch</span>
                     </div>
                     <p className="text-xs font-mono leading-relaxed text-foreground/80 italic">
                       "{app.idea || app.content}"
@@ -151,7 +151,7 @@ export default function AdminPage() {
                   
                   {app.tagline && (
                     <div className="px-1 text-[10px] uppercase font-bold tracking-[0.2em] text-muted-foreground">
-                      Generated Signal: <span className="text-foreground">{app.tagline}</span>
+                      AI Summary: <span className="text-foreground">{app.tagline}</span>
                     </div>
                   )}
                 </div>

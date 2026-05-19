@@ -7,11 +7,11 @@ import { Zap, Layers, ShieldCheck, ArrowRight, Terminal, Network } from 'lucide-
 import { Button } from '@/components/ui/button';
 
 export default function Home() {
-  const handleEcosystemMapClick = () => {
+  const handleBrowseClick = () => {
     document.getElementById('intake')?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const handleIntakeClick = () => {
+  const handleJoinClick = () => {
     document.getElementById('intake')?.scrollIntoView({ behavior: 'smooth' });
   };
 
@@ -29,78 +29,78 @@ export default function Home() {
         <div className="max-w-4xl mx-auto px-6 relative z-10 text-center">
           <div className="inline-flex items-center gap-2 px-3 py-1 border border-accent/20 bg-accent/5 text-[10px] uppercase font-black tracking-[0.2em] text-accent mb-8 rounded-lg">
             <Zap className="w-3 h-3" />
-            Ecosystem v0.2.0-beta
+            Join the beta
           </div>
           
           <h1 className="text-5xl sm:text-7xl font-black tracking-tighter uppercase mb-6 leading-[0.9]">
             The Startup <br />
-            <span className="text-accent">Protocol.</span>
+            <span className="text-accent">Network.</span>
           </h1>
           
           <p className="text-muted-foreground text-sm sm:text-base uppercase tracking-widest font-medium max-w-2xl mx-auto leading-relaxed mb-12">
-            For founders, investors, and visionaries. Orvyra is the signal-only matchmaking engine for the people building the next generation of industry.
+            Find your next co-founder, investor, or mentor. Orvyra helps you connect with the people building the future.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button 
               className="h-12 px-8 font-bold uppercase tracking-widest group rounded-lg"
-              onClick={handleIntakeClick}
+              onClick={handleJoinClick}
             >
-              Initialize Intake
+              Get Started
               <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
             </Button>
             <Button 
               variant="outline" 
               className="h-12 px-8 font-bold uppercase tracking-widest border-border rounded-lg"
-              onClick={handleEcosystemMapClick}
+              onClick={handleBrowseClick}
             >
-              Ecosystem Map
+              Browse Founders
             </Button>
           </div>
         </div>
       </section>
 
-      {/* Philosophy / Features Section */}
+      {/* Features Section */}
       <section className="py-24 border-y border-border bg-muted/5">
         <div className="max-w-4xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 sm:gap-24">
             <div className="space-y-4">
-              <div className="w-10 h-10 bg-accent/10 border border-accent/20 flex items-center justify-center rounded-xl">
+              <div className="w-10 h-10 bg-accent/10 border border-accent/20 flex items-center justify-center rounded-lg">
                 <Network className="w-5 h-5 text-accent" />
               </div>
-              <h2 className="text-xl font-bold uppercase tracking-tighter">Universal Intake</h2>
+              <h2 className="text-xl font-bold uppercase tracking-tighter">Quick Profile</h2>
               <p className="text-xs text-muted-foreground leading-relaxed font-medium uppercase tracking-wider">
-                Whether you are a deep-tech founder, a GTM specialist, or an angel investor, our AI extracts your execution signal instantly. No manual bios. No noise.
+                Just paste your idea or pitch. Our AI builds your founder profile instantly so you can get on the radar of the community.
               </p>
             </div>
             
             <div className="space-y-4">
-              <div className="w-10 h-10 bg-primary/10 border border-primary/20 flex items-center justify-center rounded-xl">
+              <div className="w-10 h-10 bg-primary/10 border border-primary/20 flex items-center justify-center rounded-lg">
                 <Layers className="w-5 h-5 text-primary" />
               </div>
-              <h2 className="text-xl font-bold uppercase tracking-tighter">The Resource Vault</h2>
+              <h2 className="text-xl font-bold uppercase tracking-tighter">Startup Blueprints</h2>
               <p className="text-xs text-muted-foreground leading-relaxed font-medium uppercase tracking-wider">
-                Systematic modules for scaling companies. From legal frameworks to engineering pipelines, we provide the blueprints for every stage of the build.
+                Get access to essential guides for scaling your business—from legal templates to engineering roadmaps.
               </p>
             </div>
 
             <div className="space-y-4">
-              <div className="w-10 h-10 bg-accent/10 border border-accent/20 flex items-center justify-center rounded-xl">
+              <div className="w-10 h-10 bg-accent/10 border border-accent/20 flex items-center justify-center rounded-lg">
                 <ShieldCheck className="w-5 h-5 text-accent" />
               </div>
-              <h2 className="text-xl font-bold uppercase tracking-tighter">Verified Signals</h2>
+              <h2 className="text-xl font-bold uppercase tracking-tighter">Trusted Matches</h2>
               <p className="text-xs text-muted-foreground leading-relaxed font-medium uppercase tracking-wider">
-                We prioritize alignment over networking. Every connection is based on technical capability, investment thesis, or product expertise.
+                We focus on quality. We connect you based on what you’re building, your skills, and what you need right now.
               </p>
             </div>
 
             <div className="space-y-4">
-              <div className="w-10 h-10 bg-primary/10 border border-primary/20 flex items-center justify-center rounded-xl">
+              <div className="w-10 h-10 bg-primary/10 border border-primary/20 flex items-center justify-center rounded-lg">
                 <Terminal className="w-5 h-5 text-primary" />
               </div>
-              <h2 className="text-xl font-bold uppercase tracking-tighter">The Bridge</h2>
+              <h2 className="text-xl font-bold uppercase tracking-tighter">Direct Chat</h2>
               <p className="text-xs text-muted-foreground leading-relaxed font-medium uppercase tracking-wider">
-                Direct peer-to-peer communication. Establish "Bridges" with other members to discuss co-founder roles, investment rounds, or advisory partnerships.
+                Chat directly with other members. Start conversations about co-founding, seed rounds, or getting advice.
               </p>
             </div>
           </div>
@@ -111,8 +111,8 @@ export default function Home() {
       <section id="intake" className="py-32 bg-background">
         <div className="max-w-4xl mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold tracking-tighter uppercase mb-4">Join the Ecosystem.</h2>
-            <p className="text-muted-foreground text-xs uppercase tracking-widest font-bold">Paste your LinkedIn or a Pitch to begin.</p>
+            <h2 className="text-3xl font-bold tracking-tighter uppercase mb-4">Join the Community.</h2>
+            <p className="text-muted-foreground text-xs uppercase tracking-widest font-bold">Tell us about your startup to begin.</p>
           </div>
           <LightningIntake />
         </div>
@@ -132,12 +132,12 @@ function Footer() {
             <span className="text-sm font-black tracking-[0.3em] uppercase">Orvyra</span>
           </div>
           <p className="text-[10px] text-muted-foreground font-mono uppercase tracking-widest">
-            High-frictionless matchmaking for the startup community.
+            Connecting founders and building startups together.
           </p>
         </div>
         
         <div className="text-[10px] text-muted-foreground font-mono uppercase tracking-widest flex items-center gap-8">
-          <span>V0.2.0-beta // 2024</span>
+          <span>2024</span>
           <span className="flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
             System Online

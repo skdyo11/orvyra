@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { CheckSquare, Square, Lock, Terminal } from 'lucide-react';
+import { CheckSquare, Square, Terminal } from 'lucide-react';
 import { Progress } from '@/components/ui/progress';
 
 interface Module {
@@ -13,29 +13,29 @@ interface Module {
 const VAULT_MODULES: Module[] = [
   {
     id: 'm1',
-    title: 'Precision Infrastructure',
+    title: 'Setup & Basics',
     tasks: [
-      { id: 't1', label: 'Define ICP (Ideal Customer Profile) metrics', completed: true },
-      { id: 't2', label: 'Initialize CI/CD pipeline with strict linting', completed: true },
-      { id: 't3', label: 'Deploy automated unit testing for core logic', completed: false },
+      { id: 't1', label: 'Define your target audience', completed: true },
+      { id: 't2', label: 'Set up your code repo with linting', completed: true },
+      { id: 't3', label: 'Create basic tests for your core features', completed: false },
     ]
   },
   {
     id: 'm2',
-    title: 'Market Signal Acquisition',
+    title: 'Talking to Users',
     tasks: [
-      { id: 't4', label: 'Run 10 customer discovery interviews', completed: false },
-      { id: 't5', label: 'Analyze signal-to-noise in interview data', completed: false },
-      { id: 't6', label: 'Quantify willingness-to-pay', completed: false },
+      { id: 't4', label: 'Interview 10 potential customers', completed: false },
+      { id: 't5', label: 'Look for patterns in your interview notes', completed: false },
+      { id: 't6', label: 'Check if users would actually pay for this', completed: false },
     ]
   },
   {
     id: 'm3',
-    title: 'High-Velocity Shipping',
+    title: 'Building MVP',
     tasks: [
-      { id: 't7', label: 'Finalize v0.1 core feature set', completed: false },
-      { id: 't8', label: 'Execute 48-hour development sprints', completed: false },
-      { id: 't9', label: 'Deploy real-time analytics for user flow', completed: false },
+      { id: 't7', label: 'Decide on the MUST-HAVE features for v1', completed: false },
+      { id: 't8', label: 'Run a 2-day sprint to ship a feature', completed: false },
+      { id: 't9', label: 'Add basic analytics to see how users use it', completed: false },
     ]
   }
 ];
@@ -63,16 +63,16 @@ export function ResourceVault() {
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-medium tracking-tighter flex items-center gap-2">
             <Terminal className="w-5 h-5 text-accent" />
-            Execution Modules
+            Action Plans
           </h2>
-          <span className="text-[10px] font-mono text-muted-foreground">{completedTasks}/{totalTasks} COMPLETED</span>
+          <span className="text-[10px] font-mono text-muted-foreground">{completedTasks}/{totalTasks} DONE</span>
         </div>
         <Progress value={progress} className="h-1 bg-border rounded-none" />
       </header>
 
       <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
         {modules.map((m) => (
-          <div key={m.id} className="border border-border p-6 glass space-y-6">
+          <div key={m.id} className="border border-border p-6 glass space-y-6 rounded-xl">
             <h3 className="text-sm font-bold uppercase tracking-widest text-foreground border-b border-border pb-4">{m.title}</h3>
             <ul className="space-y-4">
               {m.tasks.map((t) => (

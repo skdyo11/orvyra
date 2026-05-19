@@ -3,8 +3,8 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
 
 export const metadata: Metadata = {
-  title: 'ORVYRA | Founder Matchmaking & Resource Vault',
-  description: 'High-frictionless matchmaking and learning hub for startup founders.',
+  title: 'ORVYRA | Find Founders & Startup Resources',
+  description: 'The easiest way to find co-founders, investors, and resources for your startup.',
 };
 
 export default function RootLayout({

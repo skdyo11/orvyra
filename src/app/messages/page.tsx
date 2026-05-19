@@ -12,27 +12,27 @@ export default function MessagesPage() {
     <main className="min-h-screen pt-16">
       <Navbar />
       <div className="max-w-4xl mx-auto px-6 pt-20">
-        <h1 className="text-3xl font-bold tracking-tighter mb-8">The Bridge</h1>
+        <h1 className="text-3xl font-bold tracking-tighter mb-8">Chats</h1>
         
         {!userProfile ? (
-          <div className="border border-border p-12 text-center glass">
+          <div className="border border-border p-12 text-center glass rounded-2xl">
             <ShieldAlert className="w-8 h-8 text-destructive mx-auto mb-4" />
-            <h2 className="text-sm font-bold uppercase tracking-widest mb-2">Access Denied</h2>
-            <p className="text-xs text-muted-foreground">Identity verification required to establish bridges.</p>
+            <h2 className="text-sm font-bold uppercase tracking-widest mb-2">Login Required</h2>
+            <p className="text-xs text-muted-foreground">Join the network first to start chatting.</p>
           </div>
         ) : messages.length === 0 ? (
-          <div className="border border-border p-12 text-center glass">
+          <div className="border border-border p-12 text-center glass rounded-2xl">
             <MessageSquare className="w-8 h-8 text-muted-foreground mx-auto mb-4" />
-            <h2 className="text-sm font-bold uppercase tracking-widest mb-2">Zero Signal</h2>
-            <p className="text-xs text-muted-foreground">Establish bridges via the Builder Feed to initiate threads.</p>
+            <h2 className="text-sm font-bold uppercase tracking-widest mb-2">No messages yet</h2>
+            <p className="text-xs text-muted-foreground">Browse the Founders Feed to start a conversation.</p>
           </div>
         ) : (
-          <div className="space-y-1 bg-border border border-border">
+          <div className="space-y-4">
             {messages.map((msg) => (
-              <div key={msg.id} className="bg-background p-6">
+              <div key={msg.id} className="glass p-6 rounded-xl border border-border">
                 <div className="flex justify-between items-start mb-4">
                   <div className="flex gap-4 items-center">
-                    <span className="text-[10px] uppercase font-black text-accent tracking-tighter">Connection established</span>
+                    <span className="text-[10px] uppercase font-black text-accent tracking-tighter">Connection Active</span>
                     <span className="text-[10px] uppercase font-mono text-muted-foreground">
                       {new Date(msg.timestamp).toLocaleTimeString()}
                     </span>
@@ -47,7 +47,7 @@ export default function MessagesPage() {
                     <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">To:</span>
                     <span className="text-xs font-medium">{msg.to}</span>
                   </div>
-                  <div className="mt-4 p-4 bg-muted/5 border border-border font-mono text-xs leading-relaxed text-foreground/90">
+                  <div className="mt-4 p-4 bg-muted/5 border border-border font-mono text-xs leading-relaxed text-foreground/90 rounded-lg">
                     {msg.content}
                   </div>
                 </div>

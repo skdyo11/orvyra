@@ -22,17 +22,17 @@ export function BuilderFeed() {
 
   const handleConnect = (builder: any) => {
     if (!userProfile) {
-      toast({ variant: "destructive", title: "Access denied.", description: "Initialize your profile via Lightning Intake first." });
+      toast({ variant: "destructive", title: "Hold on!", description: "Join the network first to send messages." });
       return;
     }
     
     sendMessage({
       from: userProfile.name,
       to: builder.name,
-      content: `Bridge request: ${userProfile.name} (${userProfile.role.replace('-', ' ')}) is building ${userProfile.tagline}. Let's discuss collaboration.`
+      content: `Hey, I'm ${userProfile.name}. I'm building ${userProfile.tagline} and wanted to connect!`
     });
     
-    toast({ title: "Bridge established.", description: `Connection thread initiated with ${builder.name}.` });
+    toast({ title: "Message sent!", description: `We've started a chat with ${builder.name}.` });
   };
 
   const getRoleColor = (role: StartupRole) => {
@@ -49,14 +49,14 @@ export function BuilderFeed() {
   return (
     <div className="w-full max-w-4xl mx-auto px-6 pb-20">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4 border-b border-border pb-4">
-        <h2 className="text-sm font-medium uppercase tracking-widest text-muted-foreground">Community Signals</h2>
+        <h2 className="text-sm font-medium uppercase tracking-widest text-muted-foreground">Founders Feed</h2>
         
         <div className="flex flex-wrap gap-2">
           {(['all', 'tech-founder', 'sales-founder', 'investor', 'visionary', 'advisor'] as const).map((f) => (
             <button
               key={f}
               onClick={() => setRoleFilter(f)}
-              className={`text-[10px] uppercase tracking-tighter px-2 py-1 border transition-colors ${
+              className={`text-[10px] uppercase tracking-tighter px-2 py-1 border rounded-lg transition-colors ${
                 roleFilter === f ? 'bg-primary text-primary-foreground border-primary' : 'border-border text-muted-foreground hover:border-accent'
               }`}
             >
@@ -66,24 +66,24 @@ export function BuilderFeed() {
         </div>
       </div>
 
-      <div className="space-y-px bg-border">
+      <div className="space-y-px bg-border rounded-xl overflow-hidden border border-border">
         {filteredBuilders.map((builder, i) => (
-          <div key={i} className="bg-background p-6 group transition-all duration-150 border-x border-border hover:bg-muted/10">
+          <div key={i} className="bg-background p-6 group transition-all duration-150 hover:bg-muted/10">
             <div className="flex flex-col sm:flex-row justify-between gap-4">
               <div className="space-y-2 flex-1">
                 <div className="flex items-center gap-3">
                   <h3 className="text-lg font-medium tracking-tight text-foreground">{builder.name}</h3>
-                  <Badge className={`${getRoleColor(builder.role as StartupRole)} rounded-none text-[10px] uppercase font-bold px-1.5 py-0`}>
+                  <Badge className={`${getRoleColor(builder.role as StartupRole)} rounded-lg text-[10px] uppercase font-bold px-1.5 py-0`}>
                     {builder.role?.replace('-', ' ')}
                   </Badge>
-                  {builder.seekingCoFounder && <Badge className="bg-primary/5 text-muted-foreground border-border rounded-none text-[9px] uppercase font-bold px-1 py-0">Looking for Co-founder</Badge>}
+                  {builder.seekingCoFounder && <Badge className="bg-primary/5 text-muted-foreground border-border rounded-lg text-[9px] uppercase font-bold px-1 py-0">Looking for Co-founder</Badge>}
                 </div>
                 <p className="text-sm text-foreground/90 font-medium leading-relaxed">{builder.tagline}</p>
                 <p className="text-xs text-muted-foreground line-clamp-2 max-w-2xl font-mono">{builder.experienceSummary}</p>
                 
                 <div className="flex flex-wrap gap-2 pt-2">
                   {builder.skills.map((skill: string, idx: number) => (
-                    <span key={idx} className="text-[10px] px-1.5 py-0.5 border border-border bg-muted/5 text-muted-foreground uppercase tracking-tight">
+                    <span key={idx} className="text-[10px] px-1.5 py-0.5 border border-border bg-muted/5 text-muted-foreground uppercase tracking-tight rounded-md">
                       {skill}
                     </span>
                   ))}
@@ -95,14 +95,14 @@ export function BuilderFeed() {
                   variant="outline" 
                   size="sm" 
                   onClick={() => handleConnect(builder)}
-                  className="border-border hover:border-accent hover:bg-accent/5 gap-2 px-4 h-9 group-hover:border-accent"
+                  className="border-border hover:border-accent hover:bg-accent/5 gap-2 px-4 h-9 rounded-lg"
                 >
                   <MessageSquare className="w-3 h-3" />
-                  <span className="text-xs uppercase tracking-wider font-bold">Bridge</span>
+                  <span className="text-xs uppercase tracking-wider font-bold">Chat</span>
                 </Button>
                 {builder.linkedInProfileUrl && (
                   <a href={builder.linkedInProfileUrl} target="_blank" rel="noopener noreferrer">
-                    <Button variant="ghost" size="icon" className="h-9 w-9 border border-transparent hover:border-border">
+                    <Button variant="ghost" size="icon" className="h-9 w-9 border border-transparent hover:border-border rounded-lg">
                       <ExternalLink className="w-3 h-3 text-muted-foreground" />
                     </Button>
                   </a>

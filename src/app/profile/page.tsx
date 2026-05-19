@@ -21,12 +21,12 @@ export default function ProfilePage() {
         <div className="max-w-4xl mx-auto px-6 pt-20 text-center">
           <div className="border border-border p-12 glass rounded-2xl">
             <User className="w-8 h-8 text-muted-foreground mx-auto mb-4" />
-            <h2 className="text-sm font-bold uppercase tracking-widest mb-2">Protocol Uninitialized</h2>
-            <p className="text-xs text-muted-foreground mb-8">Establish your builder identity via the Lightning Intake on the home page.</p>
+            <h2 className="text-sm font-bold uppercase tracking-widest mb-2">No Profile Found</h2>
+            <p className="text-xs text-muted-foreground mb-8">You need to join the network on the home page first.</p>
             <Link href="/">
               <Button variant="outline" className="border-border uppercase tracking-widest text-[10px] font-bold h-10 px-6 rounded-lg">
                 <ArrowLeft className="w-3 h-3 mr-2" />
-                Return to Intake
+                Back to Home
               </Button>
             </Link>
           </div>
@@ -37,7 +37,7 @@ export default function ProfilePage() {
 
   const handleRoleChange = (role: StartupRole) => {
     updateUserProfile({ role });
-    toast({ title: "Profile Updated", description: `Primary role re-categorized as ${role.replace('-', ' ')}.` });
+    toast({ title: "Role Updated", description: `You're now listed as a ${role.replace('-', ' ')}.` });
   };
 
   return (
@@ -46,14 +46,14 @@ export default function ProfilePage() {
       <div className="max-w-4xl mx-auto px-6 pt-20 pb-32">
         <div className="flex items-center justify-between mb-12">
           <div className="flex items-center gap-4">
-            <div className="w-16 h-16 bg-accent/10 border border-accent/20 flex items-center justify-center rounded-2xl">
+            <div className="w-16 h-16 bg-accent/10 border border-accent/20 flex items-center justify-center rounded-lg">
               <User className="w-8 h-8 text-accent" />
             </div>
             <div>
               <h1 className="text-3xl font-black tracking-tighter uppercase">{userProfile.name}</h1>
               <div className="flex items-center gap-2 text-[10px] text-muted-foreground font-mono uppercase tracking-widest">
                 <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                Identity Verified // Protocol Active
+                Member Active
               </div>
             </div>
           </div>
@@ -61,7 +61,7 @@ export default function ProfilePage() {
           <Link href="/admin">
             <Button variant="ghost" size="sm" className="text-[10px] uppercase tracking-widest text-muted-foreground hover:text-accent group rounded-lg">
               <Terminal className="w-3 h-3 mr-2 group-hover:scale-110 transition-transform" />
-              Command Center
+              Admin Portal
             </Button>
           </Link>
         </div>
@@ -71,28 +71,28 @@ export default function ProfilePage() {
             <section className="space-y-4">
               <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-accent flex items-center gap-2">
                 <Tag className="w-3.5 h-3.5" />
-                Primary Role
+                Your Main Role
               </h2>
               <Select value={userProfile.role} onValueChange={handleRoleChange}>
                 <SelectTrigger className="w-full h-12 bg-transparent border-border focus:ring-0 rounded-lg">
-                  <SelectValue placeholder="Select your role" />
+                  <SelectValue placeholder="What's your role?" />
                 </SelectTrigger>
                 <SelectContent className="bg-background border-border rounded-lg">
-                  <SelectItem value="tech-founder">Tech Founder (Engineering Focus)</SelectItem>
-                  <SelectItem value="sales-founder">Sales Founder (GTM & Growth)</SelectItem>
+                  <SelectItem value="tech-founder">Tech Founder (Building the product)</SelectItem>
+                  <SelectItem value="sales-founder">Sales Founder (Finding customers)</SelectItem>
                   <SelectItem value="product-founder">Product Founder (Design & UX)</SelectItem>
-                  <SelectItem value="investor">Investor (VC or Angel)</SelectItem>
-                  <SelectItem value="visionary">Visionary (Idea Stage)</SelectItem>
-                  <SelectItem value="advisor">Advisor (Expertise & Network)</SelectItem>
+                  <SelectItem value="investor">Investor (Looking for startups)</SelectItem>
+                  <SelectItem value="visionary">Visionary (Have an idea)</SelectItem>
+                  <SelectItem value="advisor">Advisor (Expert help)</SelectItem>
                 </SelectContent>
               </Select>
-              <p className="text-[10px] text-muted-foreground font-mono uppercase">Changing your role updates how you appear in the signal feed.</p>
+              <p className="text-[10px] text-muted-foreground font-mono uppercase">Changing this updates how you appear in the feed.</p>
             </section>
 
             <section className="space-y-4">
               <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-accent flex items-center gap-2">
                 <Briefcase className="w-3.5 h-3.5" />
-                Experience Signal
+                Your Story
               </h2>
               <div className="border border-border p-6 glass font-mono text-xs leading-relaxed rounded-xl">
                 {userProfile.experienceSummary}
@@ -102,7 +102,7 @@ export default function ProfilePage() {
             <section className="space-y-4">
               <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-accent flex items-center gap-2">
                 <ShieldCheck className="w-3.5 h-3.5" />
-                Skills Vault
+                Top Skills
               </h2>
               <div className="flex flex-wrap gap-2">
                 {userProfile.skills.map((skill, idx) => (
@@ -116,11 +116,11 @@ export default function ProfilePage() {
 
           <div className="space-y-8">
             <section className="border border-border p-6 glass space-y-4 rounded-xl">
-              <h2 className="text-sm font-bold uppercase tracking-widest border-b border-border pb-2">Status</h2>
+              <h2 className="text-sm font-bold uppercase tracking-widest border-b border-border pb-2">Settings</h2>
               <div className="space-y-2">
                 <div className="flex justify-between items-center text-[10px] uppercase font-bold tracking-tighter">
-                  <span className="text-muted-foreground">Matchmaking</span>
-                  <span className="text-accent">Enabled</span>
+                  <span className="text-muted-foreground">Matching</span>
+                  <span className="text-accent">On</span>
                 </div>
                 <div className="flex justify-between items-center text-[10px] uppercase font-bold tracking-tighter">
                   <span className="text-muted-foreground">Visibility</span>
@@ -130,14 +130,14 @@ export default function ProfilePage() {
             </section>
 
             <section className="border border-border p-6 glass space-y-4 rounded-xl">
-              <h2 className="text-sm font-bold uppercase tracking-widest border-b border-border pb-2">External Links</h2>
+              <h2 className="text-sm font-bold uppercase tracking-widest border-b border-border pb-2">Links</h2>
               {userProfile.linkedInProfileUrl ? (
                 <a href={userProfile.linkedInProfileUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-xs text-muted-foreground hover:text-accent transition-colors font-mono">
                   <Mail className="w-3 h-3" />
-                  LINKEDIN PROFILE
+                  LINKEDIN
                 </a>
               ) : (
-                <p className="text-[10px] text-muted-foreground italic font-mono uppercase tracking-tight">No external signals linked.</p>
+                <p className="text-[10px] text-muted-foreground italic font-mono uppercase tracking-tight">No links added.</p>
               )}
             </section>
           </div>
