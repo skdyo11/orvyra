@@ -4,10 +4,11 @@ import { useState } from 'react';
 import { useStore } from '@/lib/store';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { MessageSquare, ExternalLink, Filter, Search, X } from 'lucide-react';
+import { MessageSquare, ExternalLink, Filter, Search, X, User } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { type StartupRole } from '@/ai/schemas';
 import { Input } from '@/components/ui/input';
+import Link from 'next/link';
 
 type FilterType = 'all' | StartupRole | 'seeking-cofounder';
 
@@ -21,14 +22,12 @@ export function BuilderFeed() {
   const [searchQuery, setSearchQuery] = useState('');
 
   const filteredBuilders = builders.filter(b => {
-    // Role/Status filter
     const matchesRole = activeFilter === 'all' 
       ? true 
       : activeFilter === 'seeking-cofounder' 
         ? b.seekingCoFounder 
         : b.role === activeFilter;
 
-    // Search query filter (Name, Tagline, or Skills)
     const matchesSearch = searchQuery === '' 
       ? true 
       : b.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
@@ -63,6 +62,8 @@ export function BuilderFeed() {
       default: return 'bg-primary/10 text-primary border-primary/20';
     }
   };
+
+  const getSlug = (name: string) => name.toLowerCase().replace(/\s+/g, '-');
 
   return (
     <div className="w-full max-w-4xl mx-auto px-6 pb-20">
@@ -111,11 +112,24 @@ export function BuilderFeed() {
 
       <div className="grid gap-6">
         {filteredBuilders.map((builder, i) => (
-          <div key={i} className="glass p-8 group transition-all duration-300 hover:border-accent/40 hover:translate-y-[-2px] rounded-2xl">
-            <div className="flex flex-col sm:flex-row justify-between gap-6">
+          <div key={i} className="glass p-8 group transition-all duration-300 hover:border-accent/40 hover:translate-y-[-2px] rounded-2xl relative overflow-hidden">
+             {/* Background Decoration */}
+             <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 -mr-16 -mt-16 rounded-full blur-2xl group-hover:bg-accent/10 transition-colors"></div>
+
+            <div className="flex flex-col sm:flex-row justify-between gap-6 relative z-10">
               <div className="space-y-4 flex-1">
                 <div className="flex flex-wrap items-center gap-3">
-                  <h3 className="text-xl font-bold tracking-tighter text-foreground">{builder.name}</h3>
+                  <Link 
+                    href={`/profiles/${getSlug(builder.name)}`}
+                    className="group/name flex items-center gap-2"
+                  >
+                    <div className="w-8 h-8 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center group-hover/name:bg-accent group-hover/name:border-accent transition-colors">
+                      <User className="w-4 h-4 text-accent group-hover/name:text-white" />
+                    </div>
+                    <h3 className="text-xl font-bold tracking-tighter text-foreground group-hover/name:text-accent transition-colors">
+                      {builder.name}
+                    </h3>
+                  </Link>
                   <Badge className={`${getRoleColor(builder.role as StartupRole)} rounded-md text-[9px] uppercase font-black tracking-widest px-2 py-0.5 border`}>
                     {builder.role?.replace('-', ' ')}
                   </Badge>
@@ -126,9 +140,13 @@ export function BuilderFeed() {
                   )}
                 </div>
                 
-                <div className="space-y-1">
-                  <p className="text-base text-foreground/90 font-bold leading-tight uppercase tracking-tight">{builder.tagline}</p>
-                  <p className="text-[11px] text-muted-foreground font-mono leading-relaxed max-w-2xl">{builder.experienceSummary}</p>
+                <div className="space-y-2">
+                  <p className="text-base text-foreground/90 font-bold leading-tight uppercase tracking-tight">
+                    {builder.tagline}
+                  </p>
+                  <p className="text-[11px] text-muted-foreground font-mono leading-relaxed max-w-2xl">
+                    {builder.experienceSummary}
+                  </p>
                 </div>
                 
                 <div className="flex flex-wrap gap-2 pt-2">
@@ -140,7 +158,7 @@ export function BuilderFeed() {
                 </div>
               </div>
 
-              <div className="flex items-start gap-2">
+              <div className="flex items-start gap-2 shrink-0">
                 <Button 
                   onClick={() => handleConnect(builder)}
                   className="bg-accent hover:bg-accent/90 text-white font-black uppercase tracking-widest text-[10px] gap-2 px-6 h-11 rounded-xl transition-all shadow-lg shadow-accent/20"
@@ -148,13 +166,11 @@ export function BuilderFeed() {
                   <MessageSquare className="w-3.5 h-3.5" />
                   Chat
                 </Button>
-                {builder.linkedInProfileUrl && (
-                  <a href={builder.linkedInProfileUrl} target="_blank" rel="noopener noreferrer">
-                    <Button variant="outline" size="icon" className="h-11 w-11 border-border hover:border-accent rounded-xl group/link">
-                      <ExternalLink className="w-3.5 h-3.5 text-muted-foreground group-hover/link:text-accent" />
-                    </Button>
-                  </a>
-                )}
+                <Link href={`/profiles/${getSlug(builder.name)}`}>
+                  <Button variant="outline" size="icon" className="h-11 w-11 border-border hover:border-accent rounded-xl group/link">
+                    <ExternalLink className="w-3.5 h-3.5 text-muted-foreground group-hover/link:text-accent" />
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
