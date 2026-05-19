@@ -97,8 +97,9 @@ export default function ProfilePage() {
       <Navbar />
       <div className="max-w-4xl mx-auto px-6 pt-12 pb-32">
         
-        {/* Profile Header */}
+        {/* Profile Header Card */}
         <div className="relative isolate mb-16">
+          {/* Cover Photo */}
           <div className="w-full h-48 md:h-64 lg:h-80 rounded-3xl overflow-hidden relative shadow-2xl group">
             <img
               src={`https://picsum.photos/seed/${userProfile.name}/1600/400`}
@@ -107,6 +108,7 @@ export default function ProfilePage() {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
             
+            {/* Change Cover Action */}
             {isOwnProfile && (
               <Button
                 size="sm"
@@ -123,6 +125,7 @@ export default function ProfilePage() {
             )}
           </div>
 
+          {/* Profile Info Overlay - Left Aligned */}
           <div className="px-8 -mt-20 relative z-10 flex flex-col md:flex-row items-start md:items-end justify-start gap-6 pb-4">
             <div className="relative group">
               <div className="h-32 w-32 md:h-40 md:w-40 rounded-3xl border-[6px] border-background bg-card overflow-hidden shadow-2xl ring-4 ring-accent/20">
@@ -157,7 +160,7 @@ export default function ProfilePage() {
                 </div>
                 
                 <Link href="/admin">
-                  <Button variant="ghost" size="sm" className="text-[10px] uppercase tracking-widest text-muted-foreground hover:text-accent group rounded-lg">
+                  <Button variant="ghost" size="sm" className="text-[10px] uppercase tracking-widest text-muted-foreground group rounded-lg">
                     <Shield className="w-3.5 h-3.5 mr-2 group-hover:scale-110 transition-transform" />
                     Admin Portal
                   </Button>
@@ -174,20 +177,22 @@ export default function ProfilePage() {
                 <Tag className="w-3.5 h-3.5" />
                 Your Main Role
               </h2>
-              <Select value={userProfile.role} onValueChange={handleRoleChange}>
-                <SelectTrigger className="w-full h-12 bg-transparent border-border focus:ring-0 rounded-lg">
-                  <SelectValue placeholder="What's your role?" />
-                </SelectTrigger>
-                <SelectContent className="bg-background border-border rounded-lg">
-                  <SelectItem value="tech-founder">Tech Founder (Building the product)</SelectItem>
-                  <SelectItem value="sales-founder">Sales Founder (Finding customers)</SelectItem>
-                  <SelectItem value="product-founder">Product Founder (Design & UX)</SelectItem>
-                  <SelectItem value="investor">Investor (Looking for startups)</SelectItem>
-                  <SelectItem value="visionary">Visionary (Have an idea)</SelectItem>
-                  <SelectItem value="advisor">Advisor (Expert help)</SelectItem>
-                </SelectContent>
-              </Select>
-              <p className="text-[10px] text-muted-foreground font-mono uppercase">Changing this updates how you appear in the feed.</p>
+              <div className="grid grid-cols-1 gap-2">
+                <Select value={userProfile.role} onValueChange={handleRoleChange}>
+                  <SelectTrigger className="w-full h-12 bg-transparent border-border focus:ring-0 rounded-lg">
+                    <SelectValue placeholder="What's your role?" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-background border-border rounded-lg">
+                    <SelectItem value="tech-founder">Tech Founder (Building the product)</SelectItem>
+                    <SelectItem value="sales-founder">Sales Founder (Finding customers)</SelectItem>
+                    <SelectItem value="product-founder">Product Founder (Design & UX)</SelectItem>
+                    <SelectItem value="investor">Investor (Looking for startups)</SelectItem>
+                    <SelectItem value="visionary">Visionary (Have an idea)</SelectItem>
+                    <SelectItem value="advisor">Advisor (Expert help)</SelectItem>
+                  </SelectContent>
+                </Select>
+                <p className="text-[10px] text-muted-foreground font-mono uppercase px-1">Changing this updates how you appear in the feed.</p>
+              </div>
             </section>
 
             <section className="space-y-4">
