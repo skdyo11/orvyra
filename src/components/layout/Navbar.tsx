@@ -46,42 +46,46 @@ export function Navbar() {
           </Link>
         </div>
 
-        {/* Center: Learn */}
+        {/* Center: Learn (Visible only when logged in) */}
         <div className="flex justify-center">
-          <Link href="/vault" className="hidden md:block">
-            <Button className="bg-accent hover:bg-accent/90 text-white font-black uppercase tracking-[0.3em] text-[10px] h-10 px-8 rounded-lg shadow-lg shadow-accent/20 transition-all hover:scale-105 active:scale-95">
-              Learn
-            </Button>
-          </Link>
+          {userProfile && (
+            <Link href="/vault" className="hidden md:block">
+              <Button className="bg-accent hover:bg-accent/90 text-white font-black uppercase tracking-[0.3em] text-[10px] h-10 px-8 rounded-lg shadow-lg shadow-accent/20 transition-all hover:scale-105 active:scale-95">
+                Learn
+              </Button>
+            </Link>
+          )}
         </div>
 
         {/* Right: Nav links & Settings */}
         <div className="flex justify-end items-center gap-4 sm:gap-8">
-          <div className="hidden md:flex items-center gap-8">
-            <Link 
-              href="/profiles"
-              className={`text-[10px] uppercase font-black tracking-widest transition-colors ${
-                pathname === '/profiles' ? 'text-accent' : 'text-muted-foreground hover:text-accent'
-              }`}
-            >
-              <span className="flex items-center gap-2">
-                <Users className="w-3.5 h-3.5" />
-                <span>Profiles</span>
-              </span>
-            </Link>
+          {userProfile && (
+            <div className="hidden md:flex items-center gap-8">
+              <Link 
+                href="/profiles"
+                className={`text-[10px] uppercase font-black tracking-widest transition-colors ${
+                  pathname === '/profiles' ? 'text-accent' : 'text-muted-foreground hover:text-accent'
+                }`}
+              >
+                <span className="flex items-center gap-2">
+                  <Users className="w-3.5 h-3.5" />
+                  <span>Profiles</span>
+                </span>
+              </Link>
 
-            <Link 
-              href="/messages"
-              className={`text-[10px] uppercase font-black tracking-widest transition-colors ${
-                pathname === '/messages' ? 'text-accent' : 'text-muted-foreground hover:text-accent'
-              }`}
-            >
-              <span className="flex items-center gap-2">
-                <MessageSquare className="w-3.5 h-3.5" />
-                <span>Chats</span>
-              </span>
-            </Link>
-          </div>
+              <Link 
+                href="/messages"
+                className={`text-[10px] uppercase font-black tracking-widest transition-colors ${
+                  pathname === '/messages' ? 'text-accent' : 'text-muted-foreground hover:text-accent'
+                }`}
+              >
+                <span className="flex items-center gap-2">
+                  <MessageSquare className="w-3.5 h-3.5" />
+                  <span>Chats</span>
+                </span>
+              </Link>
+            </div>
+          )}
 
           <Sheet>
             <SheetTrigger asChild>
