@@ -20,8 +20,9 @@ export function Navbar() {
   const userProfile = useStore((state) => state.userProfile);
 
   useEffect(() => {
-    // Force dark mode for current theme requirements
-    document.documentElement.classList.add('dark');
+    // Sync internal state with the current DOM class
+    const isDark = document.documentElement.classList.contains('dark');
+    setTheme(isDark ? 'dark' : 'light');
   }, []);
 
   const toggleTheme = () => {
