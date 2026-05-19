@@ -129,10 +129,7 @@ function Footer() {
       <div className="max-w-4xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-8">
         <div className="flex flex-col gap-2">
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 bg-primary flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-[10px]">O</span>
-            </div>
-            <span className="text-sm font-black tracking-tighter uppercase">Orvyra</span>
+            <span className="text-sm font-black tracking-[0.3em] uppercase">Orvyra</span>
           </div>
           <p className="text-[10px] text-muted-foreground font-mono uppercase tracking-widest">
             High-frictionless matchmaking for the startup community.

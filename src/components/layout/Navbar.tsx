@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -35,10 +34,7 @@ export function Navbar() {
     <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-border h-16 flex items-center px-6">
       <div className="max-w-7xl mx-auto w-full flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-          <div className="w-6 h-6 bg-primary flex items-center justify-center">
-            <span className="text-primary-foreground font-bold text-xs">O</span>
-          </div>
-          <span className="text-lg font-bold tracking-tighter uppercase">Orvyra</span>
+          <span className="text-lg font-bold tracking-[0.3em] uppercase">Orvyra</span>
         </Link>
 
         <div className="flex items-center gap-4 sm:gap-8">
