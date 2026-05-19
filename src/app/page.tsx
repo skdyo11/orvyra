@@ -132,7 +132,7 @@ export default function Home() {
               
               <div className="bg-muted/5 border border-border p-8 rounded-2xl relative">
                 <p className="text-sm sm:text-base text-foreground/90 leading-relaxed font-medium uppercase tracking-wide text-center sm:text-left">
-                  Selection is based on merit alone — your idea, your execution, your growth during the 3 months. 
+                  Selection is based on merit alone: your idea, your execution, your growth during the 3 months. 
                   <span className="block mt-2 text-accent font-black">No connections. No references. No background checks. Just what you build.</span>
                 </p>
               </div>
@@ -161,7 +161,7 @@ export default function Home() {
               </div>
               <h2 className="text-xl font-bold uppercase tracking-tighter">Startup Blueprints</h2>
               <p className="text-xs text-muted-foreground leading-relaxed font-medium uppercase tracking-wider">
-                Get access to essential guides for scaling your business—from legal templates to engineering roadmaps.
+                Get access to essential guides for scaling your business. From legal templates to engineering roadmaps.
               </p>
             </div>
 
