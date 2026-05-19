@@ -146,7 +146,7 @@ export default function ProfilePage() {
                 <div className="text-left">
                   <h1 className="text-3xl font-black tracking-tighter uppercase">{userProfile.name}</h1>
                   <div className="mt-1">
-                    <span className="text-[9px] px-2 py-0.5 border border-muted-foreground/20 bg-muted/20 text-muted-foreground uppercase font-black tracking-widest rounded-md">
+                    <span className="text-[10px] px-3 py-1 border border-muted-foreground/20 bg-muted/20 text-muted-foreground uppercase font-black tracking-widest rounded-md">
                       {userProfile.role?.replace('-', ' ')}
                     </span>
                   </div>
