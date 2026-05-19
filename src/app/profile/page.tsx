@@ -2,7 +2,7 @@
 
 import { Navbar } from '@/components/layout/Navbar';
 import { useStore } from '@/lib/store';
-import { User, ShieldCheck, Tag, Briefcase, Mail, ArrowLeft, Terminal } from 'lucide-react';
+import { User, ShieldCheck, Tag, Briefcase, Mail, ArrowLeft, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { type StartupRole } from '@/ai/schemas';
@@ -60,7 +60,7 @@ export default function ProfilePage() {
           
           <Link href="/admin">
             <Button variant="ghost" size="sm" className="text-[10px] uppercase tracking-widest text-muted-foreground hover:text-accent group rounded-lg">
-              <Terminal className="w-3 h-3 mr-2 group-hover:scale-110 transition-transform" />
+              <Shield className="w-3 h-3 mr-2 group-hover:scale-110 transition-transform" />
               Admin Portal
             </Button>
           </Link>

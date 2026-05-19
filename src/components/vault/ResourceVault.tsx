@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { CheckSquare, Square, Terminal } from 'lucide-react';
+import { CheckSquare, Square, Zap } from 'lucide-react';
 import { Progress } from '@/components/ui/progress';
 
 interface Module {
@@ -62,7 +62,7 @@ export function ResourceVault() {
       <header className="space-y-4">
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-medium tracking-tighter flex items-center gap-2">
-            <Terminal className="w-5 h-5 text-accent" />
+            <Zap className="w-5 h-5 text-accent" />
             Action Plans
           </h2>
           <span className="text-[10px] font-mono text-muted-foreground">{completedTasks}/{totalTasks} DONE</span>

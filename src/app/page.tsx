@@ -3,7 +3,7 @@
 import { Navbar } from '@/components/layout/Navbar';
 import { LightningIntake } from '@/components/intake/LightningIntake';
 import { useStore } from '@/lib/store';
-import { Zap, Layers, ShieldCheck, ArrowRight, Terminal, Network } from 'lucide-react';
+import { Zap, Layers, ShieldCheck, ArrowRight, MessageSquare, Network } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function Home() {
@@ -96,7 +96,7 @@ export default function Home() {
 
             <div className="space-y-4">
               <div className="w-10 h-10 bg-primary/10 border border-primary/20 flex items-center justify-center rounded-lg">
-                <Terminal className="w-5 h-5 text-primary" />
+                <MessageSquare className="w-5 h-5 text-primary" />
               </div>
               <h2 className="text-xl font-bold uppercase tracking-tighter">Direct Chat</h2>
               <p className="text-xs text-muted-foreground leading-relaxed font-medium uppercase tracking-wider">
