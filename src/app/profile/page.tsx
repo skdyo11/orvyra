@@ -3,19 +3,32 @@
 import { useState } from 'react';
 import { Navbar } from '@/components/layout/Navbar';
 import { useStore } from '@/lib/store';
-import { User, ShieldCheck, Tag, Briefcase, Mail, ArrowLeft, Shield, Camera } from 'lucide-react';
+import { User, ShieldCheck, Tag, Briefcase, Mail, ArrowLeft, Shield, Camera, Plus, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { type StartupRole } from '@/ai/schemas';
 import { useToast } from '@/hooks/use-toast';
 import Link from 'next/link';
+import { cn } from '@/lib/utils';
+
+const SUGGESTED_SKILLS = [
+  'Software Dev',
+  'Sales & Growth',
+  'Content & Media',
+  'UI/UX Design',
+  'Product Strategy',
+  'Fundraising',
+  'Operations',
+  'Hardware Eng',
+  'Marketing',
+  'Legal & IP'
+];
 
 export default function ProfilePage() {
   const userProfile = useStore((state) => state.userProfile);
   const updateUserProfile = useStore((state) => state.updateUserProfile);
   const { toast } = useToast();
 
-  // States for the new header actions
   const [isCoverModalOpen, setIsCoverModalOpen] = useState(false);
   const [isAvatarModalOpen, setIsAvatarModalOpen] = useState(false);
   const [bannerOptions, setBannerOptions] = useState<string[]>([]);
@@ -47,19 +60,33 @@ export default function ProfilePage() {
     toast({ title: "Role Updated", description: `You're now listed as a ${role.replace('-', ' ')}.` });
   };
 
+  const toggleSkill = (skill: string) => {
+    const currentSkills = userProfile.skills || [];
+    const isSelected = currentSkills.includes(skill);
+    
+    const newSkills = isSelected
+      ? currentSkills.filter(s => s !== skill)
+      : [...currentSkills, skill];
+    
+    updateUserProfile({ skills: newSkills });
+    
+    toast({ 
+      title: isSelected ? "Skill Removed" : "Skill Added", 
+      description: `${skill} has been ${isSelected ? 'removed from' : 'added to'} your profile.` 
+    });
+  };
+
   const generateBanners = () => {
     toast({ title: "Banner Generation", description: "Generating new cover options for your profile..." });
-    // Mocking generation
     setBannerOptions(['1', '2', '3']);
   };
 
   const generateAvatars = () => {
     toast({ title: "Avatar Generation", description: "Generating new avatar options for your profile..." });
-    // Mocking generation
     setAvatarOptions(['1', '2', '3']);
   };
 
-  const isOwnProfile = true; // On this page it's always the user's own profile
+  const isOwnProfile = true;
   const userId = userProfile.name.toLowerCase().replace(/\s+/g, '-');
 
   return (
@@ -67,9 +94,7 @@ export default function ProfilePage() {
       <Navbar />
       <div className="max-w-4xl mx-auto px-6 pt-12 pb-32">
         
-        {/* Profile Header Card */}
         <div className="relative isolate mb-16">
-          {/* Cover Photo */}
           <div className="w-full h-48 md:h-64 lg:h-80 rounded-3xl overflow-hidden relative shadow-2xl group">
             <img
               src={`https://picsum.photos/seed/${userProfile.name}/1600/400`}
@@ -78,7 +103,6 @@ export default function ProfilePage() {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
             
-            {/* Change Cover Action */}
             {isOwnProfile && (
               <Button
                 size="sm"
@@ -95,7 +119,6 @@ export default function ProfilePage() {
             )}
           </div>
 
-          {/* Profile Info Overlay - Left Aligned */}
           <div className="px-8 -mt-20 relative z-10 flex flex-col md:flex-row items-start md:items-end justify-start gap-6 pb-4">
             <div className="relative group">
               <div className="h-32 w-32 md:h-40 md:w-40 rounded-3xl border-[6px] border-background bg-card overflow-hidden shadow-2xl ring-4 ring-accent/20">
@@ -140,7 +163,7 @@ export default function ProfilePage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="md:col-span-2 space-y-8">
+          <div className="md:col-span-2 space-y-12">
             <section className="space-y-4">
               <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-accent flex items-center gap-2">
                 <Tag className="w-3.5 h-3.5" />
@@ -172,18 +195,53 @@ export default function ProfilePage() {
               </div>
             </section>
 
-            <section className="space-y-4">
-              <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-accent flex items-center gap-2">
-                <ShieldCheck className="w-3.5 h-3.5" />
-                Top Skills
-              </h2>
-              <div className="flex flex-wrap gap-2">
-                {userProfile.skills.map((skill, idx) => (
-                  <span key={idx} className="text-[10px] px-3 py-1.5 border border-border bg-muted/5 text-muted-foreground uppercase tracking-widest font-bold rounded-lg">
-                    {skill}
-                  </span>
-                ))}
+            <section className="space-y-6">
+              <div className="flex items-center justify-between border-b border-border pb-4">
+                <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-accent flex items-center gap-2">
+                  <ShieldCheck className="w-3.5 h-3.5" />
+                  Skill Matrix
+                </h2>
+                <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest">
+                  {userProfile.skills.length} Selected
+                </span>
               </div>
+
+              <div className="space-y-4">
+                <p className="text-[10px] text-muted-foreground uppercase font-bold tracking-widest">Select your core strengths:</p>
+                <div className="flex flex-wrap gap-2">
+                  {SUGGESTED_SKILLS.map((skill) => {
+                    const isSelected = userProfile.skills.includes(skill);
+                    return (
+                      <button
+                        key={skill}
+                        onClick={() => toggleSkill(skill)}
+                        className={cn(
+                          "group relative flex items-center gap-2 px-4 py-2 text-[10px] uppercase font-black tracking-widest border transition-all duration-200 rounded-lg",
+                          isSelected 
+                            ? "bg-accent border-accent text-white shadow-lg shadow-accent/20" 
+                            : "bg-card border-border text-muted-foreground hover:border-accent hover:text-accent"
+                        )}
+                      >
+                        {isSelected ? <Check className="w-3 h-3" /> : <Plus className="w-3 h-3 text-muted-foreground group-hover:text-accent" />}
+                        {skill}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {userProfile.skills.length > 0 && (
+                <div className="pt-4">
+                  <p className="text-[10px] text-muted-foreground uppercase font-bold tracking-widest mb-3">Currently Showcasing:</p>
+                  <div className="flex flex-wrap gap-2">
+                    {userProfile.skills.map((skill, idx) => (
+                      <span key={idx} className="text-[10px] px-3 py-1.5 border border-border bg-muted/5 text-muted-foreground uppercase tracking-widest font-bold rounded-lg animate-in fade-in zoom-in duration-300">
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
             </section>
           </div>
 
