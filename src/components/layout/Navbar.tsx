@@ -45,8 +45,17 @@ export function Navbar() {
           </Link>
         </div>
 
-        {/* Center: Learn (Anchor) and Navigation */}
-        <div className="flex items-center justify-center gap-4 sm:gap-8">
+        {/* Center: Learn (Anchor) */}
+        <div className="flex items-center justify-center">
+          <Link href="/vault">
+            <Button className="bg-accent hover:bg-accent/90 text-white font-black uppercase tracking-[0.3em] text-[10px] h-10 px-8 rounded-lg shadow-lg shadow-accent/20 transition-all hover:scale-105 active:scale-95">
+              Learn
+            </Button>
+          </Link>
+        </div>
+
+        {/* Right: Navigation & Profile/Settings */}
+        <div className="flex items-center justify-end gap-6 sm:gap-8">
           <Link 
             href="/profiles"
             className={`text-[10px] uppercase font-black tracking-widest transition-colors ${
@@ -57,12 +66,6 @@ export function Navbar() {
               <Users className="w-3.5 h-3.5" />
               <span className="hidden md:inline">Profiles</span>
             </span>
-          </Link>
-
-          <Link href="/vault">
-            <Button className="bg-accent hover:bg-accent/90 text-white font-black uppercase tracking-[0.3em] text-[10px] h-10 px-8 rounded-lg shadow-lg shadow-accent/20 transition-all hover:scale-105 active:scale-95">
-              Learn
-            </Button>
           </Link>
 
           <Link 
@@ -76,10 +79,7 @@ export function Navbar() {
               <span className="hidden md:inline">Chats</span>
             </span>
           </Link>
-        </div>
 
-        {/* Right: Profile/Settings Slide-out */}
-        <div className="flex items-center justify-end">
           <Sheet>
             <SheetTrigger asChild>
               <button className="flex items-center gap-2 text-[10px] uppercase font-black tracking-[0.2em] text-muted-foreground hover:text-foreground transition-colors group">
