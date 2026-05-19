@@ -1,3 +1,4 @@
+
 'use client';
 
 import { create } from 'zustand';
@@ -16,7 +17,7 @@ interface AppState {
   userProfile: FounderProfileGenerationOutput | null;
   builders: FounderProfileGenerationOutput[];
   messages: Message[];
-  setUserProfile: (profile: FounderProfileGenerationOutput) => void;
+  setUserProfile: (profile: FounderProfileGenerationOutput | null) => void;
   updateUserProfile: (updates: Partial<FounderProfileGenerationOutput>) => void;
   addBuilder: (builder: FounderProfileGenerationOutput) => void;
   sendMessage: (msg: Omit<Message, 'id' | 'timestamp'>) => void;

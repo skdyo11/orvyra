@@ -36,12 +36,13 @@ export function Navbar() {
           name: user.displayName || 'Member',
           role: 'visionary',
           tagline: 'Aspiring Founder',
-          experienceSummary: 'Joined the Orvyra network.',
+          experienceSummary: 'Member of the Orvyra network.',
           skills: [],
           seekingCoFounder: false,
           seekingMentorship: false,
-          ideaValidation: false
-        });
+          ideaValidation: false,
+          linkedInProfileUrl: ''
+        } as any);
       }
     });
     return () => unsubscribe();
@@ -71,11 +72,10 @@ export function Navbar() {
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      // We keep the store profile for now, or you could clear it: 
-      // setUserProfile(null); 
+      setUserProfile(null);
       toast({ title: "Logged out", description: "See you soon!" });
     } catch (error) {
-      console.error(error);
+      toast({ variant: "destructive", title: "Error", description: "Failed to logout properly." });
     }
   };
 
