@@ -4,9 +4,10 @@ import { useState } from 'react';
 import { useStore } from '@/lib/store';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { MessageSquare, ExternalLink, Filter } from 'lucide-react';
+import { MessageSquare, ExternalLink, Filter, Search, X } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { type StartupRole } from '@/ai/schemas';
+import { Input } from '@/components/ui/input';
 
 type FilterType = 'all' | StartupRole | 'seeking-cofounder';
 
@@ -15,12 +16,26 @@ export function BuilderFeed() {
   const userProfile = useStore((state) => state.userProfile);
   const sendMessage = useStore((state) => state.sendMessage);
   const { toast } = useToast();
+  
   const [activeFilter, setActiveFilter] = useState<FilterType>('all');
+  const [searchQuery, setSearchQuery] = useState('');
 
   const filteredBuilders = builders.filter(b => {
-    if (activeFilter === 'all') return true;
-    if (activeFilter === 'seeking-cofounder') return b.seekingCoFounder;
-    return b.role === activeFilter;
+    // Role/Status filter
+    const matchesRole = activeFilter === 'all' 
+      ? true 
+      : activeFilter === 'seeking-cofounder' 
+        ? b.seekingCoFounder 
+        : b.role === activeFilter;
+
+    // Search query filter (Name, Tagline, or Skills)
+    const matchesSearch = searchQuery === '' 
+      ? true 
+      : b.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+        b.tagline.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        b.skills.some(s => s.toLowerCase().includes(searchQuery.toLowerCase()));
+
+    return matchesRole && matchesSearch;
   });
 
   const handleConnect = (builder: any) => {
@@ -51,10 +66,30 @@ export function BuilderFeed() {
 
   return (
     <div className="w-full max-w-4xl mx-auto px-6 pb-20">
-      <div className="flex flex-col gap-6 mb-12 border-b border-border pb-6">
-        <div className="flex items-center gap-2">
-          <Filter className="w-4 h-4 text-accent" />
-          <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-muted-foreground">Filters</h2>
+      <div className="flex flex-col gap-8 mb-12 border-b border-border pb-10">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="flex items-center gap-2">
+            <Filter className="w-4 h-4 text-accent" />
+            <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-muted-foreground">Network Filters</h2>
+          </div>
+          
+          <div className="relative w-full md:w-80 group">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-accent transition-colors" />
+            <Input 
+              placeholder="SEARCH BY NAME, ROLE OR SKILL..." 
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-10 h-10 text-[10px] uppercase font-black tracking-widest border-border bg-card/40 focus:bg-card transition-colors rounded-xl"
+            />
+            {searchQuery && (
+              <button 
+                onClick={() => setSearchQuery('')}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-accent transition-colors"
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
+            )}
+          </div>
         </div>
         
         <div className="flex flex-wrap gap-2">
@@ -62,7 +97,7 @@ export function BuilderFeed() {
             <button
               key={f}
               onClick={() => setActiveFilter(f)}
-              className={`text-[10px] uppercase font-black tracking-widest px-4 py-2 border rounded-lg transition-all duration-200 ${
+              className={`text-[9px] uppercase font-black tracking-widest px-4 py-2 border rounded-lg transition-all duration-200 ${
                 activeFilter === f 
                   ? 'bg-accent text-white border-accent shadow-lg shadow-accent/20' 
                   : 'bg-card border-border text-muted-foreground hover:border-accent hover:text-accent'
@@ -74,9 +109,9 @@ export function BuilderFeed() {
         </div>
       </div>
 
-      <div className="grid gap-4">
+      <div className="grid gap-6">
         {filteredBuilders.map((builder, i) => (
-          <div key={i} className="glass p-8 group transition-all duration-300 hover:border-accent/50 hover:translate-y-[-2px]">
+          <div key={i} className="glass p-8 group transition-all duration-300 hover:border-accent/40 hover:translate-y-[-2px] rounded-2xl">
             <div className="flex flex-col sm:flex-row justify-between gap-6">
               <div className="space-y-4 flex-1">
                 <div className="flex flex-wrap items-center gap-3">
@@ -108,14 +143,14 @@ export function BuilderFeed() {
               <div className="flex items-start gap-2">
                 <Button 
                   onClick={() => handleConnect(builder)}
-                  className="bg-accent hover:bg-accent/90 text-white font-black uppercase tracking-widest text-[10px] gap-2 px-6 h-10 rounded-lg transition-all shadow-lg shadow-accent/20"
+                  className="bg-accent hover:bg-accent/90 text-white font-black uppercase tracking-widest text-[10px] gap-2 px-6 h-11 rounded-xl transition-all shadow-lg shadow-accent/20"
                 >
                   <MessageSquare className="w-3.5 h-3.5" />
                   Chat
                 </Button>
                 {builder.linkedInProfileUrl && (
                   <a href={builder.linkedInProfileUrl} target="_blank" rel="noopener noreferrer">
-                    <Button variant="outline" size="icon" className="h-10 w-10 border-border hover:border-accent rounded-lg group/link">
+                    <Button variant="outline" size="icon" className="h-11 w-11 border-border hover:border-accent rounded-xl group/link">
                       <ExternalLink className="w-3.5 h-3.5 text-muted-foreground group-hover/link:text-accent" />
                     </Button>
                   </a>
@@ -126,8 +161,19 @@ export function BuilderFeed() {
         ))}
         
         {filteredBuilders.length === 0 && (
-          <div className="py-20 text-center glass border-dashed">
-            <p className="text-xs uppercase font-bold tracking-widest text-muted-foreground">No matches found for this filter.</p>
+          <div className="py-24 text-center glass border-dashed rounded-2xl flex flex-col items-center gap-4">
+            <Filter className="w-8 h-8 text-muted-foreground/30" />
+            <div className="space-y-1">
+              <p className="text-xs uppercase font-black tracking-[0.2em] text-muted-foreground">No matches found</p>
+              <p className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground/60">Try adjusting your filters or search query.</p>
+            </div>
+            <Button 
+              variant="outline" 
+              onClick={() => { setActiveFilter('all'); setSearchQuery(''); }}
+              className="mt-4 text-[9px] uppercase font-black tracking-widest h-9 rounded-lg"
+            >
+              Reset Filters
+            </Button>
           </div>
         )}
       </div>
