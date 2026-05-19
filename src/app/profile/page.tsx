@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -6,6 +7,7 @@ import { useStore } from '@/lib/store';
 import { User, ShieldCheck, Tag, Briefcase, Mail, ArrowLeft, Shield, Camera, Plus, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Switch } from '@/components/ui/switch';
 import { type StartupRole } from '@/ai/schemas';
 import { useToast } from '@/hooks/use-toast';
 import Link from 'next/link';
@@ -94,6 +96,7 @@ export default function ProfilePage() {
       <Navbar />
       <div className="max-w-4xl mx-auto px-6 pt-12 pb-32">
         
+        {/* Profile Header */}
         <div className="relative isolate mb-16">
           <div className="w-full h-48 md:h-64 lg:h-80 rounded-3xl overflow-hidden relative shadow-2xl group">
             <img
@@ -247,16 +250,36 @@ export default function ProfilePage() {
           </div>
 
           <div className="space-y-8">
-            <section className="border border-border p-6 glass space-y-4 rounded-xl">
-              <h2 className="text-sm font-bold uppercase tracking-widest border-b border-border pb-2">Settings</h2>
-              <div className="space-y-2">
-                <div className="flex justify-between items-center text-[10px] uppercase font-bold tracking-tighter">
-                  <span className="text-muted-foreground">Matching</span>
-                  <span className="text-accent">On</span>
+            <section className="border border-border p-6 glass space-y-6 rounded-xl">
+              <h2 className="text-sm font-bold uppercase tracking-widest border-b border-border pb-4">Settings</h2>
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex flex-col">
+                    <span className="text-[10px] uppercase font-bold tracking-tighter text-muted-foreground">Matching</span>
+                    <span className="text-[8px] uppercase text-muted-foreground/60">Find co-founders</span>
+                  </div>
+                  <Switch 
+                    checked={true}
+                    onCheckedChange={() => {}} 
+                  />
                 </div>
-                <div className="flex justify-between items-center text-[10px] uppercase font-bold tracking-tighter">
-                  <span className="text-muted-foreground">Visibility</span>
-                  <span className="text-accent">Public</span>
+                <div className="flex items-center justify-between">
+                  <div className="flex flex-col">
+                    <span className="text-[10px] uppercase font-bold tracking-tighter text-muted-foreground">Profile Visibility</span>
+                    <span className="text-[8px] uppercase text-muted-foreground/60">
+                      {userProfile.isPrivate ? 'Private' : 'Public'}
+                    </span>
+                  </div>
+                  <Switch 
+                    checked={!userProfile.isPrivate}
+                    onCheckedChange={(checked) => {
+                      updateUserProfile({ isPrivate: !checked });
+                      toast({ 
+                        title: !checked ? "Profile is Private" : "Profile is Public", 
+                        description: !checked ? "You are now hidden from the feed." : "You are now visible to the community." 
+                      });
+                    }} 
+                  />
                 </div>
               </div>
             </section>

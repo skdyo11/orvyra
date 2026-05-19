@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -22,6 +23,9 @@ export function BuilderFeed() {
   const [searchQuery, setSearchQuery] = useState('');
 
   const filteredBuilders = builders.filter(b => {
+    // Hide private profiles
+    if (b.isPrivate) return false;
+
     const matchesRole = activeFilter === 'all' 
       ? true 
       : activeFilter === 'seeking-cofounder' 

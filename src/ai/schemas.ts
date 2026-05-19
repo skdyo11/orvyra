@@ -52,6 +52,10 @@ export const FounderProfileGenerationOutputSchema = z.object({
     .describe(
       'True if the person indicates they are primarily seeking feedback or validation.'
     ),
+  isPrivate: z
+    .boolean()
+    .optional()
+    .describe('True if the user wants their profile to be hidden from the public feed.'),
   skills: z
     .array(z.string())
     .describe('A list of key skills, expertise, or investment sectors.'),
