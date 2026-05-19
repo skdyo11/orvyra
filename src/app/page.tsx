@@ -73,7 +73,10 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-8">
             {stats.map((stat, i) => (
-              <div key={i} className="glass p-6 text-center space-y-2 border-border/40 hover:border-accent/40 transition-colors rounded-2xl">
+              <div 
+                key={i} 
+                className={`glass p-6 text-center space-y-2 border-border/40 hover:border-accent/40 transition-colors rounded-2xl ${i === 4 ? 'col-span-2 md:col-span-1' : ''}`}
+              >
                 <div className="w-8 h-8 bg-accent/10 flex items-center justify-center mx-auto rounded-lg mb-2">
                   <stat.icon className="w-4 h-4 text-accent" />
                 </div>
