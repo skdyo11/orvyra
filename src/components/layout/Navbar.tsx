@@ -16,7 +16,7 @@ import {
 
 export function Navbar() {
   const pathname = usePathname();
-  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const userProfile = useStore((state) => state.userProfile);
 
   useEffect(() => {
@@ -30,7 +30,9 @@ export function Navbar() {
     setTheme(newTheme);
     if (newTheme === 'dark') {
       document.documentElement.classList.add('dark');
+      document.documentElement.classList.remove('light');
     } else {
+      document.documentElement.classList.add('light');
       document.documentElement.classList.remove('dark');
     }
   };
