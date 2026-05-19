@@ -29,9 +29,14 @@ export default function Home() {
       
       {/* Hero Section */}
       <section className="relative pt-12 pb-24 md:pt-20 md:pb-32 overflow-hidden bg-grid">
-        <div className="absolute inset-0 z-0 opacity-20">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-accent rounded-full blur-[128px]"></div>
-          <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-primary rounded-full blur-[128px]"></div>
+        {/* Background Glows */}
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          {/* Main Hero Glow */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[600px] h-[300px] sm:h-[600px] bg-accent/10 dark:bg-accent/20 rounded-full blur-[80px] sm:blur-[120px] opacity-60 sm:opacity-40"></div>
+          
+          {/* Floating Accents */}
+          <div className="absolute top-0 left-1/4 w-64 h-64 bg-accent/5 rounded-full blur-[100px]"></div>
+          <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-primary/5 rounded-full blur-[100px]"></div>
         </div>
         
         <div className="max-w-4xl mx-auto px-6 relative z-10 text-center">
