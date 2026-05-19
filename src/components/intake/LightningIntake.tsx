@@ -14,6 +14,10 @@ import {
 import { Zap, Loader2, Send, CheckCircle2 } from 'lucide-react';
 import { generateFounderProfile } from '@/ai/flows/founder-profile-generation';
 import { useToast } from '@/hooks/use-toast';
+import { useFirestore } from '@/firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { errorEmitter } from '@/firebase/error-emitter';
+import { FirestorePermissionError } from '@/firebase/errors';
 
 const COUNTRIES = [
   { name: 'Pakistan', code: '+92' },
@@ -27,6 +31,7 @@ const COUNTRIES = [
 ];
 
 export function LightningIntake() {
+  const firestore = useFirestore();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -61,7 +66,6 @@ export function LightningIntake() {
     
     setLoading(true);
     try {
-      // Use AI to extract role and tagline for the admin review
       const profile = await generateFounderProfile({
         name: formData.name,
         email: formData.email,
@@ -71,17 +75,22 @@ export function LightningIntake() {
         idea: formData.idea
       });
       
-      // Save to API for the admin page ONLY
-      // This is a "chat starter" that goes to the admin, not a login.
-      await fetch('/api/applications', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...formData,
-          role: profile.role,
-          tagline: profile.tagline,
-          status: 'pending'
-        })
+      if (!firestore) return;
+
+      const applicationsRef = collection(firestore, 'applications');
+      addDoc(applicationsRef, {
+        ...formData,
+        role: profile.role,
+        tagline: profile.tagline,
+        status: 'pending',
+        timestamp: serverTimestamp(),
+      }).catch(async (error) => {
+        const permissionError = new FirestorePermissionError({
+          path: applicationsRef.path,
+          operation: 'create',
+          requestResourceData: formData,
+        });
+        errorEmitter.emit('permission-error', permissionError);
       });
 
       setSubmitted(true);

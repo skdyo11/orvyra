@@ -1,38 +1,26 @@
-
 'use client';
 
-import { useState, useEffect } from 'react';
 import { Navbar } from '@/components/layout/Navbar';
-import { FileText, Clock, User, ShieldAlert, Mail, Phone, MapPin, Calendar, CheckCircle2 } from 'lucide-react';
+import { FileText, Clock, User, ShieldAlert, Mail, Phone, MapPin, Calendar, CheckCircle2, Loader2 } from 'lucide-react';
 import { format } from 'date-fns';
+import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
+import { collection, query, orderBy } from 'firebase/firestore';
 
 export default function AdminPage() {
-  const [applications, setApplications] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+  const firestore = useFirestore();
 
-  const fetchApplications = async () => {
-    setLoading(true);
-    try {
-      const response = await fetch('/api/applications');
-      const data = await response.json();
-      if (Array.isArray(data)) {
-        setApplications(data);
-      }
-    } catch (error) {
-      console.error("Fetch error:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const applicationsQuery = useMemoFirebase(() => {
+    if (!firestore) return null;
+    return query(collection(firestore, 'applications'), orderBy('timestamp', 'desc'));
+  }, [firestore]);
 
-  useEffect(() => {
-    fetchApplications();
-  }, []);
+  const { data: applications, loading } = useCollection(applicationsQuery);
 
   const formatTimestamp = (ts: any) => {
     if (!ts) return 'Just now';
     try {
-      return format(new Date(ts), 'MMM d, HH:mm');
+      const date = ts?.toDate ? ts.toDate() : new Date(ts);
+      return format(date, 'MMM d, HH:mm');
     } catch (e) {
       return 'Recently';
     }
@@ -46,19 +34,22 @@ export default function AdminPage() {
           <div className="space-y-1">
             <h1 className="text-4xl font-black tracking-tighter uppercase flex items-center gap-3">
               Admin Portal
-              <span className="text-xs bg-accent text-white px-2 py-0.5 rounded-lg font-mono tracking-normal normal-case">
-                {applications.length} Entries
-              </span>
+              {!loading && applications && (
+                <span className="text-xs bg-accent text-white px-2 py-0.5 rounded-lg font-mono tracking-normal normal-case">
+                  {applications.length} Entries
+                </span>
+              )}
             </h1>
             <p className="text-[10px] text-muted-foreground font-mono uppercase tracking-[0.3em]">Reviewing Startup Applications</p>
           </div>
         </div>
 
         {loading ? (
-          <div className="text-center py-20 text-muted-foreground animate-pulse font-mono uppercase text-xs">
+          <div className="flex flex-col items-center justify-center py-20 text-muted-foreground animate-pulse font-mono uppercase text-xs">
+            <Loader2 className="w-8 h-8 animate-spin mb-4 text-accent" />
             Fetching Applications...
           </div>
-        ) : applications.length === 0 ? (
+        ) : !applications || applications.length === 0 ? (
           <div className="border border-border p-20 text-center glass rounded-2xl">
             <ShieldAlert className="w-8 h-8 text-muted-foreground mx-auto mb-4" />
             <h2 className="text-sm font-bold uppercase tracking-widest">No applications found</h2>
