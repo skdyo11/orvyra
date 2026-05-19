@@ -4,9 +4,10 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Sun, Moon, MessageSquare, Users, Settings, User, Menu, Chrome, LogOut } from 'lucide-react';
+import { Sun, Moon, MessageSquare, Users, Settings, User, Menu, Chrome, LogOut, Mail, Lock, UserPlus } from 'lucide-react';
 import { useStore } from '@/lib/store';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import {
   Sheet,
   SheetContent,
@@ -15,8 +16,13 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { useToast } from '@/hooks/use-toast';
-import { auth, googleProvider } from '@/lib/firebase';
-import { signInWithPopup, signOut, onAuthStateChanged } from 'firebase/auth';
+import { auth } from '@/lib/firebase';
+import { 
+  signInWithEmailAndPassword, 
+  createUserWithEmailAndPassword, 
+  signOut, 
+  onAuthStateChanged 
+} from 'firebase/auth';
 
 export function Navbar() {
   const pathname = usePathname();
@@ -25,15 +31,19 @@ export function Navbar() {
   const setUserProfile = useStore((state) => state.setUserProfile);
   const { toast } = useToast();
 
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isLoginMode, setIsLoginMode] = useState(true);
+  const [authLoading, setAuthLoading] = useState(false);
+
   useEffect(() => {
     const isDark = document.documentElement.classList.contains('dark');
     setTheme(isDark ? 'dark' : 'light');
 
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user && !userProfile) {
-        // If logged in via Firebase but no profile in store, create a basic one
         setUserProfile({
-          name: user.displayName || 'Member',
+          name: user.displayName || user.email?.split('@')[0] || 'Member',
           role: 'visionary',
           tagline: 'Aspiring Founder',
           experienceSummary: 'Member of the Orvyra network.',
@@ -60,12 +70,28 @@ export function Navbar() {
     }
   };
 
-  const handleGoogleLogin = async () => {
+  const handleAuth = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !password) {
+      toast({ variant: "destructive", title: "Error", description: "Please enter both email and password." });
+      return;
+    }
+
+    setAuthLoading(true);
     try {
-      await signInWithPopup(auth, googleProvider);
-      toast({ title: "Welcome back", description: "You are now logged in." });
-    } catch (error) {
-      toast({ variant: "destructive", title: "Login failed", description: "Could not connect to Google." });
+      if (isLoginMode) {
+        await signInWithEmailAndPassword(auth, email, password);
+        toast({ title: "Welcome back", description: "You are now logged in." });
+      } else {
+        await createUserWithEmailAndPassword(auth, email, password);
+        toast({ title: "Account created", description: "Welcome to the network!" });
+      }
+      setEmail('');
+      setPassword('');
+    } catch (error: any) {
+      toast({ variant: "destructive", title: "Authentication failed", description: error.message });
+    } finally {
+      setAuthLoading(false);
     }
   };
 
@@ -173,13 +199,50 @@ export function Navbar() {
                     <div className="p-6 border border-dashed border-border rounded-2xl text-center space-y-4">
                       <p className="text-[10px] text-muted-foreground uppercase font-bold tracking-widest">Member Portal</p>
                       
-                      <Button 
-                        onClick={handleGoogleLogin}
-                        className="w-full bg-accent hover:bg-accent/90 text-white text-[10px] uppercase font-bold tracking-widest h-11 rounded-lg shadow-lg shadow-accent/20 flex items-center justify-center gap-2"
+                      <form onSubmit={handleAuth} className="space-y-3">
+                        <div className="space-y-1">
+                          <Input 
+                            type="email" 
+                            placeholder="EMAIL" 
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            className="text-[10px] uppercase font-black tracking-widest h-10 rounded-lg border-border bg-card/40"
+                          />
+                        </div>
+                        <div className="space-y-1">
+                          <Input 
+                            type="password" 
+                            placeholder="PASSWORD" 
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            className="text-[10px] uppercase font-black tracking-widest h-10 rounded-lg border-border bg-card/40"
+                          />
+                        </div>
+                        <Button 
+                          type="submit"
+                          disabled={authLoading}
+                          className="w-full bg-accent hover:bg-accent/90 text-white text-[10px] uppercase font-bold tracking-widest h-11 rounded-lg shadow-lg shadow-accent/20 flex items-center justify-center gap-2"
+                        >
+                          {authLoading ? '...' : isLoginMode ? (
+                            <>
+                              <Mail className="w-4 h-4" />
+                              Login
+                            </>
+                          ) : (
+                            <>
+                              <UserPlus className="w-4 h-4" />
+                              Create Account
+                            </>
+                          )}
+                        </Button>
+                      </form>
+
+                      <button 
+                        onClick={() => setIsLoginMode(!isLoginMode)}
+                        className="text-[9px] uppercase font-black tracking-widest text-muted-foreground hover:text-accent transition-colors"
                       >
-                        <Chrome className="w-4 h-4" />
-                        Login with Google
-                      </Button>
+                        {isLoginMode ? "Need an account? Sign Up" : "Already have an account? Login"}
+                      </button>
 
                       <div className="relative">
                         <div className="absolute inset-0 flex items-center"><span className="w-full border-t border-border"></span></div>
