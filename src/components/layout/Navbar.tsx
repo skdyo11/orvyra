@@ -1,10 +1,9 @@
-
 'use client';
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Sun, Moon, MessageSquare, Users, Settings, User, Menu, Chrome, LogOut, Mail, Lock, UserPlus } from 'lucide-react';
+import { Sun, Moon, MessageSquare, Users, Settings, User, LogOut, Mail, UserPlus } from 'lucide-react';
 import { useStore } from '@/lib/store';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -16,7 +15,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { useToast } from '@/hooks/use-toast';
-import { auth } from '@/lib/firebase';
+import { useAuth } from '@/firebase';
 import { 
   signInWithEmailAndPassword, 
   createUserWithEmailAndPassword, 
@@ -29,6 +28,7 @@ export function Navbar() {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const userProfile = useStore((state) => state.userProfile);
   const setUserProfile = useStore((state) => state.setUserProfile);
+  const auth = useAuth();
   const { toast } = useToast();
 
   const [email, setEmail] = useState('');
@@ -56,7 +56,7 @@ export function Navbar() {
       }
     });
     return () => unsubscribe();
-  }, [userProfile, setUserProfile]);
+  }, [userProfile, setUserProfile, auth]);
 
   const toggleTheme = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
