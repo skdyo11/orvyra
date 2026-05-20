@@ -4,6 +4,7 @@ import { Navbar } from '@/components/layout/Navbar';
 import { LightningIntake } from '@/components/intake/LightningIntake';
 import { ArrowRight, TrendingUp, Target, Users, Globe, Check, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 import {
   Accordion,
   AccordionContent,
@@ -516,19 +517,29 @@ export default function Home() {
 
 function Footer() {
   return (
-    <footer className="py-12 bg-background border-t border-border/10">
-      <div className="max-w-4xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-8">
-        <div className="flex flex-col gap-2">
-          <div className="flex items-center gap-2">
-            <span className="text-sm font-black tracking-[0.3em] uppercase">ORVYRA</span>
+    <footer className="py-20 bg-background border-t border-border/10">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="flex flex-col items-center text-center space-y-12">
+          <div className="space-y-4">
+            <div className="text-2xl font-black tracking-[0.4em] uppercase">ORVYRA</div>
+            <p className="text-[10px] text-muted-foreground uppercase font-bold tracking-[0.3em] max-w-sm mx-auto leading-relaxed">
+              Pakistan's First Funded Startup School. <br />
+              Connecting founders and building startups together.
+            </p>
           </div>
-          <p className="text-[10px] text-muted-foreground font-mono uppercase tracking-widest">
-            Connecting founders and building startups together.
-          </p>
-        </div>
-        
-        <div className="text-[10px] text-muted-foreground font-mono uppercase tracking-widest flex items-center gap-8">
-          <span>2024</span>
+          
+          <div className="flex flex-wrap justify-center gap-x-12 gap-y-4 text-[10px] uppercase font-black tracking-widest text-muted-foreground/60">
+            <Link href="/" className="hover:text-accent transition-colors">Home</Link>
+            <Link href="/profiles" className="hover:text-accent transition-colors">Profiles</Link>
+            <Link href="/vault" className="hover:text-accent transition-colors">Vault</Link>
+            <Link href="/messages" className="hover:text-accent transition-colors">Messages</Link>
+          </div>
+
+          <div className="pt-8 border-t border-border/40 w-full">
+            <p className="text-[9px] text-muted-foreground/40 uppercase font-mono tracking-widest">
+              © 2025 ORVYRA. ALL RIGHTS RESERVED.
+            </p>
+          </div>
         </div>
       </div>
     </footer>
