@@ -2,8 +2,7 @@
 
 import { Navbar } from '@/components/layout/Navbar';
 import { LightningIntake } from '@/components/intake/LightningIntake';
-import { ForcePush } from '@/components/debug/ForcePush';
-import { Zap, Layers, ShieldCheck, ArrowRight, MessageSquare, Network, Users, Calendar, Rocket, Banknote, CheckCircle, TrendingUp } from 'lucide-react';
+import { Zap, ArrowRight, Users, Calendar, Rocket, Banknote, CheckCircle, TrendingUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function Home() {
@@ -153,16 +152,6 @@ export default function Home() {
             </p>
           </div>
           <LightningIntake />
-        </div>
-      </section>
-
-      {/* Debug Section */}
-      <section className="py-12 bg-muted/5 border-t border-border/20">
-        <div className="max-w-xl mx-auto px-6">
-          <div className="text-center mb-8">
-            <h3 className="text-sm font-black tracking-tighter uppercase text-muted-foreground">Connectivity Check</h3>
-          </div>
-          <ForcePush />
         </div>
       </section>
 
