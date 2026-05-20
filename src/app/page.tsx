@@ -2,8 +2,14 @@
 
 import { Navbar } from '@/components/layout/Navbar';
 import { LightningIntake } from '@/components/intake/LightningIntake';
-import { ArrowRight, TrendingUp, Target, Users, Globe, Check } from 'lucide-react';
+import { ArrowRight, TrendingUp, Target, Users, Globe, Check, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
 
 export default function Home() {
   const handleApplyClick = () => {
@@ -84,6 +90,41 @@ export default function Home() {
       badge: 'PAY TO CONFIRM',
       title: 'Confirm your seat - Rs 5,000',
       description: 'Only selected applicants pay. Once you receive your selection email, complete your Rs 5,000 payment online. We accept all major cards and online payments from anywhere in the world - Pakistan, UAE, UK, USA, everywhere.'
+    }
+  ];
+
+  const faqItems = [
+    {
+      question: "Is applying free?",
+      answer: "Yes. Submitting your application costs nothing. You only pay if you are selected. We review all applications and choose up to 300 people per cohort. If selected, you receive an email with a payment link to confirm your seat."
+    },
+    {
+      question: "Why Rs 5,000 after selection?",
+      answer: "This commitment fee ensures that only serious applicants who intend to build a company join the cohort. It helps cover the costs of live mentorship and the operational platform."
+    },
+    {
+      question: "I don't have a startup idea. Can I still apply?",
+      answer: "Absolutely. Many founders find their best ideas during the first module. We look for talent, drive, and execution capability, not just a fully formed business plan."
+    },
+    {
+      question: "Is this online or in-person?",
+      answer: "This is a fully remote program delivered via live Zoom sessions. You can join from any city in Pakistan or abroad."
+    },
+    {
+      question: "How are the 10 funded startups selected?",
+      answer: "Selection is based on merit alone: your idea, your execution, and your growth during the 3 months. Winners are announced at Demo Day."
+    },
+    {
+      question: "What does Orvyra take in return for funding?",
+      answer: "We take a small equity stake (typically 5-10%) in the startups we fund. This aligns our interests with your long-term success."
+    },
+    {
+      question: "Can I pay from outside Pakistan?",
+      answer: "Yes. We accept all major credit/debit cards and online payments from anywhere in the world."
+    },
+    {
+      question: "Can girls apply?",
+      answer: "Yes! Orvyra actively recruits and equally considers female founders. We believe Pakistan's next wave of founders is female."
     }
   ];
 
@@ -423,6 +464,35 @@ export default function Home() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-24 bg-background border-t border-border/10">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="text-center mb-16 space-y-4">
+            <div className="text-[10px] uppercase font-black tracking-[0.3em] text-muted-foreground">COMMON QUESTIONS</div>
+            <h2 className="text-5xl md:text-6xl font-serif leading-tight">
+              Got questions?
+            </h2>
+          </div>
+
+          <Accordion type="single" collapsible className="w-full space-y-4">
+            {faqItems.map((item, index) => (
+              <AccordionItem key={index} value={`item-${index}`} className="border-b border-border/60 py-2">
+                <AccordionTrigger className="text-left hover:no-underline group">
+                  <span className="text-xl md:text-2xl font-serif font-bold leading-tight group-data-[state=open]:text-accent transition-colors">
+                    {item.question}
+                  </span>
+                </AccordionTrigger>
+                <AccordionContent className="pt-4 pb-8">
+                  <p className="text-sm md:text-base text-muted-foreground leading-relaxed font-medium max-w-3xl">
+                    {item.answer}
+                  </p>
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
         </div>
       </section>
 
