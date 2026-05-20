@@ -2,7 +2,7 @@
 
 import { Navbar } from '@/components/layout/Navbar';
 import { LightningIntake } from '@/components/intake/LightningIntake';
-import { Zap, ArrowRight, Users, Calendar, Rocket, Banknote, CheckCircle, TrendingUp } from 'lucide-react';
+import { ArrowRight, TrendingUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function Home() {
@@ -11,21 +11,20 @@ export default function Home() {
   };
 
   const handleCurriculumClick = () => {
-    // This could navigate to the vault or a specific curriculum section
-    const vaultElement = document.getElementById('vault-section');
-    if (vaultElement) {
-      vaultElement.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      window.location.href = '/vault';
-    }
+    window.location.href = '/vault';
   };
 
   const stats = [
-    { label: 'Seats per cohort', value: '300', icon: Users },
-    { label: 'Months program', value: '3', icon: Calendar },
-    { label: 'Startups funded', value: '10', icon: Rocket },
-    { label: 'Per startup funded', value: 'Rs 5L', icon: Banknote },
-    { label: 'To apply', value: 'Free', icon: CheckCircle },
+    { label: 'Seats per cohort', value: '300' },
+    { label: 'Months program', value: '3' },
+    { label: 'Startups funded', value: '10' },
+    { label: 'Per startup funded', value: 'Rs 5L' },
+    { label: 'To apply', value: 'Free' },
+  ];
+
+  const tickerItems = [
+    "AI TOOLS", "GLOBAL SALES", "FUNDRAISING", "PITCH DECK", "DEMO DAY", 
+    "RS 5 LAC FUND", "LIVE ZOOM SESSIONS", "YC FRAMEWORK", "PERSONAL BRAND", "IDEA VALIDATION"
   ];
 
   return (
@@ -75,19 +74,16 @@ export default function Home() {
       </section>
 
       {/* Cohort Stats Section */}
-      <section className="py-12 bg-background">
+      <section className="py-20 bg-background">
         <div className="max-w-6xl mx-auto px-4 md:px-6">
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-8">
+          <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16">
             {stats.map((stat, i) => (
               <div 
                 key={i} 
-                className={`glass p-5 md:p-6 text-center space-y-2 border-border/40 hover:border-accent/40 transition-colors rounded-2xl ${i === 4 ? 'col-span-2 md:col-span-1' : ''}`}
+                className="text-center space-y-1"
               >
-                <div className="w-8 h-8 bg-accent/10 flex items-center justify-center mx-auto rounded-lg mb-2">
-                  <stat.icon className="w-4 h-4 text-accent" />
-                </div>
-                <div className="text-xl md:text-2xl font-black tracking-tighter uppercase">{stat.value}</div>
-                <div className="text-[9px] md:text-[10px] text-muted-foreground font-bold uppercase tracking-widest leading-tight">
+                <div className="text-4xl md:text-5xl font-serif tracking-tight leading-none">{stat.value}</div>
+                <div className="text-[8px] md:text-[10px] text-muted-foreground font-black uppercase tracking-[0.2em]">
                   {stat.label}
                 </div>
               </div>
@@ -96,8 +92,26 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Animated Ticker Section */}
+      <section className="py-4 border-y border-foreground/5 bg-foreground/[0.02] overflow-hidden">
+        <div className="animate-marquee flex whitespace-nowrap">
+          {Array(2).fill(0).map((_, i) => (
+            <div key={i} className="flex items-center gap-12 px-6">
+              {tickerItems.map((item, j) => (
+                <div key={j} className="flex items-center gap-12">
+                  <span className="text-[9px] md:text-[11px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 hover:text-accent transition-colors cursor-default">
+                    {item}
+                  </span>
+                  <span className="w-1 h-1 bg-foreground/10 rounded-full"></span>
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* Orvyra Fund Section */}
-      <section className="py-12 bg-background">
+      <section className="py-24 bg-background">
         <div className="max-w-4xl mx-auto px-4 md:px-6">
           <div className="glass p-6 md:p-12 border-accent/20 rounded-[1.5rem] md:rounded-[2rem] space-y-8 md:space-y-10 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-accent/5 -mr-32 -mt-32 rounded-full blur-3xl"></div>
@@ -111,7 +125,7 @@ export default function Home() {
               </h2>
               <div className="flex flex-col sm:flex-row sm:items-baseline gap-2 justify-center sm:justify-start">
                 <span className="text-4xl md:text-7xl font-black tracking-tighter uppercase">Rs 50 Lac</span>
-                <span className="text-[10px] md:text-xs text-muted-foreground uppercase font-bold tracking-widest">deployed every cohort into 10 startups</span>
+                <span className="text-[10px] md:text-xs text-muted-foreground uppercase font-bold tracking-widest ml-2">deployed every cohort into 10 startups</span>
               </div>
             </div>
 

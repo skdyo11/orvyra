@@ -94,3 +94,14 @@
   background-image: linear-gradient(to right, hsl(var(--foreground) / 0.03) 1px, transparent 1px),
     linear-gradient(to bottom, hsl(var(--foreground) / 0.03) 1px, transparent 1px);
 }
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 40s linear infinite;
+}
