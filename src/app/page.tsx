@@ -1,7 +1,7 @@
 'use client';
 
 import { Navbar } from '@/components/layout/Navbar';
-import { LightningIntake } from '@/components/intake/LightningIntake';
+import { ForcePush } from '@/components/debug/ForcePush';
 import { useStore } from '@/lib/store';
 import { Zap, Layers, ShieldCheck, ArrowRight, MessageSquare, Network, Users, Calendar, Rocket, Banknote, CheckCircle, TrendingUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -29,13 +29,9 @@ export default function Home() {
       
       {/* Hero Section */}
       <section className="relative pt-12 pb-24 md:pt-20 md:pb-40 overflow-hidden bg-grid">
-        {/* Background Glows */}
         <div className="absolute inset-0 z-0 pointer-events-none">
-          {/* Main Hero Glow - Matte Gold centered behind text */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[600px] h-[300px] sm:h-[600px] bg-accent/10 dark:bg-accent/20 rounded-full blur-[80px] sm:blur-[120px] opacity-60 sm:opacity-40"></div>
         </div>
-
-        {/* Bottom Fade Gradient - Blend into background */}
         <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-background to-transparent z-10"></div>
         
         <div className="max-w-4xl mx-auto px-6 relative z-20 text-center">
@@ -147,61 +143,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-20 md:py-24 bg-background">
-        <div className="max-w-4xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-            <div className="glass p-8 space-y-4 border-border/40 hover:border-accent/40 transition-colors rounded-2xl">
-              <div className="w-10 h-10 bg-accent/10 border border-accent/20 flex items-center justify-center rounded-lg">
-                <Network className="w-5 h-5 text-accent" />
-              </div>
-              <h2 className="text-lg md:text-xl font-bold uppercase tracking-tighter">Quick Profile</h2>
-              <p className="text-[10px] md:text-xs text-muted-foreground leading-relaxed font-medium uppercase tracking-wider">
-                Just paste your idea or pitch. Our AI builds your founder profile instantly so you can get on the radar of the community.
-              </p>
-            </div>
-            
-            <div className="glass p-8 space-y-4 border-border/40 hover:border-accent/40 transition-colors rounded-2xl">
-              <div className="w-10 h-10 bg-accent/10 border border-accent/20 flex items-center justify-center rounded-lg">
-                <Layers className="w-5 h-5 text-accent" />
-              </div>
-              <h2 className="text-lg md:text-xl font-bold uppercase tracking-tighter">Startup Blueprints</h2>
-              <p className="text-[10px] md:text-xs text-muted-foreground leading-relaxed font-medium uppercase tracking-wider">
-                Get access to essential guides for scaling your business. From legal templates to engineering roadmaps.
-              </p>
-            </div>
-
-            <div className="glass p-8 space-y-4 border-border/40 hover:border-accent/40 transition-colors rounded-2xl">
-              <div className="w-10 h-10 bg-accent/10 border border-accent/20 flex items-center justify-center rounded-lg">
-                <ShieldCheck className="w-5 h-5 text-accent" />
-              </div>
-              <h2 className="text-lg md:text-xl font-bold uppercase tracking-tighter">Trusted Matches</h2>
-              <p className="text-[10px] md:text-xs text-muted-foreground leading-relaxed font-medium uppercase tracking-wider">
-                We focus on quality. We connect you based on what you’re building, your skills, and what you need right now.
-              </p>
-            </div>
-
-            <div className="glass p-8 space-y-4 border-border/40 hover:border-accent/40 transition-colors rounded-2xl">
-              <div className="w-10 h-10 bg-accent/10 border border-accent/20 flex items-center justify-center rounded-lg">
-                <MessageSquare className="w-5 h-5 text-accent" />
-              </div>
-              <h2 className="text-lg md:text-xl font-bold uppercase tracking-tighter">Direct Chat</h2>
-              <p className="text-[10px] md:text-xs text-muted-foreground leading-relaxed font-medium uppercase tracking-wider">
-                Chat directly with other members. Start conversations about co-founding, seed rounds, or getting advice.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Intake Section */}
       <section id="intake" className="py-24 md:py-32 bg-background">
         <div className="max-w-4xl mx-auto px-6">
           <div className="text-center mb-12 md:mb-16">
-            <h2 className="text-2xl md:text-3xl font-bold tracking-tighter uppercase mb-4">Join the Community.</h2>
-            <p className="text-muted-foreground text-[10px] md:text-xs uppercase tracking-widest font-bold">Tell us about your startup to begin.</p>
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tighter uppercase mb-4">Debug Connection</h2>
+            <p className="text-muted-foreground text-[10px] md:text-xs uppercase tracking-widest font-bold">Use this to force push a document to Firestore.</p>
           </div>
-          <LightningIntake />
+          <ForcePush />
         </div>
       </section>
 
