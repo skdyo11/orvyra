@@ -66,6 +66,27 @@ export default function Home() {
     }
   ];
 
+  const workflowSteps = [
+    {
+      number: '01',
+      badge: 'APPLY - FREE',
+      title: 'Submit your application',
+      description: 'Fill in the application form for free. No degree. No CV. No experience required. Just answer honestly. Applications are reviewed by our team within 7 days.'
+    },
+    {
+      number: '02',
+      badge: 'SELECTION',
+      title: 'We select 300 per cohort',
+      description: 'We may receive thousands of applications but only 300 are selected per cohort. If you are selected, you will receive a confirmation email from us with next steps.'
+    },
+    {
+      number: '03',
+      badge: 'PAY TO CONFIRM',
+      title: 'Confirm your seat - Rs 5,000',
+      description: 'Only selected applicants pay. Once you receive your selection email, complete your Rs 5,000 payment online. We accept all major cards and online payments from anywhere in the world - Pakistan, UAE, UK, USA, everywhere.'
+    }
+  ];
+
   return (
     <main className="min-h-screen pt-16 selection:bg-accent selection:text-white">
       <Navbar />
@@ -248,6 +269,41 @@ export default function Home() {
                 </div>
                 <div className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/40 pt-4">
                   {module.weeks}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* How it Works Section */}
+      <section className="py-24 bg-background">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="text-center mb-20 space-y-4">
+            <div className="text-[10px] uppercase font-black tracking-[0.3em] text-muted-foreground">HOW IT WORKS</div>
+            <h2 className="text-5xl md:text-6xl font-serif leading-tight">
+              From application to funded
+            </h2>
+          </div>
+
+          <div className="space-y-0">
+            {workflowSteps.map((step, index) => (
+              <div key={index} className="group py-12 border-t border-border/40 first:border-t-0 flex flex-col md:flex-row gap-8 md:gap-16 items-start">
+                <div className="text-4xl md:text-5xl font-serif text-muted-foreground/30 font-black shrink-0 tabular-nums">
+                  {step.number}
+                </div>
+                <div className="space-y-6 flex-1">
+                  <div className="inline-flex items-center px-4 py-1.5 border border-border text-[9px] font-bold uppercase tracking-widest text-muted-foreground rounded-full">
+                    {step.badge}
+                  </div>
+                  <div className="space-y-4">
+                    <h3 className="text-2xl md:text-3xl font-serif leading-tight">
+                      {step.title}
+                    </h3>
+                    <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-2xl font-medium">
+                      {step.description}
+                    </p>
+                  </div>
                 </div>
               </div>
             ))}
