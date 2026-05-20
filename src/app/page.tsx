@@ -1,8 +1,8 @@
 'use client';
 
 import { Navbar } from '@/components/layout/Navbar';
+import { LightningIntake } from '@/components/intake/LightningIntake';
 import { ForcePush } from '@/components/debug/ForcePush';
-import { useStore } from '@/lib/store';
 import { Zap, Layers, ShieldCheck, ArrowRight, MessageSquare, Network, Users, Calendar, Rocket, Banknote, CheckCircle, TrendingUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -143,12 +143,24 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Intake Section */}
-      <section id="intake" className="py-24 md:py-32 bg-background">
+      {/* Main Application Section */}
+      <section id="intake" className="py-24 md:py-32 bg-background border-t border-border/10">
         <div className="max-w-4xl mx-auto px-6">
           <div className="text-center mb-12 md:mb-16">
-            <h2 className="text-2xl md:text-3xl font-bold tracking-tighter uppercase mb-4">Debug Connection</h2>
-            <p className="text-muted-foreground text-[10px] md:text-xs uppercase tracking-widest font-bold">Use this to force push a document to Firestore.</p>
+            <h2 className="text-3xl md:text-5xl font-black tracking-tighter uppercase mb-4">Pitch the <span className="text-accent">Network</span></h2>
+            <p className="text-muted-foreground text-[10px] md:text-xs uppercase tracking-widest font-bold max-w-md mx-auto leading-relaxed">
+              This is a direct line to our review team. Your submission will appear in the Admin Portal.
+            </p>
+          </div>
+          <LightningIntake />
+        </div>
+      </section>
+
+      {/* Debug Section */}
+      <section className="py-12 bg-muted/5 border-t border-border/20">
+        <div className="max-w-xl mx-auto px-6">
+          <div className="text-center mb-8">
+            <h3 className="text-sm font-black tracking-tighter uppercase text-muted-foreground">Connectivity Check</h3>
           </div>
           <ForcePush />
         </div>
@@ -161,7 +173,7 @@ export default function Home() {
 
 function Footer() {
   return (
-    <footer className="py-12 bg-background border-t-0">
+    <footer className="py-12 bg-background border-t border-border/10">
       <div className="max-w-4xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-8">
         <div className="flex flex-col gap-2">
           <div className="flex items-center gap-2">
