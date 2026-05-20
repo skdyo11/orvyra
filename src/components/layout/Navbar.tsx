@@ -137,8 +137,11 @@ export function Navbar() {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border h-16 flex items-center px-4 sm:px-6">
       <div className="max-w-7xl mx-auto w-full grid grid-cols-3 items-center">
         <div className="flex justify-start">
-          <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity shrink-0">
-            <span className="text-lg md:text-xl font-black tracking-[0.4em] uppercase text-foreground">Orvyra</span>
+          <Link 
+            href={userProfile ? "/profile" : "/"} 
+            className="flex items-center gap-2 hover:opacity-80 transition-opacity shrink-0"
+          >
+            <span className="text-lg md:text-xl font-black tracking-[0.4em] uppercase text-foreground">SKDPro</span>
           </Link>
         </div>
 

@@ -1,3 +1,4 @@
+
 import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
@@ -5,7 +6,7 @@ import { MobileNav } from '@/components/layout/MobileNav';
 import { FirebaseClientProvider } from '@/firebase';
 
 export const metadata: Metadata = {
-  title: 'ORVYRA | Find Founders & Startup Resources',
+  title: 'SKDPro | Find Founders & Startup Resources',
   description: 'The easiest way to find co-founders, investors, and resources for your startup.',
 };
 
