@@ -138,7 +138,7 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto w-full grid grid-cols-3 items-center">
         <div className="flex justify-start">
           <Link 
-            href={userProfile ? "/profile" : "/"} 
+            href="/" 
             className="flex items-center gap-2 hover:opacity-80 transition-opacity shrink-0"
           >
             <span className="text-lg md:text-xl font-black tracking-[0.4em] uppercase text-foreground">ORVYRA</span>
@@ -228,7 +228,7 @@ export function Navbar() {
                 ) : (
                   <div className="space-y-4">
                     <div className="p-6 border border-dashed border-border rounded-2xl text-center space-y-4">
-                      <p className="text-[10px] text-muted-foreground uppercase font-bold tracking-widest">Member Portal</p>
+                      <p className="text-[10px] text-muted-foreground uppercase font-bold tracking-widest Member Portal">Member Portal</p>
                       
                       <form onSubmit={handleAuth} className="space-y-3">
                         <div className="space-y-1">
