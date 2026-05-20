@@ -2,7 +2,7 @@ import { initializeApp, getApps, getApp, FirebaseApp } from "firebase/app";
 import { getFirestore, Firestore } from "firebase/firestore";
 import { getAuth, Auth } from "firebase/auth";
 
-// Hardcoded configuration to resolve environment variable and initialization issues
+// Hardcoded configuration from your Firebase project settings
 export const firebaseConfig = {
   apiKey: "AIzaSyAtGOvWek5jP1shLA4lWFXRlGAnVCg-RFo",
   authDomain: "studio-7064186759-be376.firebaseapp.com",
