@@ -6,7 +6,7 @@ import { MobileNav } from '@/components/layout/MobileNav';
 import { FirebaseClientProvider } from '@/firebase';
 
 export const metadata: Metadata = {
-  title: 'SKDPro | Find Founders & Startup Resources',
+  title: 'ORVYRA | Find Founders & Startup Resources',
   description: 'The easiest way to find co-founders, investors, and resources for your startup.',
 };
 

@@ -46,7 +46,7 @@ export default function Home() {
           </h1>
           
           <p className="text-muted-foreground text-xs sm:text-base uppercase tracking-widest font-medium max-w-2xl mx-auto leading-relaxed mb-10">
-            Find your next co-founder, investor, or mentor. SKDPro helps you connect with the people building the future.
+            Find your next co-founder, investor, or mentor. ORVYRA helps you connect with the people building the future.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -101,7 +101,7 @@ export default function Home() {
                 The Fund
               </div>
               <h2 className="text-3xl md:text-6xl font-black tracking-tighter uppercase leading-[0.9]">
-                The SKDPro <span className="text-accent">Fund</span>
+                The ORVYRA <span className="text-accent">Fund</span>
               </h2>
               <div className="flex flex-col sm:flex-row sm:items-baseline gap-2 justify-center sm:justify-start">
                 <span className="text-4xl md:text-7xl font-black tracking-tighter uppercase">Rs 50 Lac</span>
@@ -167,7 +167,7 @@ function Footer() {
       <div className="max-w-4xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-8">
         <div className="flex flex-col gap-2">
           <div className="flex items-center gap-2">
-            <span className="text-sm font-black tracking-[0.3em] uppercase">SKDPro</span>
+            <span className="text-sm font-black tracking-[0.3em] uppercase">ORVYRA</span>
           </div>
           <p className="text-[10px] text-muted-foreground font-mono uppercase tracking-widest">
             Connecting founders and building startups together.

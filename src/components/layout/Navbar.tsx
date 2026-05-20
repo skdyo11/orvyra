@@ -141,7 +141,7 @@ export function Navbar() {
             href={userProfile ? "/profile" : "/"} 
             className="flex items-center gap-2 hover:opacity-80 transition-opacity shrink-0"
           >
-            <span className="text-lg md:text-xl font-black tracking-[0.4em] uppercase text-foreground">SKDPro</span>
+            <span className="text-lg md:text-xl font-black tracking-[0.4em] uppercase text-foreground">ORVYRA</span>
           </Link>
         </div>
 
