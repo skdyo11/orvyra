@@ -1,13 +1,19 @@
 'use client';
 
 import { Navbar } from '@/components/layout/Navbar';
-import { FileText, Clock, User, ShieldAlert, Mail, Phone, MapPin, Calendar, CheckCircle2, Loader2 } from 'lucide-react';
+import { FileText, Clock, User, ShieldAlert, Mail, Phone, MapPin, Calendar, CheckCircle2, Loader2, MessageSquare } from 'lucide-react';
 import { format } from 'date-fns';
 import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
 import { collection, query, orderBy } from 'firebase/firestore';
+import { useStore } from '@/lib/store';
+import { Button } from '@/components/ui/button';
+import { useToast } from '@/hooks/use-toast';
 
 export default function AdminPage() {
   const firestore = useFirestore();
+  const { toast } = useToast();
+  const sendMessage = useStore((state) => state.sendMessage);
+  const userProfile = useStore((state) => state.userProfile);
 
   const applicationsQuery = useMemoFirebase(() => {
     if (!firestore) return null;
@@ -23,6 +29,24 @@ export default function AdminPage() {
       return format(date, 'MMM d, HH:mm');
     } catch (e) {
       return 'Recently';
+    }
+  };
+
+  const handleReply = (appName: string) => {
+    if (!userProfile) {
+      toast({ variant: "destructive", title: "Error", description: "You must be logged in as an admin to reply." });
+      return;
+    }
+
+    const reply = window.prompt(`Send a message to ${appName}:`);
+    if (reply && reply.trim()) {
+      sendMessage({
+        from: userProfile.name,
+        to: appName,
+        content: reply.trim(),
+        hiddenFromSender: true // This satisfies "not my chat"
+      });
+      toast({ title: "Reply Sent", description: `Message delivered to ${appName}. It won't appear in your own chat history.` });
     }
   };
 
@@ -80,22 +104,36 @@ export default function AdminPage() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2 text-[10px] font-mono uppercase tracking-tight text-muted-foreground">
-                    <div className="flex items-center gap-2">
-                      <Mail className="w-3 h-3 text-accent" />
-                      {app.email}
+                  <div className="flex flex-col gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2 text-[10px] font-mono uppercase tracking-tight text-muted-foreground">
+                      <div className="flex items-center gap-2">
+                        <Mail className="w-3 h-3 text-accent" />
+                        {app.email}
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Phone className="w-3 h-3 text-accent" />
+                        {app.phone || 'NO PHONE'}
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <MapPin className="w-3 h-3 text-accent" />
+                        {app.country || 'N/A'}
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Calendar className="w-3 h-3 text-accent" />
+                        AGE: {app.age || 'N/A'}
+                      </div>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <Phone className="w-3 h-3 text-accent" />
-                      {app.phone || 'NO PHONE'}
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <MapPin className="w-3 h-3 text-accent" />
-                      {app.country || 'N/A'}
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Calendar className="w-3 h-3 text-accent" />
-                      AGE: {app.age || 'N/A'}
+                    
+                    <div className="flex justify-end">
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        onClick={() => handleReply(app.name)}
+                        className="h-8 text-[10px] font-black uppercase tracking-widest border-border hover:border-accent gap-2 rounded-lg"
+                      >
+                        <MessageSquare className="w-3 h-3" />
+                        Reply
+                      </Button>
                     </div>
                   </div>
                 </div>

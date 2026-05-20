@@ -1,4 +1,3 @@
-
 'use client';
 
 import { create } from 'zustand';
@@ -11,6 +10,7 @@ export interface Message {
   to: string;
   content: string;
   timestamp: number;
+  hiddenFromSender?: boolean;
 }
 
 interface AppState {

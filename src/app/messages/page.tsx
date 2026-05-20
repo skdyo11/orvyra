@@ -8,6 +8,18 @@ export default function MessagesPage() {
   const messages = useStore((state) => state.messages);
   const userProfile = useStore((state) => state.userProfile);
 
+  const filteredMessages = messages.filter(msg => {
+    if (!userProfile) return false;
+    
+    // Hide messages that were specifically marked as one-way/hidden from the sender
+    if (msg.hiddenFromSender && msg.from === userProfile.name) {
+      return false;
+    }
+    
+    // Show messages sent to me or sent by me (unless hidden above)
+    return msg.to === userProfile.name || msg.from === userProfile.name || msg.to === 'You';
+  });
+
   return (
     <main className="min-h-screen pt-16">
       <Navbar />
@@ -20,7 +32,7 @@ export default function MessagesPage() {
             <h2 className="text-sm font-bold uppercase tracking-widest mb-2">Login Required</h2>
             <p className="text-xs text-muted-foreground">Join the network first to start chatting.</p>
           </div>
-        ) : messages.length === 0 ? (
+        ) : filteredMessages.length === 0 ? (
           <div className="border border-border p-12 text-center glass rounded-2xl">
             <MessageSquare className="w-8 h-8 text-muted-foreground mx-auto mb-4" />
             <h2 className="text-sm font-bold uppercase tracking-widest mb-2">No messages yet</h2>
@@ -28,7 +40,7 @@ export default function MessagesPage() {
           </div>
         ) : (
           <div className="space-y-4">
-            {messages.map((msg) => (
+            {filteredMessages.map((msg) => (
               <div key={msg.id} className="glass p-6 rounded-xl border border-border">
                 <div className="flex justify-between items-start mb-4">
                   <div className="flex gap-4 items-center">
