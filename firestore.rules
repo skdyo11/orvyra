@@ -2,6 +2,7 @@
 rules_version = '2';
 
 // Orvyra Startup Network Security Rules
+// Updated configuration to ensure deployment synchronization
 service cloud.firestore {
   match /databases/{database}/documents {
     
