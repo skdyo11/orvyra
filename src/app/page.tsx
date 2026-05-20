@@ -100,31 +100,31 @@ export default function Home() {
     },
     {
       question: "Why Rs 5,000 after selection?",
-      answer: "This commitment fee ensures that only serious applicants who intend to build a company join the cohort. It helps cover the costs of live mentorship and the operational platform."
+      answer: "The fee creates commitment among accepted students - free programs have 90%+ dropout rates. In return, you get 12 weeks of live sessions with real founders and investors, a cohort of 300 builders, and a shot at Rs 5 lac in funding - a 100x return on your fee if you win."
     },
     {
       question: "I don't have a startup idea. Can I still apply?",
-      answer: "Absolutely. Many founders find their best ideas during the first module. We look for talent, drive, and execution capability, not just a fully formed business plan."
+      answer: "Yes. Module 1 is entirely about finding and validating an idea. Many of the best founders had no idea on Day 1 - just a problem they were frustrated by. We will help you discover yours through structured customer conversations and market research."
     },
     {
       question: "Is this online or in-person?",
-      answer: "This is a fully remote program delivered via live Zoom sessions. You can join from any city in Pakistan or abroad."
+      answer: "100% online via Zoom. You can join from anywhere in Pakistan - Lahore, Karachi, Islamabad, Quetta, Gilgit, anywhere. International applicants are also welcome. All you need is a laptop and stable internet."
     },
     {
       question: "How are the 10 funded startups selected?",
-      answer: "Selection is based on merit alone: your idea, your execution, and your growth during the 3 months. Winners are announced at Demo Day."
+      answer: "On Demo Day (Day 90), every student pitches their startup to a panel of investors and mentors. Selection is based on idea strength, execution evidence during the program, and early customer validation. No connections, no favourites - just what you've built."
     },
     {
       question: "What does Orvyra take in return for funding?",
-      answer: "We take a small equity stake (typically 5-10%) in the startups we fund. This aligns our interests with your long-term success."
+      answer: "Orvyra takes 5-10% equity in the startups it funds. This is a standard accelerator model - if your startup grows, we grow with you. If you are not selected for funding, you keep 100% of everything you built."
     },
     {
       question: "Can I pay from outside Pakistan?",
-      answer: "Yes. We accept all major credit/debit cards and online payments from anywhere in the world."
+      answer: "Yes. If selected, we send you a secure payment link that accepts Visa, Mastercard, and all major debit and credit cards from anywhere in the world. Payment takes under 2 minutes, whether you are in Pakistan, UAE, UK, or anywhere else."
     },
     {
       question: "Can girls apply?",
-      answer: "Yes! Orvyra actively recruits and equally considers female founders. We believe Pakistan's next wave of founders is female."
+      answer: "Yes - and we strongly encourage it. Orvyra was built specifically to break the gender ceiling in Pakistan's startup ecosystem. Female founders are equally considered for all 10 funded spots."
     }
   ];
 
