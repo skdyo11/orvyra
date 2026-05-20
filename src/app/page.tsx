@@ -1,4 +1,3 @@
-
 'use client';
 
 import { Navbar } from '@/components/layout/Navbar';
@@ -7,12 +6,18 @@ import { Zap, ArrowRight, Users, Calendar, Rocket, Banknote, CheckCircle, Trendi
 import { Button } from '@/components/ui/button';
 
 export default function Home() {
-  const handleBrowseClick = () => {
+  const handleApplyClick = () => {
     document.getElementById('intake')?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const handleJoinClick = () => {
-    document.getElementById('intake')?.scrollIntoView({ behavior: 'smooth' });
+  const handleCurriculumClick = () => {
+    // This could navigate to the vault or a specific curriculum section
+    const vaultElement = document.getElementById('vault-section');
+    if (vaultElement) {
+      vaultElement.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      window.location.href = '/vault';
+    }
   };
 
   const stats = [
@@ -28,41 +33,42 @@ export default function Home() {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="relative pt-12 pb-24 md:pt-20 md:pb-40 overflow-hidden bg-grid">
+      <section className="relative pt-20 pb-24 md:pt-32 md:pb-40 overflow-hidden bg-grid">
         <div className="absolute inset-0 z-0 pointer-events-none">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[600px] h-[300px] sm:h-[600px] bg-accent/10 dark:bg-accent/20 rounded-full blur-[80px] sm:blur-[120px] opacity-60 sm:opacity-40"></div>
         </div>
         <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-background to-transparent z-10"></div>
         
         <div className="max-w-4xl mx-auto px-6 relative z-20 text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1 border border-accent/20 bg-accent/5 text-[10px] uppercase font-black tracking-[0.2em] text-accent mb-6 rounded-lg">
-            <Zap className="w-3 h-3" />
-            Join the beta
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 border border-border bg-background/50 text-[10px] uppercase font-bold tracking-[0.2em] text-muted-foreground mb-12 rounded-full">
+            <span className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse"></span>
+            COHORT 01 - APPLICATIONS OPEN
           </div>
           
-          <h1 className="text-4xl sm:text-7xl font-black tracking-tighter uppercase mb-6 leading-[0.9]">
-            The Startup <br />
-            <span className="text-accent">Network.</span>
+          <h1 className="text-5xl sm:text-8xl font-black tracking-tighter uppercase mb-8 leading-[0.85] text-foreground">
+            Pakistan's First <br />
+            <span className="text-accent italic font-serif normal-case">Funded</span> Startup <br />
+            School
           </h1>
           
-          <p className="text-muted-foreground text-xs sm:text-base uppercase tracking-widest font-medium max-w-2xl mx-auto leading-relaxed mb-10">
-            Find your next co-founder, investor, or mentor. ORVYRA helps you connect with the people building the future.
+          <p className="text-muted-foreground text-sm sm:text-lg font-medium max-w-2xl mx-auto leading-relaxed mb-12">
+            3 months. Real curriculum. Real mentors. Rs 5 lac in funding for the best 10 startups. Built for unemployed youth who want to build, not just learn.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button 
-              className="w-full sm:w-auto h-12 px-8 font-bold uppercase tracking-widest group rounded-lg"
-              onClick={handleJoinClick}
+              className="w-full sm:w-auto h-14 px-10 font-bold uppercase tracking-widest group rounded-full bg-primary text-primary-foreground hover:scale-105 transition-transform"
+              onClick={handleApplyClick}
             >
-              Get Started
+              Apply for Cohort 01
               <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
             </Button>
             <Button 
               variant="outline" 
-              className="w-full sm:w-auto h-12 px-8 font-bold uppercase tracking-widest border-border rounded-lg"
-              onClick={handleBrowseClick}
+              className="w-full sm:w-auto h-14 px-10 font-bold uppercase tracking-widest border-border bg-background/50 hover:bg-background rounded-full transition-all"
+              onClick={handleCurriculumClick}
             >
-              Browse Founders
+              See curriculum
             </Button>
           </div>
         </div>
@@ -119,7 +125,7 @@ export default function Home() {
                 <div className="text-[9px] md:text-[10px] text-muted-foreground font-bold uppercase tracking-widest">Per Startup</div>
               </div>
               <div className="space-y-1 text-center sm:text-left col-span-2 sm:col-span-1">
-                <div className="text-xl md:text-3xl font-black tracking-tighter uppercase">5–10%</div>
+                <div className="text-xl md:text-3xl font-black tracking-tighter uppercase">5-10%</div>
                 <div className="text-[9px] md:text-[10px] text-muted-foreground font-bold uppercase tracking-widest">Equity Taken</div>
               </div>
             </div>
