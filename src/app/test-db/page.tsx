@@ -5,12 +5,13 @@ import { useState } from 'react';
 import { Navbar } from '@/components/layout/Navbar';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { useFirestore } from '@/firebase';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { useFirestore, useCollection, useMemoFirebase } from '@/firebase';
+import { collection, addDoc, serverTimestamp, query, orderBy } from 'firebase/firestore';
 import { useToast } from '@/hooks/use-toast';
-import { Zap, CheckCircle2, Loader2, Send } from 'lucide-react';
+import { Zap, CheckCircle2, Loader2, Send, Database } from 'lucide-react';
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
+import { format } from 'date-fns';
 
 export default function TestDBPage() {
   const firestore = useFirestore();
@@ -18,6 +19,13 @@ export default function TestDBPage() {
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+
+  const testCollectionQuery = useMemoFirebase(() => {
+    if (!firestore) return null;
+    return query(collection(firestore, 'test_collection'), orderBy('timestamp', 'desc'));
+  }, [firestore]);
+
+  const { data: testDocs, loading: loadingDocs } = useCollection(testCollectionQuery);
 
   const handleTestWrite = async () => {
     if (!message) {
@@ -55,7 +63,7 @@ export default function TestDBPage() {
   return (
     <main className="min-h-screen pt-16 selection:bg-accent selection:text-white bg-grid">
       <Navbar />
-      <div className="max-w-xl mx-auto px-6 pt-32 pb-20">
+      <div className="max-w-4xl mx-auto px-6 pt-24 pb-20 space-y-12">
         <div className="glass p-8 md:p-12 space-y-8 rounded-2xl relative overflow-hidden">
           <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 -mr-16 -mt-16 rounded-full blur-2xl"></div>
           
@@ -65,7 +73,7 @@ export default function TestDBPage() {
               Connectivity Test
             </div>
             <h1 className="text-3xl font-black tracking-tighter uppercase leading-none">
-              Firestore <span className="text-accent">Sync</span>
+              Firestore <span className="text-accent">Live Sync</span>
             </h1>
             <p className="text-[10px] text-muted-foreground uppercase font-bold tracking-widest leading-relaxed">
               Verify your production database is connected. 
@@ -98,13 +106,39 @@ export default function TestDBPage() {
               )}
             </Button>
           </div>
+        </div>
 
-          <div className="pt-6 border-t border-border flex items-center justify-between text-[8px] uppercase font-bold tracking-widest text-muted-foreground">
-            <span>Status: {success ? 'Live' : 'Ready'}</span>
-            <div className="flex items-center gap-2">
-              <span className={`w-2 h-2 rounded-full ${success ? 'bg-green-500 animate-pulse' : 'bg-accent'}`}></span>
-              <span>Connection Verified</span>
-            </div>
+        <div className="space-y-6">
+          <div className="flex items-center gap-3">
+            <Database className="w-5 h-5 text-accent" />
+            <h2 className="text-xl font-black tracking-tighter uppercase">Live Feed: <span className="text-muted-foreground">test_collection</span></h2>
+          </div>
+
+          <div className="grid gap-4">
+            {loadingDocs ? (
+              <div className="flex items-center justify-center py-12 text-muted-foreground font-mono text-[10px] uppercase tracking-widest animate-pulse">
+                Fetching documents...
+              </div>
+            ) : !testDocs || testDocs.length === 0 ? (
+              <div className="border border-dashed border-border p-12 text-center rounded-2xl">
+                <p className="text-[10px] text-muted-foreground uppercase font-bold tracking-widest">No documents found in collection.</p>
+              </div>
+            ) : (
+              testDocs.map((doc: any) => (
+                <div key={doc.id} className="glass p-6 rounded-xl border border-border/40 flex justify-between items-center group hover:border-accent/40 transition-all">
+                  <div className="space-y-1">
+                    <p className="text-xs font-mono font-bold text-foreground/90 uppercase">{doc.message}</p>
+                    <p className="text-[8px] text-muted-foreground uppercase font-black tracking-widest">
+                      ID: {doc.id} // {doc.timestamp ? format(doc.timestamp.toDate(), 'HH:mm:ss, MMM d') : 'Pending...'}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div>
+                    <span className="text-[8px] font-black uppercase tracking-widest text-muted-foreground">Live Data</span>
+                  </div>
+                </div>
+              ))
+            )}
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useStore } from '@/lib/store';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -10,40 +10,28 @@ import { useToast } from '@/hooks/use-toast';
 import { type StartupRole } from '@/ai/schemas';
 import { Input } from '@/components/ui/input';
 import Link from 'next/link';
+import { useFirestore, useCollection, useMemoFirebase } from '@/firebase';
+import { collection, query, orderBy } from 'firebase/firestore';
 
 type FilterType = 'all' | StartupRole | 'seeking-cofounder';
 
 export function BuilderFeed() {
-  const builders = useStore((state) => state.builders);
-  const setBuilders = useStore((state) => state.setBuilders);
+  const firestore = useFirestore();
   const userProfile = useStore((state) => state.userProfile);
   const sendMessage = useStore((state) => state.sendMessage);
   const { toast } = useToast();
   
   const [activeFilter, setActiveFilter] = useState<FilterType>('all');
   const [searchQuery, setSearchQuery] = useState('');
-  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const fetchProfiles = async () => {
-      setLoading(true);
-      try {
-        const response = await fetch('/api/profiles');
-        const data = await response.json();
-        if (Array.isArray(data) && data.length > 0) {
-          setBuilders(data);
-        }
-      } catch (error) {
-        console.error("Error fetching profiles:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const buildersQuery = useMemoFirebase(() => {
+    if (!firestore) return null;
+    return query(collection(firestore, 'profiles'), orderBy('name', 'asc'));
+  }, [firestore]);
 
-    fetchProfiles();
-  }, [setBuilders]);
+  const { data: builders, loading } = useCollection(buildersQuery);
 
-  const filteredBuilders = builders.filter(b => {
+  const filteredBuilders = (builders || []).filter(b => {
     // Hide private profiles
     if (b.isPrivate) return false;
 
@@ -57,7 +45,7 @@ export function BuilderFeed() {
       ? true 
       : b.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
         b.tagline.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        b.skills.some(s => s.toLowerCase().includes(searchQuery.toLowerCase()));
+        (b.skills && b.skills.some((s: string) => s.toLowerCase().includes(searchQuery.toLowerCase())));
 
     return matchesRole && matchesSearch;
   });
@@ -181,7 +169,7 @@ export function BuilderFeed() {
                 </div>
                 
                 <div className="flex flex-wrap gap-2 pt-2">
-                  {builder.skills.map((skill: string, idx: number) => (
+                  {builder.skills && builder.skills.map((skill: string, idx: number) => (
                     <span key={idx} className="text-[9px] px-2 py-1 border border-border bg-muted/20 text-muted-foreground uppercase tracking-widest font-bold rounded-md">
                       {skill}
                     </span>
