@@ -4,7 +4,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Sun, Moon, MessageSquare, Users, Settings, User, LogOut, Mail, UserPlus, Chrome } from 'lucide-react';
+import { Sun, Moon, MessageSquare, Users, Settings, User, LogOut, Mail, UserPlus, Chrome, Zap } from 'lucide-react';
 import { useStore } from '@/lib/store';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -31,6 +31,7 @@ export function Navbar() {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const userProfile = useStore((state) => state.userProfile);
   const setUserProfile = useStore((state) => state.setUserProfile);
+  const loginAsGuest = useStore((state) => state.loginAsGuest);
   const auth = useAuth();
   const { user } = useUser();
   const { toast } = useToast();
@@ -127,6 +128,11 @@ export function Navbar() {
     }
   };
 
+  const handleGuestLogin = () => {
+    loginAsGuest();
+    toast({ title: "Guest Access Enabled", description: "You've entered the network as a guest." });
+  };
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border h-16 flex items-center px-4 sm:px-6">
       <div className="max-w-7xl mx-auto w-full grid grid-cols-3 items-center">
@@ -137,49 +143,47 @@ export function Navbar() {
         </div>
 
         <div className="flex justify-center">
-          {userProfile && (
-            <Link href="/vault" className="hidden md:block">
-              <Button className="bg-accent hover:bg-accent/90 text-white font-black uppercase tracking-[0.3em] text-[10px] h-10 px-8 rounded-lg shadow-lg shadow-accent/20 transition-all hover:scale-105 active:scale-95">
-                Learn
-              </Button>
-            </Link>
-          )}
+          <Link href="/vault" className="hidden md:block">
+            <Button className="bg-accent hover:bg-accent/90 text-white font-black uppercase tracking-[0.3em] text-[10px] h-10 px-8 rounded-lg shadow-lg shadow-accent/20 transition-all hover:scale-105 active:scale-95">
+              Learn
+            </Button>
+          </Link>
         </div>
 
         <div className="flex justify-end items-center gap-4 sm:gap-8">
-          {userProfile && (
-            <div className="hidden md:flex items-center gap-8">
-              <Link 
-                href="/profiles"
-                className={`text-[10px] uppercase font-black tracking-widest transition-colors ${
-                  pathname === '/profiles' ? 'text-accent' : 'text-muted-foreground hover:text-accent'
-                }`}
-              >
-                <span className="flex items-center gap-2">
-                  <Users className="w-3.5 h-3.5" />
-                  <span>Profiles</span>
-                </span>
-              </Link>
+          <div className="hidden md:flex items-center gap-8">
+            <Link 
+              href="/profiles"
+              className={`text-[10px] uppercase font-black tracking-widest transition-colors ${
+                pathname === '/profiles' ? 'text-accent' : 'text-muted-foreground hover:text-accent'
+              }`}
+            >
+              <span className="flex items-center gap-2">
+                <Users className="w-3.5 h-3.5" />
+                <span>Profiles</span>
+              </span>
+            </Link>
 
-              <Link 
-                href="/messages"
-                className={`text-[10px] uppercase font-black tracking-widest transition-colors ${
-                  pathname === '/messages' ? 'text-accent' : 'text-muted-foreground hover:text-accent'
-                }`}
-              >
-                <span className="flex items-center gap-2">
-                  <MessageSquare className="w-3.5 h-3.5" />
-                  <span>Chats</span>
-                </span>
-              </Link>
-            </div>
-          )}
+            <Link 
+              href="/messages"
+              className={`text-[10px] uppercase font-black tracking-widest transition-colors ${
+                pathname === '/messages' ? 'text-accent' : 'text-muted-foreground hover:text-accent'
+              }`}
+            >
+              <span className="flex items-center gap-2">
+                <MessageSquare className="w-3.5 h-3.5" />
+                <span>Chats</span>
+              </span>
+            </Link>
+          </div>
 
           <Sheet>
             <SheetTrigger asChild>
               <button className="flex items-center gap-2 p-2 text-muted-foreground hover:text-accent transition-colors group">
                 <Settings className="w-4 h-4 group-hover:rotate-90 transition-transform duration-500" />
-                <span className="hidden md:inline text-[10px] uppercase font-black tracking-[0.2em]">Settings</span>
+                <span className="hidden md:inline text-[10px] uppercase font-black tracking-[0.2em]">
+                  {userProfile ? 'Account' : 'Login'}
+                </span>
               </button>
             </SheetTrigger>
             <SheetContent side="right" className="bg-background border-l border-border w-80 p-0 overflow-y-auto">
@@ -199,7 +203,9 @@ export function Navbar() {
                       </div>
                       <div className="overflow-hidden">
                         <div className="text-sm font-bold uppercase tracking-tight truncate">{userProfile.name}</div>
-                        <div className="text-[10px] text-muted-foreground font-mono uppercase tracking-widest">Active Member</div>
+                        <div className="text-[10px] text-muted-foreground font-mono uppercase tracking-widest">
+                          {userProfile.name === "Guest Founder" ? "Guest Member" : "Active Member"}
+                        </div>
                       </div>
                     </div>
                     <Link href="/profile" className="block w-full">
@@ -264,15 +270,26 @@ export function Navbar() {
                         <div className="relative flex justify-center text-[8px] uppercase font-black tracking-widest"><span className="bg-background px-2 text-muted-foreground">OR</span></div>
                       </div>
 
-                      <Button 
-                        onClick={handleGoogleSignIn}
-                        variant="outline"
-                        disabled={authLoading}
-                        className="w-full text-[10px] uppercase font-bold tracking-widest h-11 rounded-lg border-border hover:border-accent gap-2"
-                      >
-                        <Chrome className="w-4 h-4" />
-                        Sign in with Google
-                      </Button>
+                      <div className="grid gap-2">
+                        <Button 
+                          onClick={handleGoogleSignIn}
+                          variant="outline"
+                          disabled={authLoading}
+                          className="w-full text-[10px] uppercase font-bold tracking-widest h-11 rounded-lg border-border hover:border-accent gap-2"
+                        >
+                          <Chrome className="w-4 h-4" />
+                          Sign in with Google
+                        </Button>
+
+                        <Button 
+                          onClick={handleGuestLogin}
+                          variant="secondary"
+                          className="w-full text-[10px] uppercase font-bold tracking-widest h-11 rounded-lg gap-2"
+                        >
+                          <Zap className="w-3.5 h-3.5 text-accent fill-accent" />
+                          Skip Login (Guest Mode)
+                        </Button>
+                      </div>
 
                       <button 
                         onClick={() => setIsLoginMode(!isLoginMode)}

@@ -23,6 +23,7 @@ interface AppState {
   setBuilders: (builders: FounderProfileGenerationOutput[]) => void;
   setMessages: (messages: Message[]) => void;
   sendMessage: (msg: Omit<Message, 'id' | 'timestamp'>) => void;
+  loginAsGuest: () => void;
 }
 
 const MOCK_BUILDERS: FounderProfileGenerationOutput[] = [
@@ -104,6 +105,19 @@ export const useStore = create<AppState>()(
       sendMessage: (msg) => set((state) => ({
         messages: [{ ...msg, id: Math.random().toString(36), timestamp: Date.now() }, ...state.messages]
       })),
+      loginAsGuest: () => set({
+        userProfile: {
+          name: "Guest Founder",
+          role: "visionary",
+          tagline: "Building the future (Guest)",
+          experienceSummary: "Exploring the network as a guest member.",
+          skills: ["Ideation", "Strategy"],
+          seekingCoFounder: true,
+          seekingMentorship: true,
+          ideaValidation: true,
+          linkedInProfileUrl: ""
+        }
+      })
     }),
     { name: 'orvyra-storage' }
   )

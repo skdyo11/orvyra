@@ -1,16 +1,14 @@
+
 'use client';
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Users, MessageSquare, Zap } from 'lucide-react';
+import { Users, MessageSquare, Zap, User } from 'lucide-react';
 import { useStore } from '@/lib/store';
 
 export function MobileNav() {
   const pathname = usePathname();
   const userProfile = useStore((state) => state.userProfile);
-
-  // Only show the bottom bar if the user has a profile (is logged in/joined)
-  if (!userProfile) return null;
 
   return (
     <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 glass border-t border-border h-20 flex items-center justify-around px-6">
@@ -34,15 +32,29 @@ export function MobileNav() {
         <span className="text-[10px] font-black uppercase tracking-tighter mt-2 text-accent">Learn</span>
       </Link>
 
-      <Link 
-        href="/messages" 
-        className={`flex flex-col items-center gap-1 transition-colors ${
-          pathname === '/messages' ? 'text-accent' : 'text-muted-foreground'
-        }`}
-      >
-        <MessageSquare className="w-5 h-5" />
-        <span className="text-[10px] font-black uppercase tracking-tighter">Chats</span>
-      </Link>
+      {userProfile ? (
+        <Link 
+          href="/messages" 
+          className={`flex flex-col items-center gap-1 transition-colors ${
+            pathname === '/messages' ? 'text-accent' : 'text-muted-foreground'
+          }`}
+        >
+          <MessageSquare className="w-5 h-5" />
+          <span className="text-[10px] font-black uppercase tracking-tighter">Chats</span>
+        </Link>
+      ) : (
+        <Link 
+          href="/" 
+          onClick={() => {
+            // Trigger the sheet via hash or similar if we had a trigger here
+            // For now, just a home link that looks like account
+          }}
+          className="flex flex-col items-center gap-1 text-muted-foreground"
+        >
+          <User className="w-5 h-5" />
+          <span className="text-[10px] font-black uppercase tracking-tighter">Login</span>
+        </Link>
+      )}
     </div>
   );
 }
