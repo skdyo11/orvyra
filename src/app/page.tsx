@@ -2,7 +2,7 @@
 
 import { Navbar } from '@/components/layout/Navbar';
 import { LightningIntake } from '@/components/intake/LightningIntake';
-import { ArrowRight, TrendingUp, Target, Users, Globe } from 'lucide-react';
+import { ArrowRight, TrendingUp, Target, Users, Globe, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function Home() {
@@ -224,6 +224,68 @@ export default function Home() {
                 </div>
                 <p className="text-xs md:text-sm text-muted-foreground leading-relaxed pl-1">
                   Learn to earn in dollars, sell to US & UK clients, open international accounts - all from Lahore, Karachi, or Peshawar.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Target Audience Section */}
+      <section className="py-24 bg-background border-t border-border/10">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-16 space-y-4">
+            <div className="text-[10px] uppercase font-black tracking-[0.3em] text-muted-foreground">WHO THIS IS FOR</div>
+            <h2 className="text-5xl md:text-6xl font-serif leading-tight">
+              This is built for you if -
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="glass p-10 space-y-6 rounded-[2rem] border-border/60">
+              <div className="w-10 h-10 rounded-full bg-foreground text-background flex items-center justify-center shrink-0">
+                <Check className="w-5 h-5" />
+              </div>
+              <div className="space-y-3">
+                <h3 className="text-xl md:text-2xl font-serif font-bold leading-tight">You're unemployed or underemployed</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed font-medium">
+                  You have a degree or skills but the system hasn't given you a fair shot. Orvyra does not require a CV, a degree, or prior work experience.
+                </p>
+              </div>
+            </div>
+
+            <div className="glass p-10 space-y-6 rounded-[2rem] border-border/60">
+              <div className="w-10 h-10 rounded-full bg-foreground text-background flex items-center justify-center shrink-0">
+                <Check className="w-5 h-5" />
+              </div>
+              <div className="space-y-3">
+                <h3 className="text-xl md:text-2xl font-serif font-bold leading-tight">You have an idea (or want one)</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed font-medium">
+                  You don't need to walk in with a perfect idea. Module 1 will help you find one. You just need to be willing to work on it seriously for 90 days.
+                </p>
+              </div>
+            </div>
+
+            <div className="glass p-10 space-y-6 rounded-[2rem] border-border/60">
+              <div className="w-10 h-10 rounded-full bg-foreground text-background flex items-center justify-center shrink-0">
+                <Check className="w-5 h-5" />
+              </div>
+              <div className="space-y-3">
+                <h3 className="text-xl md:text-2xl font-serif font-bold leading-tight">You're a girl who's been told "not yet"</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed font-medium">
+                  Orvyra actively recruits female founders. We believe Pakistan's next unicorn will be built by a girl who was told the world wasn't ready for her.
+                </p>
+              </div>
+            </div>
+
+            <div className="glass p-10 space-y-6 rounded-[2rem] border-border/60">
+              <div className="w-10 h-10 rounded-full bg-foreground text-background flex items-center justify-center shrink-0">
+                <Check className="w-5 h-5" />
+              </div>
+              <div className="space-y-3">
+                <h3 className="text-xl md:text-2xl font-serif font-bold leading-tight">You want to build globally, not just locally</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed font-medium">
+                  You're tired of the Rs ceiling. You want to sell to New York, London, and Dubai - from Lahore. We will show you exactly how that is done.
                 </p>
               </div>
             </div>
