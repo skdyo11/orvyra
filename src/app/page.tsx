@@ -11,7 +11,7 @@ export default function Home() {
   };
 
   const handleCurriculumClick = () => {
-    window.location.href = '/vault';
+    document.getElementById('curriculum')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   const stats = [
@@ -25,6 +25,45 @@ export default function Home() {
   const tickerItems = [
     "AI TOOLS", "GLOBAL SALES", "FUNDRAISING", "PITCH DECK", "DEMO DAY", 
     "RS 5 LAC FUND", "LIVE ZOOM SESSIONS", "YC FRAMEWORK", "PERSONAL BRAND", "IDEA VALIDATION"
+  ];
+
+  const curriculumModules = [
+    {
+      id: '01',
+      title: 'Mindset & Idea Validation',
+      description: 'How to find a real problem worth solving. Talk to 100 potential customers before writing a single line of code.',
+      weeks: 'WEEK 1 - 2'
+    },
+    {
+      id: '02',
+      title: 'Build with AI & No-Code',
+      description: 'Use Cursor, Bubble, Make.com, and Glide to ship a working product without a developer. In 2025, anyone can build.',
+      weeks: 'WEEK 3 - 4'
+    },
+    {
+      id: '03',
+      title: 'Global Sales from Pakistan',
+      description: 'Finding USD clients on LinkedIn. Pricing in dollars. Getting your first paying international customer from anywhere in the world.',
+      weeks: 'WEEK 5 - 6'
+    },
+    {
+      id: '04',
+      title: 'Fundraising & Investor Language',
+      description: 'What a term sheet is. How equity works. How to write a pitch deck that gets meetings. Applying to YC, Antler, Iterative.',
+      weeks: 'WEEK 7 - 8'
+    },
+    {
+      id: '05',
+      title: 'Personal Brand & Building in Public',
+      description: 'LinkedIn, X, and Instagram strategy for founders. How to attract investors and customers through content alone.',
+      weeks: 'WEEK 9 - 10'
+    },
+    {
+      id: '06',
+      title: 'Demo Day Preparation',
+      description: 'Pitch your startup live. A panel of investors selects 10 startups. Winners receive Rs 5 lac in funding each.',
+      weeks: 'WEEK 11 - 12'
+    }
   ];
 
   return (
@@ -167,6 +206,51 @@ export default function Home() {
                 </p>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Curriculum Section */}
+      <section id="curriculum" className="py-24 bg-background border-t border-border/10">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-16 space-y-4">
+            <div className="text-[10px] uppercase font-black tracking-[0.3em] text-muted-foreground">12-WEEK CURRICULUM</div>
+            <h2 className="text-5xl md:text-6xl font-serif leading-tight max-w-3xl mx-auto">
+              What no school in Pakistan teaches
+            </h2>
+            <p className="text-muted-foreground text-sm font-medium">
+              6 modules designed around YC's framework, adapted for the Pakistani founder context.
+            </p>
+          </div>
+
+          <div className="glass rounded-[2rem] overflow-hidden border-border/60 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            {curriculumModules.map((module, index) => (
+              <div 
+                key={index} 
+                className={`p-8 md:p-12 space-y-6 flex flex-col justify-between border-border/40 ${
+                  index % 3 !== 2 ? 'lg:border-r' : ''
+                } ${
+                  index < 3 ? 'lg:border-b' : ''
+                } ${
+                  index % 2 === 0 ? 'md:border-r lg:border-r-inherit' : 'md:border-r-0 lg:border-r'
+                } ${
+                  index < 4 ? 'md:border-b' : ''
+                } border-b lg:border-b-inherit`}
+              >
+                <div className="space-y-4">
+                  <div className="text-[10px] font-mono text-muted-foreground/60">{module.id}</div>
+                  <h3 className="text-xl md:text-2xl font-bold tracking-tight leading-snug">
+                    {module.title}
+                  </h3>
+                  <p className="text-xs md:text-sm text-muted-foreground leading-relaxed font-medium">
+                    {module.description}
+                  </p>
+                </div>
+                <div className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/40 pt-4">
+                  {module.weeks}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
