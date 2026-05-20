@@ -19,15 +19,28 @@
         "status": { "type": "string", "enum": ["pending", "reviewed", "accepted"] }
       },
       "required": ["name", "email", "idea", "timestamp"]
+    },
+    "TestDocument": {
+      "title": "Test Document",
+      "description": "A simple entity for verifying database connectivity.",
+      "type": "object",
+      "properties": {
+        "message": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      }
     }
   },
   "auth": {
-    "providers": ["google.com"]
+    "providers": ["google.com", "password"]
   },
   "firestore": {
     "/applications/{applicationId}": {
       "schema": "Application",
       "description": "Stored startup applications and pitches."
+    },
+    "/test_collection/{testId}": {
+      "schema": "TestDocument",
+      "description": "Collection for testing Firestore writes."
     }
   }
 }
