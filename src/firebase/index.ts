@@ -1,18 +1,27 @@
+import { getFirebaseApp, getFirestoreInstance, getAuthInstance } from './config';
+import { FirebaseApp } from 'firebase/app';
+import { Firestore } from 'firebase/firestore';
+import { Auth } from 'firebase/auth';
 
-'use client';
-
-export * from './provider';
-export * from './client-provider';
-export * from './config';
-export * from './firestore/use-collection';
-export * from './firestore/use-doc';
-export * from './auth/use-user';
-export * from './error-emitter';
-export * from './errors';
-
-import { useMemo } from 'react';
-import { Query, DocumentReference } from 'firebase/firestore';
-
-export function useMemoFirebase<T>(factory: () => T, deps: any[]): T {
-  return useMemo(factory, deps);
+/**
+ * Initializes Firebase services and returns the app, firestore, and auth instances.
+ */
+export function initializeFirebase(): { app: FirebaseApp; firestore: Firestore; auth: Auth } {
+  const app = getFirebaseApp();
+  const firestore = getFirestoreInstance(app);
+  const auth = getAuthInstance(app);
+  return { app, firestore, auth };
 }
+
+export { 
+  FirebaseProvider, 
+  useFirebase, 
+  useFirebaseApp, 
+  useFirestore, 
+  useAuth 
+} from './provider';
+
+export { FirebaseClientProvider } from './client-provider';
+export { useCollection } from './firestore/use-collection';
+export { useDoc } from './firestore/use-doc';
+export { useUser } from './auth/use-user';
