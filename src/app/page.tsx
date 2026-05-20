@@ -529,10 +529,8 @@ function Footer() {
           </div>
           
           <div className="flex flex-wrap justify-center gap-x-12 gap-y-4 text-[10px] uppercase font-black tracking-widest text-muted-foreground/60">
-            <Link href="/" className="hover:text-accent transition-colors">Home</Link>
-            <Link href="/profiles" className="hover:text-accent transition-colors">Profiles</Link>
-            <Link href="/vault" className="hover:text-accent transition-colors">Vault</Link>
-            <Link href="/messages" className="hover:text-accent transition-colors">Messages</Link>
+            <a href="https://www.instagram.com/orvyrafounders?igsh=ODVmMWJxbzZ2bWli" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">Instagram</a>
+            <a href="https://www.linkedin.com/in/marwah-ch?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">LinkedIn</a>
           </div>
 
           <div className="pt-8 border-t border-border/40 w-full">
