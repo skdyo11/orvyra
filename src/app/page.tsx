@@ -2,7 +2,7 @@
 
 import { Navbar } from '@/components/layout/Navbar';
 import { LightningIntake } from '@/components/intake/LightningIntake';
-import { ArrowRight, TrendingUp } from 'lucide-react';
+import { ArrowRight, TrendingUp, Target, Users, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function Home() {
@@ -107,6 +107,67 @@ export default function Home() {
               ))}
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section className="py-24 bg-background">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+            <div className="space-y-8">
+              <div className="text-[10px] uppercase font-black tracking-[0.3em] text-muted-foreground">WHAT IS ORVYRA</div>
+              <h2 className="text-5xl md:text-7xl font-serif leading-tight">
+                Job dhondna chhodo. <br />
+                Job do.
+              </h2>
+              <div className="space-y-6 text-muted-foreground text-sm md:text-base leading-relaxed max-w-lg font-medium">
+                <p>
+                  Orvyra is not a course platform. It is a 90-day transformation program where unemployed Pakistani youth - boys and girls - go from zero to building a real startup, with a real team, pitching for real funding.
+                </p>
+                <p>
+                  Every 3 days, a live Zoom session with a founder, investor, or industry leader who has actually built something. No recorded lectures. No certificates. Just execution.
+                </p>
+              </div>
+            </div>
+
+            <div className="space-y-6">
+              <div className="glass p-8 space-y-3 rounded-3xl border-border/60">
+                <div className="flex items-center gap-3 text-accent mb-2">
+                  <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center">
+                    <Target className="w-5 h-5" />
+                  </div>
+                  <h3 className="text-xl font-bold tracking-tight">Not another course</h3>
+                </div>
+                <p className="text-xs md:text-sm text-muted-foreground leading-relaxed pl-1">
+                  Google, NVIDIA, IBM teach tools. We teach you how to build a company around them. That gap is where Orvyra lives.
+                </p>
+              </div>
+
+              <div className="glass p-8 space-y-3 rounded-3xl border-border/60">
+                <div className="flex items-center gap-3 text-accent mb-2">
+                  <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center">
+                    <Users className="w-5 h-5" />
+                  </div>
+                  <h3 className="text-xl font-bold tracking-tight">Girls equally funded</h3>
+                </div>
+                <p className="text-xs md:text-sm text-muted-foreground leading-relaxed pl-1">
+                  We believe Pakistan's next wave of founders is female. Orvyra actively recruits and equally considers girls for all 10 funded spots.
+                </p>
+              </div>
+
+              <div className="glass p-8 space-y-3 rounded-3xl border-border/60">
+                <div className="flex items-center gap-3 text-accent mb-2">
+                  <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center">
+                    <Globe className="w-5 h-5" />
+                  </div>
+                  <h3 className="text-xl font-bold tracking-tight">Build globally, sit locally</h3>
+                </div>
+                <p className="text-xs md:text-sm text-muted-foreground leading-relaxed pl-1">
+                  Learn to earn in dollars, sell to US & UK clients, open international accounts - all from Lahore, Karachi, or Peshawar.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
