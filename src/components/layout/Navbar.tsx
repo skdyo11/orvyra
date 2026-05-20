@@ -4,7 +4,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Sun, Moon, MessageSquare, Users, Settings, User, LogOut, Mail, UserPlus, Chrome, Zap } from 'lucide-react';
+import { Sun, Moon, MessageSquare, Users, Settings, User, LogOut, Mail, UserPlus } from 'lucide-react';
 import { useStore } from '@/lib/store';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -21,9 +21,7 @@ import {
   signInWithEmailAndPassword, 
   createUserWithEmailAndPassword, 
   signOut, 
-  onAuthStateChanged,
-  GoogleAuthProvider,
-  signInWithPopup
+  onAuthStateChanged
 } from 'firebase/auth';
 
 export function Navbar() {
@@ -31,7 +29,6 @@ export function Navbar() {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const userProfile = useStore((state) => state.userProfile);
   const setUserProfile = useStore((state) => state.setUserProfile);
-  const loginAsGuest = useStore((state) => state.loginAsGuest);
   const auth = useAuth();
   const { user } = useUser();
   const { toast } = useToast();
@@ -105,19 +102,6 @@ export function Navbar() {
     }
   };
 
-  const handleGoogleSignIn = async () => {
-    setAuthLoading(true);
-    try {
-      const provider = new GoogleAuthProvider();
-      await signInWithPopup(auth, provider);
-      toast({ title: "Welcome", description: "Signed in with Google." });
-    } catch (error: any) {
-      toast({ variant: "destructive", title: "Authentication failed", description: error.message });
-    } finally {
-      setAuthLoading(false);
-    }
-  };
-
   const handleLogout = async () => {
     try {
       await signOut(auth);
@@ -126,11 +110,6 @@ export function Navbar() {
     } catch (error) {
       toast({ variant: "destructive", title: "Error", description: "Failed to logout properly." });
     }
-  };
-
-  const handleGuestLogin = () => {
-    loginAsGuest();
-    toast({ title: "Guest Access Enabled", description: "You've entered the network as a guest." });
   };
 
   return (
@@ -267,32 +246,6 @@ export function Navbar() {
                           )}
                         </Button>
                       </form>
-
-                      <div className="relative">
-                        <div className="absolute inset-0 flex items-center"><span className="w-full border-t border-border"></span></div>
-                        <div className="relative flex justify-center text-[8px] uppercase font-black tracking-widest"><span className="bg-background px-2 text-muted-foreground">OR</span></div>
-                      </div>
-
-                      <div className="grid gap-2">
-                        <Button 
-                          onClick={handleGoogleSignIn}
-                          variant="outline"
-                          disabled={authLoading}
-                          className="w-full text-[10px] uppercase font-bold tracking-widest h-11 rounded-lg border-border hover:border-accent gap-2"
-                        >
-                          <Chrome className="w-4 h-4" />
-                          Sign in with Google
-                        </Button>
-
-                        <Button 
-                          onClick={handleGuestLogin}
-                          variant="secondary"
-                          className="w-full text-[10px] uppercase font-bold tracking-widest h-11 rounded-lg gap-2"
-                        >
-                          <Zap className="w-3.5 h-3.5 text-accent fill-accent" />
-                          Skip Login (Guest Mode)
-                        </Button>
-                      </div>
 
                       <button 
                         onClick={() => setIsLoginMode(!isLoginMode)}
