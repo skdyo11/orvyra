@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -164,7 +163,7 @@ export function Navbar() {
               <button className="flex items-center gap-2 p-2 text-muted-foreground hover:text-accent transition-colors group">
                 <Settings className="w-4 h-4 group-hover:rotate-90 transition-transform duration-500" />
                 <span className="hidden md:inline text-[10px] uppercase font-black tracking-[0.2em]">
-                  {userProfile ? 'Account' : 'Login'}
+                  {userProfile ? 'Account' : 'Founder ID'}
                 </span>
               </button>
             </SheetTrigger>
@@ -207,7 +206,7 @@ export function Navbar() {
                 ) : (
                   <div className="space-y-4">
                     <div className="p-6 border border-dashed border-border rounded-2xl text-center space-y-4">
-                      <p className="text-[10px] text-muted-foreground uppercase font-bold tracking-widest Member Portal">Member Portal</p>
+                      <p className="text-[10px] text-muted-foreground uppercase font-bold tracking-widest">Member Portal</p>
                       
                       <form onSubmit={handleAuth} className="space-y-3">
                         <div className="space-y-1">
@@ -236,12 +235,12 @@ export function Navbar() {
                           {authLoading ? '...' : isLoginMode ? (
                             <>
                               <Mail className="w-4 h-4" />
-                              Login
+                              Founder ID
                             </>
                           ) : (
                             <>
                               <UserPlus className="w-4 h-4" />
-                              Create Account
+                              Founder ID
                             </>
                           )}
                         </Button>
@@ -251,7 +250,7 @@ export function Navbar() {
                         onClick={() => setIsLoginMode(!isLoginMode)}
                         className="text-[9px] uppercase font-black tracking-widest text-muted-foreground hover:text-accent transition-colors block w-full pt-2"
                       >
-                        {isLoginMode ? "Need an account? Sign Up" : "Already have an account? Login"}
+                        {isLoginMode ? "Need a Founder ID?" : "Already have a Founder ID?"}
                       </button>
 
                       <div className="pt-4 border-t border-border mt-4">
