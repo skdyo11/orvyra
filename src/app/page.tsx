@@ -529,10 +529,6 @@ function Footer() {
         
         <div className="text-[10px] text-muted-foreground font-mono uppercase tracking-widest flex items-center gap-8">
           <span>2024</span>
-          <span className="flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
-            System Online
-          </span>
         </div>
       </div>
     </footer>
