@@ -151,7 +151,7 @@ export default function Home() {
             School
           </h1>
           
-          <p className="text-muted-foreground text-sm sm:text-lg font-medium max-w-2xl mx-auto leading-relaxed mb-12">
+          <p className="text-muted-foreground text-sm sm:text-lg font-normal max-w-2xl mx-auto leading-relaxed mb-12">
             3 months. Real curriculum. Real mentors. Rs 5 lac in funding for the best 10 startups. Built for unemployed youth who want to build, not just learn.
           </p>
 
@@ -221,7 +221,7 @@ export default function Home() {
                 Job dhondna chhodo. <br />
                 Job do.
               </h2>
-              <div className="space-y-6 text-muted-foreground text-sm md:text-base leading-relaxed max-w-lg font-medium">
+              <div className="space-y-6 text-muted-foreground text-sm md:text-base leading-relaxed max-w-lg font-normal">
                 <p>
                   Orvyra is not a course platform. It is a 90-day transformation program where unemployed Pakistani youth - boys and girls - go from zero to building a real startup, with a real team, pitching for real funding.
                 </p>
@@ -239,7 +239,7 @@ export default function Home() {
                   </div>
                   <h3 className="text-xl font-bold tracking-tight">Not another course</h3>
                 </div>
-                <p className="text-xs md:text-sm text-muted-foreground leading-relaxed pl-1">
+                <p className="text-xs md:text-sm text-muted-foreground leading-relaxed pl-1 font-normal">
                   Google, NVIDIA, IBM teach tools. We teach you how to build a company around them. That gap is where Orvyra lives.
                 </p>
               </div>
@@ -251,7 +251,7 @@ export default function Home() {
                   </div>
                   <h3 className="text-xl font-bold tracking-tight">Girls equally funded</h3>
                 </div>
-                <p className="text-xs md:text-sm text-muted-foreground leading-relaxed pl-1">
+                <p className="text-xs md:text-sm text-muted-foreground leading-relaxed pl-1 font-normal">
                   We believe Pakistan's next wave of founders is female. Orvyra actively recruits and equally considers girls for all 10 funded spots.
                 </p>
               </div>
@@ -263,7 +263,7 @@ export default function Home() {
                   </div>
                   <h3 className="text-xl font-bold tracking-tight">Build globally, sit locally</h3>
                 </div>
-                <p className="text-xs md:text-sm text-muted-foreground leading-relaxed pl-1">
+                <p className="text-xs md:text-sm text-muted-foreground leading-relaxed pl-1 font-normal">
                   Learn to earn in dollars, sell to US & UK clients, open international accounts - all from Lahore, Karachi, or Peshawar.
                 </p>
               </div>
@@ -289,7 +289,7 @@ export default function Home() {
               </div>
               <div className="space-y-3">
                 <h3 className="text-xl md:text-2xl font-serif font-bold leading-tight">You're unemployed or underemployed</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed font-medium">
+                <p className="text-sm text-muted-foreground leading-relaxed font-normal">
                   You have a degree or skills but the system hasn't given you a fair shot. Orvyra does not require a CV, a degree, or prior work experience.
                 </p>
               </div>
@@ -301,7 +301,7 @@ export default function Home() {
               </div>
               <div className="space-y-3">
                 <h3 className="text-xl md:text-2xl font-serif font-bold leading-tight">You have an idea (or want one)</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed font-medium">
+                <p className="text-sm text-muted-foreground leading-relaxed font-normal">
                   You don't need to walk in with a perfect idea. Module 1 will help you find one. You just need to be willing to work on it seriously for 90 days.
                 </p>
               </div>
@@ -313,7 +313,7 @@ export default function Home() {
               </div>
               <div className="space-y-3">
                 <h3 className="text-xl md:text-2xl font-serif font-bold leading-tight">You're a girl who's been told "not yet"</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed font-medium">
+                <p className="text-sm text-muted-foreground leading-relaxed font-normal">
                   Orvyra actively recruits female founders. We believe Pakistan's next unicorn will be built by a girl who was told the world wasn't ready for her.
                 </p>
               </div>
@@ -325,7 +325,7 @@ export default function Home() {
               </div>
               <div className="space-y-3">
                 <h3 className="text-xl md:text-2xl font-serif font-bold leading-tight">You want to build globally, not just locally</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed font-medium">
+                <p className="text-sm text-muted-foreground leading-relaxed font-normal">
                   You're tired of the Rs ceiling. You want to sell to New York, London, and Dubai - from Lahore. We will show you exactly how that is done.
                 </p>
               </div>
@@ -342,7 +342,7 @@ export default function Home() {
             <h2 className="text-5xl md:text-6xl font-serif leading-tight max-w-3xl mx-auto">
               What no school in Pakistan teaches
             </h2>
-            <p className="text-muted-foreground text-sm font-medium">
+            <p className="text-muted-foreground text-sm font-normal">
               6 modules designed around YC's framework, adapted for the Pakistani founder context.
             </p>
           </div>
@@ -366,7 +366,7 @@ export default function Home() {
                   <h3 className="text-xl md:text-2xl font-bold tracking-tight leading-snug">
                     {module.title}
                   </h3>
-                  <p className="text-xs md:text-sm text-muted-foreground leading-relaxed font-medium">
+                  <p className="text-xs md:text-sm text-muted-foreground leading-relaxed font-normal">
                     {module.description}
                   </p>
                 </div>
@@ -403,7 +403,7 @@ export default function Home() {
                     <h3 className="text-2xl md:text-3xl font-serif leading-tight">
                       {step.title}
                     </h3>
-                    <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-2xl font-medium">
+                    <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-2xl font-normal">
                       {step.description}
                     </p>
                   </div>
@@ -457,7 +457,7 @@ export default function Home() {
               </div>
               
               <div className="bg-muted/5 border border-border p-5 md:p-8 rounded-2xl relative">
-                <p className="text-xs md:text-base text-foreground/90 leading-relaxed font-medium uppercase tracking-wide text-center sm:text-left">
+                <p className="text-xs md:text-base text-foreground/90 leading-relaxed font-normal uppercase tracking-wide text-center sm:text-left">
                   Selection is based on merit alone: your idea, your execution, your growth during the 3 months. 
                   <span className="block mt-2 text-accent font-black">No connections. No references. No background checks. Just what you build.</span>
                 </p>
@@ -481,12 +481,12 @@ export default function Home() {
             {faqItems.map((item, index) => (
               <AccordionItem key={index} value={`item-${index}`} className="border-b border-border/60 py-2">
                 <AccordionTrigger className="text-left hover:no-underline group">
-                  <span className="text-xl md:text-2xl font-serif font-bold leading-tight group-data-[state=open]:text-accent transition-colors">
+                  <span className="text-xl md:text-2xl font-serif font-semibold leading-tight group-data-[state=open]:text-accent transition-colors">
                     {item.question}
                   </span>
                 </AccordionTrigger>
                 <AccordionContent className="pt-4 pb-8">
-                  <p className="text-sm md:text-base text-muted-foreground leading-relaxed font-medium max-w-3xl">
+                  <p className="text-sm md:text-base text-muted-foreground leading-relaxed font-normal max-w-3xl">
                     {item.answer}
                   </p>
                 </AccordionContent>
