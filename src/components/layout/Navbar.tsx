@@ -1,9 +1,10 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Sun, Moon, MessageSquare, Users, Settings, User, LogOut, Mail, UserPlus } from 'lucide-react';
+import { Sun, Moon, MessageSquare, Users, Settings, User, LogOut, Mail, UserPlus, Chrome } from 'lucide-react';
 import { useStore } from '@/lib/store';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -15,12 +16,14 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { useToast } from '@/hooks/use-toast';
-import { useAuth } from '@/firebase';
+import { useAuth, useUser } from '@/firebase';
 import { 
   signInWithEmailAndPassword, 
   createUserWithEmailAndPassword, 
   signOut, 
-  onAuthStateChanged 
+  onAuthStateChanged,
+  GoogleAuthProvider,
+  signInWithPopup
 } from 'firebase/auth';
 
 export function Navbar() {
@@ -29,6 +32,7 @@ export function Navbar() {
   const userProfile = useStore((state) => state.userProfile);
   const setUserProfile = useStore((state) => state.setUserProfile);
   const auth = useAuth();
+  const { user } = useUser();
   const { toast } = useToast();
 
   const [email, setEmail] = useState('');
@@ -39,24 +43,29 @@ export function Navbar() {
   useEffect(() => {
     const isDark = document.documentElement.classList.contains('dark');
     setTheme(isDark ? 'dark' : 'light');
+  }, []);
 
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user && !userProfile) {
-        setUserProfile({
-          name: user.displayName || user.email?.split('@')[0] || 'Member',
-          role: 'visionary',
-          tagline: 'Aspiring Founder',
-          experienceSummary: 'Member of the Orvyra network.',
-          skills: [],
-          seekingCoFounder: false,
-          seekingMentorship: false,
-          ideaValidation: false,
-          linkedInProfileUrl: ''
-        } as any);
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+      if (firebaseUser) {
+        const currentProfile = useStore.getState().userProfile;
+        if (!currentProfile) {
+          setUserProfile({
+            name: firebaseUser.displayName || firebaseUser.email?.split('@')[0] || 'Member',
+            role: 'visionary',
+            tagline: 'Verified Network Member',
+            experienceSummary: 'Member of the Orvyra network.',
+            skills: [],
+            seekingCoFounder: false,
+            seekingMentorship: false,
+            ideaValidation: false,
+            linkedInProfileUrl: ''
+          } as any);
+        }
       }
     });
     return () => unsubscribe();
-  }, [userProfile, setUserProfile, auth]);
+  }, [auth, setUserProfile]);
 
   const toggleTheme = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
@@ -88,6 +97,19 @@ export function Navbar() {
       }
       setEmail('');
       setPassword('');
+    } catch (error: any) {
+      toast({ variant: "destructive", title: "Authentication failed", description: error.message });
+    } finally {
+      setAuthLoading(false);
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    setAuthLoading(true);
+    try {
+      const provider = new GoogleAuthProvider();
+      await signInWithPopup(auth, provider);
+      toast({ title: "Welcome", description: "Signed in with Google." });
     } catch (error: any) {
       toast({ variant: "destructive", title: "Authentication failed", description: error.message });
     } finally {
@@ -160,7 +182,7 @@ export function Navbar() {
                 <span className="hidden md:inline text-[10px] uppercase font-black tracking-[0.2em]">Settings</span>
               </button>
             </SheetTrigger>
-            <SheetContent side="right" className="bg-background border-l border-border w-80 p-0">
+            <SheetContent side="right" className="bg-background border-l border-border w-80 p-0 overflow-y-auto">
                <div className="p-8 border-b border-border bg-card/20">
                 <SheetHeader className="text-left">
                   <SheetTitle className="text-2xl font-black tracking-tighter uppercase">Account</SheetTitle>
@@ -237,23 +259,35 @@ export function Navbar() {
                         </Button>
                       </form>
 
-                      <button 
-                        onClick={() => setIsLoginMode(!isLoginMode)}
-                        className="text-[9px] uppercase font-black tracking-widest text-muted-foreground hover:text-accent transition-colors"
-                      >
-                        {isLoginMode ? "Need an account? Sign Up" : "Already have an account? Login"}
-                      </button>
-
                       <div className="relative">
                         <div className="absolute inset-0 flex items-center"><span className="w-full border-t border-border"></span></div>
                         <div className="relative flex justify-center text-[8px] uppercase font-black tracking-widest"><span className="bg-background px-2 text-muted-foreground">OR</span></div>
                       </div>
 
-                      <Link href="/#intake" className="block">
-                        <Button variant="outline" className="w-full text-[10px] uppercase font-bold tracking-widest h-11 rounded-lg border-border hover:border-accent">
-                          Apply to Join
-                        </Button>
-                      </Link>
+                      <Button 
+                        onClick={handleGoogleSignIn}
+                        variant="outline"
+                        disabled={authLoading}
+                        className="w-full text-[10px] uppercase font-bold tracking-widest h-11 rounded-lg border-border hover:border-accent gap-2"
+                      >
+                        <Chrome className="w-4 h-4" />
+                        Sign in with Google
+                      </Button>
+
+                      <button 
+                        onClick={() => setIsLoginMode(!isLoginMode)}
+                        className="text-[9px] uppercase font-black tracking-widest text-muted-foreground hover:text-accent transition-colors block w-full pt-2"
+                      >
+                        {isLoginMode ? "Need an account? Sign Up" : "Already have an account? Login"}
+                      </button>
+
+                      <div className="pt-4 border-t border-border mt-4">
+                        <Link href="/#intake" className="block">
+                          <Button variant="ghost" className="w-full text-[10px] uppercase font-bold tracking-widest h-11 rounded-lg text-muted-foreground">
+                            Apply to Join
+                          </Button>
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 )}
