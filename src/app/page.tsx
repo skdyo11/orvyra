@@ -429,7 +429,7 @@ export default function Home() {
                 The ORVYRA <span className="text-accent">Fund</span>
               </h2>
               <div className="flex flex-col sm:flex-row sm:items-baseline gap-2 justify-center sm:justify-start">
-                <span className="text-4xl md:text-7xl font-black tracking-tighter uppercase">Rs 50 Lac</span>
+                <span className="text-4xl md:text-7xl font-black tracking-tighter uppercase">Rs 5 Lac</span>
                 <span className="text-[10px] md:text-xs text-muted-foreground uppercase font-bold tracking-widest ml-2">deployed every cohort into 10 startups</span>
               </div>
             </div>
